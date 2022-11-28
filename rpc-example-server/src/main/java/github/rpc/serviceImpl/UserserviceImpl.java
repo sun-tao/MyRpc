@@ -1,13 +1,14 @@
 package github.rpc.serviceImpl;
 
 
+import github.rpc.annotation.RpcService;
 import github.rpc.common.User;
 import github.rpc.service.Userservice;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@RpcService(group = "g1",version = "v1")
 public class UserserviceImpl implements Userservice {
 
     public User getUserById(Integer id) {

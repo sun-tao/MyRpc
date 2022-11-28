@@ -1,5 +1,6 @@
 package github.rpc.server;
 
+import github.rpc.provider.ServiceProvider;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -10,13 +11,18 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 // 使用Netty框架作RPC的网络通信方式
-@Component
 public class NettyRpcServer implements RpcServer {
     private Map<String,Object> serviceProvider;
-    private int port;
-    public NettyRpcServer(Map<String,Object> serviceProvider,int port){
+    private int port = 8100;
+//    public NettyRpcServer(Map<String,Object> serviceProvider,int port){
+//        this.serviceProvider = serviceProvider;
+//        this.port = port;
+//    }
+    public NettyRpcServer(){
+
+    }
+    public void setServiceProvider(Map<String,Object> serviceProvider){
         this.serviceProvider = serviceProvider;
-        this.port = port;
     }
     public void start() {
         EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)

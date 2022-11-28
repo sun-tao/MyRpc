@@ -2,6 +2,7 @@ package github.rpc.registry.zk;
 
 import github.rpc.loadbalance.LoadBalance;
 import github.rpc.registry.ServiceRegister;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -13,6 +14,7 @@ import java.net.InetSocketAddress;
 import java.util.List;
 
 // 与zookeeper交互的类
+@Slf4j
 public class ZkServiceRegister implements ServiceRegister {
     private CuratorFramework client;
     // zookeeper根节点路径
@@ -52,6 +54,7 @@ public class ZkServiceRegister implements ServiceRegister {
             // 先只取第一个结果，即第一个注册的RPC服务器，没有负载均衡
 //            String address = list.get(0);
             // 引入负载均衡算法
+            log.info("zk上的服务器列表有{}" , list);
             String address = loadBalance.loadBalance(list);
             return parseAddress(address);
         } catch (Exception e) {

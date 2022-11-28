@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d14b283-6f4b-40cb-9321-6706858cc606" name="Default Changelist" comment="" />
+    <list default="true" id="1d14b283-6f4b-40cb-9321-6706858cc606" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-example-client/src/main/java/github/rpc/BlogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-example-client/src/main/java/github/rpc/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/annotation/RpcReference.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/annotation/RpcService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/SingletonFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/spring/Shutdown.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/spring/SpringBeanPostProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-client/target/classes/TestClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/target/classes/TestClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-server/src/main/java/TestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/src/main/java/TestServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-server/src/main/java/github/rpc/serviceImpl/BlogServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/src/main/java/github/rpc/serviceImpl/BlogServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-server/src/main/java/github/rpc/serviceImpl/UserserviceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/src/main/java/github/rpc/serviceImpl/UserserviceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-server/target/classes/TestServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/target/classes/TestServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-server/target/classes/github/rpc/serviceImpl/BlogServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/target/classes/github/rpc/serviceImpl/BlogServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-server/target/classes/github/rpc/serviceImpl/UserserviceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/target/classes/github/rpc/serviceImpl/UserserviceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/RpcClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/loadbalance/loadbalancer/RandomLoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/loadbalance/loadbalancer/RandomLoadBalance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/provider/ServiceProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/provider/ServiceProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/BlogServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/UserserviceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/ClientInvocationHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/ClientInvocationHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/RpcClientProxy.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/RpcClientProxy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/config/SpringConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/config/SpringConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/loadbalance/loadbalancer/RandomLoadBalance.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/loadbalance/loadbalancer/RandomLoadBalance.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/provider/ServiceProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/provider/ServiceProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceRegister.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceRegister.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/BlogServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/NettyRpcServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/NettyRpcServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/UserserviceImpl.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,10 +47,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
+        <option value="AnnotationType" />
+        <option value="Class" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="2I5MrSUePtyMjOor4RR1wIzIusl" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -22,6 +64,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc" />
@@ -32,11 +75,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="github.rpc.common" />
       <recent name="github.rpc.serialize" />
       <recent name="" />
       <recent name="github.rpc" />
       <recent name="github.rpc.serviceImpl" />
-      <recent name="github.rpc.provider" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\work\MyRpc\rpc-framework-core\src\main\java\github\rpc" />
@@ -116,7 +159,9 @@
       <updated>1669467189459</updated>
       <workItem from="1669467249417" duration="1199000" />
       <workItem from="1669614410235" duration="1910000" />
-      <workItem from="1669616350369" duration="1941000" />
+      <workItem from="1669616350369" duration="9805000" />
+      <workItem from="1669631994340" duration="4727000" />
+      <workItem from="1669643809808" duration="4360000" />
     </task>
     <servers />
   </component>
@@ -128,30 +173,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="74" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1669617240628" />
-    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser" timestamp="1669616013599">
+    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser" timestamp="1669645262836">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1669616013599" />
-    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1669616101393">
+    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1669645262836" />
+    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1669621503230">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1669616101393" />
-    <state width="1493" height="415" key="GridCell.Tab.0.bottom" timestamp="1669618013156">
+    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1669621503230" />
+    <state width="1493" height="198" key="GridCell.Tab.0.bottom" timestamp="1669648291605">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="415" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1669618013156" />
-    <state width="1493" height="415" key="GridCell.Tab.0.center" timestamp="1669618013155">
+    <state width="1493" height="198" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1669648291605" />
+    <state width="1493" height="198" key="GridCell.Tab.0.center" timestamp="1669648291605">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="415" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1669618013155" />
-    <state width="1493" height="415" key="GridCell.Tab.0.left" timestamp="1669618013155">
+    <state width="1493" height="198" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1669648291605" />
+    <state width="1493" height="198" key="GridCell.Tab.0.left" timestamp="1669648291605">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="415" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1669618013155" />
-    <state width="1493" height="415" key="GridCell.Tab.0.right" timestamp="1669618013156">
+    <state width="1493" height="198" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1669648291605" />
+    <state width="1493" height="198" key="GridCell.Tab.0.right" timestamp="1669648291605">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="415" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1669618013156" />
+    <state width="1493" height="198" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1669648291605" />
     <state x="272" y="0" key="SettingsEditor" timestamp="1669614647566">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -160,6 +205,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="178" y="117" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1669616679909" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1669645269301">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1669645269301" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
