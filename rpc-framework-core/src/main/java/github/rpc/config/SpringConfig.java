@@ -1,0 +1,10 @@
+package github.rpc.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "github.rpc")
+public class SpringConfig {
+
+}
