@@ -3,8 +3,10 @@ package github.rpc.spring;
 import github.rpc.annotation.RpcReference;
 import github.rpc.annotation.RpcService;
 import github.rpc.client.NettyRpcClient;
+import github.rpc.client.RpcClient;
 import github.rpc.client.RpcClientProxy;
 import github.rpc.common.SingletonFactory;
+import github.rpc.extension.ExtensionLoader;
 import github.rpc.provider.ServiceProvider;
 import github.rpc.registry.zk.ZkServiceRegister;
 import github.rpc.server.NettyRpcServer;
@@ -23,11 +25,14 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
     private ServiceProvider serviceProvider;
     private NettyRpcServer nettyRpcServer;
     private ZkServiceRegister zkServiceRegister;
+    private RpcClient rpcClient;
     public SpringBeanPostProcessor(){
         // 获取单例对象,单例模式
         this.serviceProvider = SingletonFactory.getInstance(ServiceProvider.class);
         this.nettyRpcServer = SingletonFactory.getInstance(NettyRpcServer.class);
         this.zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
+        // 采用SPI机制，动态可插拔的替换RpcClient接口的实现类
+        this.rpcClient = ExtensionLoader.getExtensionLoader(RpcClient.class).getExtension("netty");
     }
     @SneakyThrows
     @Override
@@ -52,8 +57,8 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
         for (Field declaredField : declaredFields) {
             RpcReference rpcReference = declaredField.getAnnotation(RpcReference.class);
             if (rpcReference != null){
-                NettyRpcClient nettyRpcClient = new NettyRpcClient(zkServiceRegister);
-                RpcClientProxy rpcClientProxy = new RpcClientProxy(nettyRpcClient,rpcReference.group(),rpcReference.version());
+//                NettyRpcClient nettyRpcClient = new NettyRpcClient(zkServiceRegister);
+                RpcClientProxy rpcClientProxy = new RpcClientProxy(rpcClient,rpcReference.group(),rpcReference.version());
                 Object proxy = rpcClientProxy.getProxy(declaredField.getType());
                 declaredField.setAccessible(true);
                 declaredField.set(bean,proxy); // 注入该UserService

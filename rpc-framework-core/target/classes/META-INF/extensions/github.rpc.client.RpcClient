@@ -1,0 +1,2 @@
+netty=github.rpc.client.NettyRpcClient
+socket=github.rpc.client.SimpleRpcClient

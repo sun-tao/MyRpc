@@ -1,6 +1,7 @@
 import github.rpc.BlogController;
 import github.rpc.UserController;
 import github.rpc.client.NettyRpcClient;
+import github.rpc.client.RpcClient;
 import github.rpc.client.RpcClientProxy;
 import github.rpc.common.Blog;
 import github.rpc.common.User;
@@ -17,6 +18,7 @@ public class TestClient {
 
     public static void main(String[] args) {
         ApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+
         UserController userController = (UserController) annotationConfigApplicationContext.getBean("userController");
         userController.start();
         BlogController blogController = (BlogController) annotationConfigApplicationContext.getBean("blogController");

@@ -3,6 +3,7 @@ package github.rpc.client;
 
 import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
+import github.rpc.common.SingletonFactory;
 import github.rpc.loadbalance.LoadBalance;
 import github.rpc.loadbalance.loadbalancer.RandomLoadBalance;
 import github.rpc.registry.zk.ZkServiceRegister;
@@ -21,9 +22,12 @@ public class NettyRpcClient implements RpcClient {
     private static final EventLoopGroup eventLoopGroup;
     private String host;
     private int port;
-    private ZkServiceRegister zkServiceRegister;
+    private ZkServiceRegister zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
     public NettyRpcClient(ZkServiceRegister zkServiceRegister){
         this.zkServiceRegister = zkServiceRegister;
+    }
+    public NettyRpcClient(){
+
     }
     static {
         // 客户端的基本配置，直接设置在静态变量中，重复使用

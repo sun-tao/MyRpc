@@ -195,21 +195,35 @@
 1. 集成Spring框架，通过注解注册服务，通过注解消费服务
 
    使用说明：在服务端，对想要注册的服务实现类加`@RpcService`注解，在客户端，对Controller的Service成员变量加`@RpcReference`注解
-   
+
    - [√] 通过注解来注册服务，核心思想就是用Spring IOC来管理服务端提供的接口(服务)实现类对象，通过在Spring的Bean的生命周期中穿插执行自定义的逻辑，比如:给定某个接口的实现类`@RPCService`注解，在Spring实例化/初始化该实现类对象的时候，通过`BeanPostProcessor`在其创建Bean的过程中，通过注解@RPCService找到需要执行额外逻辑的类，让其执行本机注册和Zookeeper上注册的逻辑。也就是说，某个服务如要注册，只需要再其前面加上`@RPCService`注解即可。省去了手动调用注册方法来注册服务。  
    - [√] 通过注解来消费服务，若不采用注解的方法，客户端每次执行，需要**手动调用函数**，获取HelloService的代理类对象，使用该代理类对象才可以进行RPC通信。而采用注解来进行的话，则可以由Spring自动注入HelloController的HelloService对象，注入的内容即为它的**代理类对象**。其核心思想仍然是，在Spring为HelloController创建Bean的生命周期中，扫描出其带有自定义`@RPCReference`注解的HelloService对象，将其用规定好的代理类来注入，这样，就可以避免客户端手动调用代理类相关的API，直接完成动态代理。
-   
+
    客户使用本框架将十分方便。只需通过`@RPCService`和`@RPCReference`即可。
-   
+
    ServiceProvider的注册服务，需要知道具体的服务，才能够进行注册，因此不能够直接用Spring来自动注入ServiceProvider，需要使用`BeanPostProcessor`，在初始化实现类对象的时候，会拿到这个`Bean`，在此时即可实现注册服务。
+
+2. SPI机制: 实现 接口实现类的**动态插拔**
+
+   <img src="https://img-blog.csdnimg.cn/img_convert/897ea181f3bf765ad214a3634f3e8b4c.png" alt="img" style="zoom: 67%;" />
+
+   **本质是将接口实现类的全限定名配置在文件中，并由服务加载器读取配置文件，加载实现类。这样可以在运行时，动态为接口替换实现类。**SPI机制在实现上是单例模式，因为内部采用多个缓存来缓存实现类。
+
+   如果用单例模式，则必须指明是哪个实现类.class，接口和其实现类的关系没有SPI机制那么清晰。
+
+   若接口要采用SPI机制，则必须加`@SPI`注解。
+
+3. 负载均衡算法
+
    
+
    
 
 
 
 ## Guide的RPC项目值得思考的点：
 
-1. 设计模式：单例模式，工厂模式。  需要会写获取单例对象的工厂类，在serviceProvider处使用到了。
+1. 设计模式：单例模式，工厂模式。需要会写获取单例对象的工厂类，在serviceProvider处使用到了。
 
 2. Netty的心跳机制
 
@@ -221,5 +235,19 @@
 
    <img src="https://img2018.cnblogs.com/blog/1066538/201909/1066538-20190902000437259-1068766043.png" alt="img" style="zoom:67%;" />
 
+6. Triple 协议
+
+7. `synchronized`关键字和 双重确认
+
+   ```java
+    if (instance == null) {
+               synchronized (holder) {
+                   instance = holder.get();
+                   if (instance == null) {
+   ```
+
+   
 
 
+
+ 
