@@ -11,6 +11,7 @@ import github.rpc.provider.ServiceProvider;
 import github.rpc.registry.ServiceRegister;
 import github.rpc.registry.zk.ZkServiceRegister;
 import github.rpc.server.NettyRpcServer;
+import github.rpc.server.RpcServer;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -24,16 +25,17 @@ import java.lang.reflect.Field;
 public class SpringBeanPostProcessor implements BeanPostProcessor {
     // 在扫描到RpcService的时候，不仅要创建服务类，还要将其进行注册
     private ServiceProvider serviceProvider;
-    private NettyRpcServer nettyRpcServer;
+    private RpcServer rpcServer;
     private ZkServiceRegister zkServiceRegister;
     private RpcClient rpcClient;
     public SpringBeanPostProcessor(){
         // 获取单例对象,单例模式
         this.serviceProvider = SingletonFactory.getInstance(ServiceProvider.class);
-        this.nettyRpcServer = SingletonFactory.getInstance(NettyRpcServer.class);
         this.zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
+        // NettyRpcServer
+        this.rpcServer = ExtensionLoader.getExtensionLoader(RpcServer.class).getExtension("socketServer");
         // 采用SPI机制，动态可插拔的替换RpcClient接口的实现类
-        this.rpcClient = ExtensionLoader.getExtensionLoader(RpcClient.class).getExtension("netty");
+        this.rpcClient = ExtensionLoader.getExtensionLoader(RpcClient.class).getExtension("socket");
     }
     @SneakyThrows
     @Override
@@ -43,8 +45,8 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
             // 都工作在单例模式下
             // 添加了RpcService的服务 实现类对象
             RpcService rpcService = bean.getClass().getAnnotation(RpcService.class);
-            this.serviceProvider.fillServiceProvider(bean,rpcService.group(),rpcService.version());
-            this.nettyRpcServer.setServiceProvider(serviceProvider.getServiceProvider());
+            this.serviceProvider.fillServiceProvider(bean,rpcService.group(),rpcService.version()); // 发布服务
+            this.rpcServer.setServiceProvider(serviceProvider); // 本机注册服务
         }
         return bean;
     }

@@ -12,7 +12,7 @@ import java.util.Map;
 
 // 使用Netty框架作RPC的网络通信方式
 public class NettyRpcServer implements RpcServer {
-    private Map<String,Object> serviceProvider;
+    private ServiceProvider serviceProvider;
     public static final int port = 8100;
 //    public NettyRpcServer(Map<String,Object> serviceProvider,int port){
 //        this.serviceProvider = serviceProvider;
@@ -21,7 +21,7 @@ public class NettyRpcServer implements RpcServer {
     public NettyRpcServer(){
 
     }
-    public void setServiceProvider(Map<String,Object> serviceProvider){
+    public void setServiceProvider(ServiceProvider serviceProvider){
         this.serviceProvider = serviceProvider;
     }
     public void start() {
@@ -31,7 +31,7 @@ public class NettyRpcServer implements RpcServer {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup,workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(new NettyServerInitializer(serviceProvider));
+                    .childHandler(new NettyServerInitializer(serviceProvider.getServiceProvider()));
 
             // 上述为设置服务端Netty初始化代码
             // 下面启动服务器

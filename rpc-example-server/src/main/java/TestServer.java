@@ -21,14 +21,14 @@ public class TestServer {
         // 基于netty的rpc
         ApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         CustomShutdownHook.getCustomShutdownHook().clearAll();
-        NettyRpcServer rpcServer = SingletonFactory.getInstance(NettyRpcServer.class);
+        RpcServer rpcServer = ExtensionLoader.getExtensionLoader(RpcServer.class).getExtension("socketServer");
         rpcServer.start();
 
-        // SPI机制，基于socket的rpc
-//        ServiceProvider serviceProvider =  new ServiceProvider();
-//        serviceProvider.fillServiceProvider(new UserserviceImpl(),"3","3");
-//        SimpleRpcServer rpcServer1 = (SimpleRpcServer) ExtensionLoader.getExtensionLoader(RpcServer.class).getExtension("socketServer");
-//        rpcServer1.setServiceProvider(serviceProvider.getServiceProvider());
-//        rpcServer1.start();
+        //  不采用Spring的服务启动方式
+////        ServiceProvider serviceProvider =  new ServiceProvider();
+////        serviceProvider.fillServiceProvider(new UserserviceImpl(),"3","3");
+////        SimpleRpcServer rpcServer1 = (SimpleRpcServer) ExtensionLoader.getExtensionLoader(RpcServer.class).getExtension("socketServer");
+////        rpcServer1.setServiceProvider(serviceProvider.getServiceProvider());
+////        rpcServer1.start();
     }
 }

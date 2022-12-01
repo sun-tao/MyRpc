@@ -1,5 +1,7 @@
 package github.rpc.server;
 
+import github.rpc.provider.ServiceProvider;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
@@ -9,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 public class SimpleRpcServer implements RpcServer {
     public static final int port = 8100;
-    private Map<String,Object> serviceProvider;
+    private ServiceProvider serviceProvider;
     private ThreadPoolExecutor threadPool;
-    public SimpleRpcServer(Map<String,Object> serviceProvider){
+    public SimpleRpcServer(ServiceProvider serviceProvider){
         this.serviceProvider = serviceProvider;
         // 来了一个任务，首先看核心线程，如果线程池中运行的线程数少于核心线程数，则直接新起线程来执行任务，无论是否有空闲线程
         // 如果线程池的核心线程数满了，则将任务添加到阻塞队列，等待核心线程空闲出来了，再从中取出来执行
@@ -28,7 +30,7 @@ public class SimpleRpcServer implements RpcServer {
         this.threadPool = new ThreadPoolExecutor(5, 1000, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100) {
         });
     }
-    public void setServiceProvider(Map<String,Object> serviceProvider){
+    public void setServiceProvider(ServiceProvider serviceProvider){
         this.serviceProvider = serviceProvider;
     }
 
@@ -38,7 +40,7 @@ public class SimpleRpcServer implements RpcServer {
             System.out.println("服务器启动！");
             while(true){
                 Socket socket = serverSocket.accept();   // BIO
-                threadPool.execute(new WorkThread(socket,serviceProvider));
+                threadPool.execute(new WorkThread(socket,serviceProvider.getServiceProvider()));
             }
         } catch (Exception e) {
             e.printStackTrace();
