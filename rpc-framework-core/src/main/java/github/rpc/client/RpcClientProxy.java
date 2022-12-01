@@ -12,7 +12,7 @@ import java.lang.reflect.Proxy;
 public class RpcClientProxy {
     private RpcClient rpcClient;
     private String interfacename_group_version;
-    public RpcClientProxy(RpcClient rpcClient,String group,String version){
+    public RpcClientProxy(RpcClient rpcClient,String group ,String version ){
         this.rpcClient = rpcClient;
         this.interfacename_group_version = group + version;
     }

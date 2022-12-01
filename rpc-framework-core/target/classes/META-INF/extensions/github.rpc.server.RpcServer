@@ -1,0 +1,2 @@
+nettyServer=github.rpc.server.NettyRpcServer
+socketServer=github.rpc.server.SimpleRpcServer

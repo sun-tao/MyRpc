@@ -4,8 +4,11 @@ package github.rpc.client;
 import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
 import github.rpc.common.SingletonFactory;
+import github.rpc.extension.ExtensionLoader;
 import github.rpc.loadbalance.LoadBalance;
 import github.rpc.loadbalance.loadbalancer.RandomLoadBalance;
+import github.rpc.provider.ServiceProvider;
+import github.rpc.registry.ServiceRegister;
 import github.rpc.registry.zk.ZkServiceRegister;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -23,6 +26,7 @@ public class NettyRpcClient implements RpcClient {
     private String host;
     private int port;
     private ZkServiceRegister zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
+//    private ZkServiceRegister zkServiceRegister = (ZkServiceRegister) ExtensionLoader.getExtensionLoader(ServiceRegister.class).getExtension("zkServiceRegister");
     public NettyRpcClient(ZkServiceRegister zkServiceRegister){
         this.zkServiceRegister = zkServiceRegister;
     }

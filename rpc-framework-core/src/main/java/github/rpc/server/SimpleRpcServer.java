@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class SimpleRpcServer implements RpcServer {
+    public static final int port = 8100;
     private Map<String,Object> serviceProvider;
     private ThreadPoolExecutor threadPool;
     public SimpleRpcServer(Map<String,Object> serviceProvider){
@@ -23,10 +24,17 @@ public class SimpleRpcServer implements RpcServer {
         this.threadPool = new ThreadPoolExecutor(5, 1000, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100) {
         });
     }
+    public SimpleRpcServer(){
+        this.threadPool = new ThreadPoolExecutor(5, 1000, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100) {
+        });
+    }
+    public void setServiceProvider(Map<String,Object> serviceProvider){
+        this.serviceProvider = serviceProvider;
+    }
 
     public void start() {
         try {
-            ServerSocket serverSocket = new ServerSocket(8899);
+            ServerSocket serverSocket = new ServerSocket(port);
             System.out.println("服务器启动！");
             while(true){
                 Socket socket = serverSocket.accept();   // BIO

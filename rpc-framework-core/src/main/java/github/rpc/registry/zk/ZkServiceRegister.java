@@ -29,6 +29,7 @@ public class ZkServiceRegister implements ServiceRegister {
     }
 
     public void quit(){
+//        System.out.println(client.getChildren());
         CloseableUtils.closeQuietly(client);
     }
     public void register(String serviceName, InetSocketAddress serverAddress) {

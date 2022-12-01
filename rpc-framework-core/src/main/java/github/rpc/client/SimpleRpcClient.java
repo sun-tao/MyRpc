@@ -3,6 +3,7 @@ package github.rpc.client;
 
 import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
+import github.rpc.common.SingletonFactory;
 import github.rpc.loadbalance.LoadBalance;
 import github.rpc.loadbalance.loadbalancer.RandomLoadBalance;
 import github.rpc.registry.zk.ZkServiceRegister;
@@ -15,10 +16,17 @@ import java.net.Socket;
 public class SimpleRpcClient implements RpcClient {
     String targetIp;
     int targetPort;
-    private ZkServiceRegister zkServiceRegister;
+    private ZkServiceRegister zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
     public SimpleRpcClient(ZkServiceRegister zkServiceRegister){
         this.zkServiceRegister = zkServiceRegister;
     }
+    public SimpleRpcClient(){
+
+    }
+    public void setZkServiceRegister(ZkServiceRegister zkServiceRegister){
+        this.zkServiceRegister = zkServiceRegister;
+    }
+
     public RpcResponse sendRequest(RpcRequest rpcRequest) {
         try {
             LoadBalance loadBalance = new RandomLoadBalance();

@@ -8,6 +8,7 @@ import github.rpc.client.RpcClientProxy;
 import github.rpc.common.SingletonFactory;
 import github.rpc.extension.ExtensionLoader;
 import github.rpc.provider.ServiceProvider;
+import github.rpc.registry.ServiceRegister;
 import github.rpc.registry.zk.ZkServiceRegister;
 import github.rpc.server.NettyRpcServer;
 import lombok.SneakyThrows;

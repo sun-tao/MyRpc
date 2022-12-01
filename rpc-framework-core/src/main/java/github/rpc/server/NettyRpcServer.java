@@ -13,7 +13,7 @@ import java.util.Map;
 // 使用Netty框架作RPC的网络通信方式
 public class NettyRpcServer implements RpcServer {
     private Map<String,Object> serviceProvider;
-    private int port = 8100;
+    public static final int port = 8100;
 //    public NettyRpcServer(Map<String,Object> serviceProvider,int port){
 //        this.serviceProvider = serviceProvider;
 //        this.port = port;
