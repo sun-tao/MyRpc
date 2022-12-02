@@ -26,6 +26,7 @@ public class NettyRpcClient implements RpcClient {
     private String host;
     private int port;
     private ZkServiceRegister zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
+    private LoadBalance loadBalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("consistentHash");
 //    private ZkServiceRegister zkServiceRegister = (ZkServiceRegister) ExtensionLoader.getExtensionLoader(ServiceRegister.class).getExtension("zkServiceRegister");
     public NettyRpcClient(ZkServiceRegister zkServiceRegister){
         this.zkServiceRegister = zkServiceRegister;
@@ -44,8 +45,11 @@ public class NettyRpcClient implements RpcClient {
 
     public RpcResponse sendRequest(RpcRequest rpcRequest) {
         try {
-            LoadBalance loadBalance = new RandomLoadBalance(); // 在此选择负载均衡算法
-            InetSocketAddress inetSocketAddress = zkServiceRegister.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance);
+            // LoadBalance loadBalance = new RandomLoadBalance(); // 在此选择负载均衡算法
+            InetSocketAddress inetSocketAddress = zkServiceRegister.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest);
+            if (inetSocketAddress == null){
+                return null;
+            }
             host = inetSocketAddress.getHostName();
             port = inetSocketAddress.getPort();
             ChannelFuture f = bootstrap.connect(host, port).sync();

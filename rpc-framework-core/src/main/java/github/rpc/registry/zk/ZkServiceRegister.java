@@ -1,5 +1,6 @@
 package github.rpc.registry.zk;
 
+import github.rpc.common.RpcRequest;
 import github.rpc.loadbalance.LoadBalance;
 import github.rpc.registry.ServiceRegister;
 import lombok.extern.slf4j.Slf4j;
@@ -48,15 +49,19 @@ public class ZkServiceRegister implements ServiceRegister {
         }
     }
 
-    public InetSocketAddress serviceDiscovery(String serviceName, LoadBalance loadBalance) {
+    public InetSocketAddress serviceDiscovery(String serviceName, LoadBalance loadBalance, RpcRequest rpcRequest) {
         // RPC客户端使用
         try {
             List<String> list = client.getChildren().forPath("/"+serviceName);
             // 先只取第一个结果，即第一个注册的RPC服务器，没有负载均衡
 //            String address = list.get(0);
             // 引入负载均衡算法
+            if (list == null || list.size() == 0){
+                log.info("无可用的服务!");
+                return null;
+            }
             log.info("zk上的服务器列表有{}" , list);
-            String address = loadBalance.loadBalance(list);
+            String address = loadBalance.loadBalance(list,rpcRequest);
             return parseAddress(address);
         } catch (Exception e) {
             e.printStackTrace();

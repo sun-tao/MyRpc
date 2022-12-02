@@ -68,4 +68,8 @@ public class RpcRequest implements Serializable {
     public void setParamsType(Class<?>[] paramsType) {
         this.paramsType = paramsType;
     }
+
+    public String getRpcServiceName(){
+        return interfaceName + methodName;
+    }
 }

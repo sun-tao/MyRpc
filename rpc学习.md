@@ -223,13 +223,14 @@
 
 ## Guide的RPC项目值得思考的点：
 
-1. 设计模式：单例模式，工厂模式。需要会写获取单例对象的工厂类，在serviceProvider处使用到了。
+1. [√]设计模式：单例模式，工厂模式。需要会写获取单例对象的工厂类，在serviceProvider处使用到了。
 
    - 类的单例模式：永远只会有一个对象，私有化类的构造方法，仅对外提供`getinstance`方法得到类的唯一一个对象。
    - 工厂模式：
      - 简单工厂模式
      - 工厂方法模式
      - 抽象工厂模式
+   - 单例对象的工厂类`SingletonFactory`写法
 
 2. Netty的心跳机制
 
@@ -237,13 +238,13 @@
 
 4. ConcurrentHashMap
 
-5. Spring bean的生命周期
+5. [√]Spring bean的生命周期
 
    <img src="https://img2018.cnblogs.com/blog/1066538/201909/1066538-20190902000437259-1068766043.png" alt="img" style="zoom:67%;" />
 
 6. Triple 协议
 
-7. `synchronized`关键字和 双重确认
+7. [√]`synchronized `关键字和 双重确认
 
    ```java
     if (instance == null) {

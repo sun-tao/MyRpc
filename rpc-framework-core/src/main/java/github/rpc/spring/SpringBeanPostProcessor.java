@@ -33,9 +33,9 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
         this.serviceProvider = SingletonFactory.getInstance(ServiceProvider.class);
         this.zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
         // NettyRpcServer
-        this.rpcServer = ExtensionLoader.getExtensionLoader(RpcServer.class).getExtension("socketServer");
+        this.rpcServer = ExtensionLoader.getExtensionLoader(RpcServer.class).getExtension("nettyServer");
         // 采用SPI机制，动态可插拔的替换RpcClient接口的实现类
-        this.rpcClient = ExtensionLoader.getExtensionLoader(RpcClient.class).getExtension("socket");
+        this.rpcClient = ExtensionLoader.getExtensionLoader(RpcClient.class).getExtension("netty");
     }
     @SneakyThrows
     @Override
