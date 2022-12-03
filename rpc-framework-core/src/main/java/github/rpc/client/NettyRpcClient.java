@@ -17,9 +17,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
-
+@Slf4j
 public class NettyRpcClient implements RpcClient {
     private static final Bootstrap bootstrap;
     private static final EventLoopGroup eventLoopGroup;
@@ -52,7 +53,9 @@ public class NettyRpcClient implements RpcClient {
             }
             host = inetSocketAddress.getHostName();
             port = inetSocketAddress.getPort();
+            // 每一次 发送Rpc请求，都会新建Netty连接，相当于短连接
             ChannelFuture f = bootstrap.connect(host, port).sync();
+            log.info("连接Netty服务器成功!");
             // 获取channel
             Channel channel = f.channel();
             // 传输请求，非阻塞,等不到服务端发回响应这变就会继续往下执行，因此没办法原地得到response，只能等通过网络收到response后在channelRead0中得到response

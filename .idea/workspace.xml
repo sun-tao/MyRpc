@@ -2,30 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d14b283-6f4b-40cb-9321-6706858cc606" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/loadbalance/loadbalancer/ConsistentHashLoadBalance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/resources/META-INF/extensions/github.rpc.loadbalance.LoadBalance" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/test/java/loadbalance/LoadBalanceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-server/src/main/java/TestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/src/main/java/TestServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-server/target/classes/TestServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/target/classes/TestServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/SimpleRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/SimpleRpcClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/RpcRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/RpcRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/loadbalance/LoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/loadbalance/LoadBalance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/loadbalance/loadbalancer/RandomLoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/loadbalance/loadbalancer/RandomLoadBalance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/ServiceRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/ServiceRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/spring/Shutdown.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/spring/SpringBeanPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/spring/SpringBeanPostProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/SimpleRpcClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/SimpleRpcClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/common/RpcRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/common/RpcRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/loadbalance/LoadBalance.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/loadbalance/LoadBalance.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/loadbalance/loadbalancer/RandomLoadBalance.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/loadbalance/loadbalancer/RandomLoadBalance.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/ServiceRegister.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/ServiceRegister.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceRegister.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceRegister.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/spring/Shutdown.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/spring/SpringBeanPostProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/spring/SpringBeanPostProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/loadbalance/loadbalancer/ConsistentHashLoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/loadbalance/loadbalancer/ConsistentHashLoadBalance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc学习.md" beforeDir="false" afterPath="$PROJECT_DIR$/rpc学习.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,6 +57,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.TestClient (1)">
+    <configuration name="LoadBalanceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="loadbalance.LoadBalanceTest" />
+      <module name="rpc-framework-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="loadbalance.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestClient (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TestClient" />
       <module name="rpc-example-client" />
@@ -120,6 +114,7 @@
       <list>
         <item itemvalue="Application.TestClient (1)" />
         <item itemvalue="Application.TestServer (1)" />
+        <item itemvalue="Application.LoadBalanceTest" />
         <item itemvalue="Application.TestClient" />
         <item itemvalue="Application.TestServer" />
       </list>
@@ -157,7 +152,8 @@
       <workItem from="1669725791284" duration="5513000" />
       <workItem from="1669771454549" duration="5548000" />
       <workItem from="1669859808297" duration="11672000" />
-      <workItem from="1669966917034" duration="8840000" />
+      <workItem from="1669966917034" duration="8983000" />
+      <workItem from="1670037132796" duration="6250000" />
     </task>
     <servers />
   </component>
@@ -185,22 +181,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1669621503230" />
-    <state width="1478" height="238" key="GridCell.Tab.0.bottom" timestamp="1669991942455">
+    <state width="1493" height="260" key="GridCell.Tab.0.bottom" timestamp="1670053224458">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1478" height="238" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1669991942455" />
-    <state width="1478" height="238" key="GridCell.Tab.0.center" timestamp="1669991942455">
+    <state width="1493" height="260" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1670053224458" />
+    <state width="1493" height="260" key="GridCell.Tab.0.center" timestamp="1670053224457">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1478" height="238" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1669991942455" />
-    <state width="1478" height="238" key="GridCell.Tab.0.left" timestamp="1669991942455">
+    <state width="1493" height="260" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1670053224457" />
+    <state width="1493" height="260" key="GridCell.Tab.0.left" timestamp="1670053224456">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1478" height="238" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1669991942455" />
-    <state width="1478" height="238" key="GridCell.Tab.0.right" timestamp="1669991942455">
+    <state width="1493" height="260" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1670053224456" />
+    <state width="1493" height="260" key="GridCell.Tab.0.right" timestamp="1670053224457">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1478" height="238" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1669991942455" />
+    <state width="1493" height="260" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1670053224457" />
     <state x="272" y="0" key="SettingsEditor" timestamp="1669614647566">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

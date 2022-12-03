@@ -17,7 +17,7 @@ public class ConsistentHashLoadBalance implements LoadBalance {
     // dubble源码中 对不同的服务采用不同的哈希环来 存储不同服务器的哈希值
     // 这里对不同的服务共享同一个哈希环
     // 除非address有变化，才会变动哈希环
-    private final HashMap<Integer,ConsistentHashSelector> map = new HashMap<>();
+    private final HashMap<Integer,ConsistentHashSelector> map = new HashMap<>(); // 不考虑线程同步问题
     @Override
     public String loadBalance(List<String> addresses, RpcRequest rpcRequest) {
         int identityHashCode = System.identityHashCode(addresses);
