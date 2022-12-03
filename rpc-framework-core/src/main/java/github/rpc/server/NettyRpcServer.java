@@ -3,6 +3,7 @@ package github.rpc.server;
 import github.rpc.provider.ServiceProvider;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -31,6 +32,8 @@ public class NettyRpcServer implements RpcServer {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup,workerGroup)
                     .channel(NioServerSocketChannel.class)
+                    // 开启TCP心跳机制
+                    .childOption(ChannelOption.SO_KEEPALIVE,true)
                     .childHandler(new NettyServerInitializer(serviceProvider.getServiceProvider()));
 
             // 上述为设置服务端Netty初始化代码

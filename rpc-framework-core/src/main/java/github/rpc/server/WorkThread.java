@@ -36,7 +36,7 @@ public class WorkThread implements Runnable {
 
             System.out.println("客户端请求了" + method.getName()+ "方法");
 
-            RpcResponse response = RpcResponse.success(invoke);
+            RpcResponse response = RpcResponse.success(invoke,rpcRequest.getRequestId());
             objectOutputStream.writeObject(response);
             objectOutputStream.flush();
         } catch (Exception e) {

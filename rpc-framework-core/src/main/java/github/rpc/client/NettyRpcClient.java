@@ -3,6 +3,7 @@ package github.rpc.client;
 
 import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
+import github.rpc.common.RpcResponseHolder;
 import github.rpc.common.SingletonFactory;
 import github.rpc.extension.ExtensionLoader;
 import github.rpc.loadbalance.LoadBalance;
@@ -20,12 +21,15 @@ import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
+import java.util.HashMap;
+
 @Slf4j
 public class NettyRpcClient implements RpcClient {
     private static final Bootstrap bootstrap;
     private static final EventLoopGroup eventLoopGroup;
     private String host;
     private int port;
+    private static HashMap<String,Channel> channelHashMap = new HashMap<>();
     private ZkServiceRegister zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
     private LoadBalance loadBalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("consistentHash");
 //    private ZkServiceRegister zkServiceRegister = (ZkServiceRegister) ExtensionLoader.getExtensionLoader(ServiceRegister.class).getExtension("zkServiceRegister");
@@ -44,6 +48,24 @@ public class NettyRpcClient implements RpcClient {
                 .handler(new NettyClientInitializer());
     }
 
+    // 建立连接
+    private Channel doConnect(String host,int port){
+        String remoting = host + port;
+        Channel channel = channelHashMap.get(remoting);
+        if (channel == null || !channel.isActive()){
+            // 若连接不存在或是连接被异常关闭了，都需要重新连接
+            try {
+                ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
+                log.info("连接Netty服务器成功!");
+                channelHashMap.put(remoting,channelFuture.channel()); // 当channle失效时，此时覆盖之前失效的连接
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        channel = channelHashMap.get(remoting);
+        return channel;
+    }
+
     public RpcResponse sendRequest(RpcRequest rpcRequest) {
         try {
             // LoadBalance loadBalance = new RandomLoadBalance(); // 在此选择负载均衡算法
@@ -54,25 +76,20 @@ public class NettyRpcClient implements RpcClient {
             host = inetSocketAddress.getHostName();
             port = inetSocketAddress.getPort();
             // 每一次 发送Rpc请求，都会新建Netty连接，相当于短连接
-            ChannelFuture f = bootstrap.connect(host, port).sync();
-            log.info("连接Netty服务器成功!");
-            // 获取channel
-            Channel channel = f.channel();
-            // 传输请求，非阻塞,等不到服务端发回响应这变就会继续往下执行，因此没办法原地得到response，只能等通过网络收到response后在channelRead0中得到response
-            // 后续要对此进行优化，必须要在这边得到Rpcresponse才能向上返回的
+//            ChannelFuture f = bootstrap.connect(host, port).sync();
+            // 连接并获取channel,连接的时候，对于已经建立的连接则不会重新建立连接了
+            Channel channel = doConnect(host, port);
             channel.writeAndFlush(rpcRequest);
-            // 监听关闭事件，如果没有关闭事件则会一直阻塞在此
-            // 通过此函数实现阻塞，一旦收到服务端的关闭事件，那么也一定收到了服务端的response，那么一定在channelRead0中设置好了AttributeKey，因此可以实现response原地获取
-            channel.closeFuture().sync();
-            // 优化:阻塞的获取response，从channelRead0中读取,通过起别名的方式
-            AttributeKey<Object> key = AttributeKey.valueOf("RpcResponse");
-            RpcResponse response = (RpcResponse) channel.attr(key).get();
-            return response;
-
+            // 阻塞的等待服务端返回RpcResponse
+            RpcResponseHolder rpcResponseHolder = SingletonFactory.getInstance(RpcResponseHolder.class);
+            while(rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId()) == null){
+                // 自旋等待,直到接收到了rpcResponse才能继续执行,不考虑线程安全问题
+                Thread.sleep(100);
+            }
+            return rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }

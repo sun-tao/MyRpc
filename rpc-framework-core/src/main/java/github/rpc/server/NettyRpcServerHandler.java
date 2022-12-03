@@ -5,10 +5,13 @@ import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
 import java.util.Map;
-
+@Slf4j
 public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
     private Map<String,Object> serviceProvider;
     NettyRpcServerHandler(Map<String,Object> serviceProvider){
@@ -21,7 +24,7 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
         RpcResponse response = getResponse(rpcRequest);
         ctx.writeAndFlush(response);
         // 发送关闭连接事件
-        ctx.close();
+        // ctx.close();
     }
 
     @Override
@@ -35,7 +38,20 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
         Object service = serviceProvider.get(interfaceName);
         Method method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamsType());
         Object invoke = method.invoke(service, rpcRequest.getParams());
-        RpcResponse response = RpcResponse.success(invoke);
+        RpcResponse response = RpcResponse.success(invoke,rpcRequest.getRequestId());
         return response;
+    }
+
+    // 如果30s没有请求，则断开当前连接
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent){
+            IdleState state = ((IdleStateEvent) evt).state();
+            if (state == IdleState.READER_IDLE) {
+                log.info("idle check happen, so close the connection");
+                ctx.close();
+            }
+        }
+        super.userEventTriggered(ctx,evt);
     }
 }

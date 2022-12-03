@@ -27,7 +27,7 @@ public class TestClient {
         blogController.start();
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(8000);
             blogController.start();
         } catch (InterruptedException e) {
             e.printStackTrace();

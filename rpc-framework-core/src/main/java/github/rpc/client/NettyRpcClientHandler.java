@@ -2,6 +2,8 @@ package github.rpc.client;
 
 
 import github.rpc.common.RpcResponse;
+import github.rpc.common.RpcResponseHolder;
+import github.rpc.common.SingletonFactory;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
@@ -14,9 +16,8 @@ public class NettyRpcClientHandler extends SimpleChannelInboundHandler {
         RpcResponse response = (RpcResponse) msg;
 //        System.out.println("客户端收到响应"  + response);
         log.info("客户端收到Rpc响应{}" , response);
-        AttributeKey<Object> key = AttributeKey.valueOf("RpcResponse");
-        ctx.channel().attr(key).set(response);
-        ctx.close();
+        RpcResponseHolder rpcResponseHolder = SingletonFactory.getInstance(RpcResponseHolder.class);
+        rpcResponseHolder.inject(response);
     }
 
     @Override

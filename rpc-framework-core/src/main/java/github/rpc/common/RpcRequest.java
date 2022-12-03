@@ -9,6 +9,8 @@ public class RpcRequest implements Serializable {
     private String interfaceName;
     // 接口中的方法名字
     private String methodName;
+    // Id为随机字符串
+    private String requestId;
 
     @Override
     public String toString() {
@@ -18,6 +20,14 @@ public class RpcRequest implements Serializable {
                 ", paramsType=" + Arrays.toString(paramsType) +
                 ", params=" + Arrays.toString(params) +
                 '}';
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     // 参数类型
@@ -30,11 +40,12 @@ public class RpcRequest implements Serializable {
 
     }
 
-    public RpcRequest(String interfaceName, String methodName, Object[] params, Class<?>[] paramsType) {
+    public RpcRequest(String interfaceName, String methodName, Object[] params, Class<?>[] paramsType,String requestId) {
         this.interfaceName = interfaceName;
         this.methodName = methodName;
         this.params = params;
         this.paramsType = paramsType;
+        this.requestId = requestId;
     }
 
     public String getInterfaceName() {

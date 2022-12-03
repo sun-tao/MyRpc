@@ -7,6 +7,7 @@ import github.rpc.common.RpcResponse;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.UUID;
 
 // 动态代理service接口，在接口的对应方法中封装Rpcrequest对象，并持有一个种类的rpcClient以实现网络通信
 public class RpcClientProxy {
@@ -40,6 +41,7 @@ class ClientInvocationHandler implements InvocationHandler {
         rpcRequest.setMethodName(method.getName());
         rpcRequest.setParamsType(method.getParameterTypes());
         rpcRequest.setParams(args);
+        rpcRequest.setRequestId(UUID.randomUUID().toString());
         // 调用指定的rpcClient去发送该rpcRequest
         RpcResponse rpcResponse = rpcClient.sendRequest(rpcRequest);
         if (rpcResponse == null){

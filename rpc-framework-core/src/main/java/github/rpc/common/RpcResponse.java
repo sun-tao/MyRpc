@@ -16,12 +16,22 @@ public class RpcResponse implements Serializable {
     private int code;
     private String message;
     private Object data;
+    private String requestId;
 
-    public static RpcResponse success(Object data){
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public static RpcResponse success(Object data, String requestId){
         RpcResponse rpcResponse = new RpcResponse();
         rpcResponse.code = 200;
         rpcResponse.message = "success";
         rpcResponse.data = data;
+        rpcResponse.setRequestId(requestId);
         return rpcResponse;
     }
 
