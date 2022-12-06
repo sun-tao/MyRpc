@@ -26,12 +26,7 @@ public class TestClient {
         BlogController blogController = (BlogController) annotationConfigApplicationContext.getBean("blogController");
         blogController.start();
 
-        try {
-            Thread.sleep(8000);
-            blogController.start();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         // 基于Socket的rpc
 //        SimpleRpcClient simpleRpcClient = new SimpleRpcClient(new ZkServiceRegister());
 //        SimpleRpcClient socketClient = (SimpleRpcClient) ExtensionLoader.getExtensionLoader(RpcClient.class).getExtension("socket");

@@ -17,6 +17,15 @@ public class RpcResponse implements Serializable {
     private String message;
     private Object data;
     private String requestId;
+    private int messageType;
+
+    public int getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
+    }
 
     public String getRequestId() {
         return requestId;

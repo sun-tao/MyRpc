@@ -20,9 +20,18 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
     // 服务端的处理逻辑，此处收到的是解码好了的RpcRequest对象
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         RpcRequest rpcRequest = (RpcRequest) msg;
-        System.out.println("服务端收到Request请求" + rpcRequest);
-        RpcResponse response = getResponse(rpcRequest);
-        ctx.writeAndFlush(response);
+        if (rpcRequest.getMessageType() == 0){
+            // 应用层真正的Rpc请求
+            log.info("服务端收到Request请求" + rpcRequest);
+            RpcResponse response = getResponse(rpcRequest);
+            ctx.writeAndFlush(response);
+        }else if(rpcRequest.getMessageType() == 1){
+            // 心跳包
+            log.info("服务端收到心跳包{}",rpcRequest);
+            RpcResponse response = getResponse(rpcRequest, true);
+            ctx.writeAndFlush(response);
+        }
+
         // 发送关闭连接事件
         // ctx.close();
     }
@@ -33,6 +42,15 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
         ctx.close();
     }
 
+    private RpcResponse getResponse(RpcRequest rpcRequest,boolean heartBeat){
+        if (heartBeat == true){
+            RpcResponse pong = RpcResponse.success("PONG", rpcRequest.getRequestId());
+            pong.setMessageType(1);
+            return pong;
+        }
+        return null;
+    }
+    // 解析rpc请求的
     private RpcResponse getResponse(RpcRequest rpcRequest) throws Exception {
         String interfaceName = rpcRequest.getInterfaceName();
         Object service = serviceProvider.get(interfaceName);

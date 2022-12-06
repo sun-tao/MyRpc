@@ -11,12 +11,24 @@ public class RpcRequest implements Serializable {
     private String methodName;
     // Id为随机字符串
     private String requestId;
+    // MessageType 分为两种：0为普通的消息，1为心跳包
+    private int messageType = 0;
+
+    public int getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
+    }
 
     @Override
     public String toString() {
         return "RpcRequest{" +
                 "interfaceName='" + interfaceName + '\'' +
                 ", methodName='" + methodName + '\'' +
+                ", requestId='" + requestId + '\'' +
+                ", messageType=" + messageType +
                 ", paramsType=" + Arrays.toString(paramsType) +
                 ", params=" + Arrays.toString(params) +
                 '}';

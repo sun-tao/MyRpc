@@ -22,7 +22,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
         // 服务端30s未收到消息则判定当前连接的客户端下线，关闭连接
-        pipeline.addLast(new IdleStateHandler(5,0,0, TimeUnit.SECONDS));
+        pipeline.addLast(new IdleStateHandler(30,0,0, TimeUnit.SECONDS));
         pipeline.addLast(new Decode());  // in1
         // 在此选择序列化方式，现在可以选择的方式有：java原生序列化方式 以及 基于Protubuf的高效序列化方式
         pipeline.addLast(new Encode(new ObjectSerializer()));  // out2

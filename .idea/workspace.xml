@@ -2,19 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d14b283-6f4b-40cb-9321-6706858cc606" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/RpcResponseHolder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-example-client/target/classes/TestClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/target/classes/TestClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyClientInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyClientInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/RpcClientProxy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/RpcRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/RpcRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/RpcResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/RpcResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServerHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyServerInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyServerInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/WorkThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/WorkThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc学习.md" beforeDir="false" afterPath="$PROJECT_DIR$/rpc学习.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -161,7 +157,8 @@
       <workItem from="1669771454549" duration="5548000" />
       <workItem from="1669859808297" duration="11672000" />
       <workItem from="1669966917034" duration="8983000" />
-      <workItem from="1670037132796" duration="15841000" />
+      <workItem from="1670037132796" duration="16030000" />
+      <workItem from="1670240321023" duration="4813000" />
     </task>
     <servers />
   </component>
@@ -181,30 +178,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="456" y="221" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1669989031248" />
-    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser" timestamp="1670070240388">
+    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser" timestamp="1670244399612">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1670070240388" />
+    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1670244399612" />
     <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1669621503230">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1669621503230" />
-    <state width="1493" height="267" key="GridCell.Tab.0.bottom" timestamp="1670071544949">
+    <state width="1493" height="431" key="GridCell.Tab.0.bottom" timestamp="1670245615629">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="267" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1670071544949" />
-    <state width="1493" height="267" key="GridCell.Tab.0.center" timestamp="1670071544949">
+    <state width="1493" height="431" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1670245615629" />
+    <state width="1493" height="431" key="GridCell.Tab.0.center" timestamp="1670245615629">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="267" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1670071544949" />
-    <state width="1493" height="267" key="GridCell.Tab.0.left" timestamp="1670071544949">
+    <state width="1493" height="431" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1670245615629" />
+    <state width="1493" height="431" key="GridCell.Tab.0.left" timestamp="1670245615628">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="267" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1670071544949" />
-    <state width="1493" height="267" key="GridCell.Tab.0.right" timestamp="1670071544949">
+    <state width="1493" height="431" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1670245615628" />
+    <state width="1493" height="431" key="GridCell.Tab.0.right" timestamp="1670245615629">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="267" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1670071544949" />
+    <state width="1493" height="431" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1670245615629" />
     <state x="272" y="0" key="SettingsEditor" timestamp="1669614647566">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
