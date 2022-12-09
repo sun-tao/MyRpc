@@ -21,8 +21,8 @@ public class TestClient {
     public static void main(String[] args) {
         // 基于netty的rpc
         ApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
-        UserController userController = (UserController) annotationConfigApplicationContext.getBean("userController");
-        userController.start();
+//        UserController userController = (UserController) annotationConfigApplicationContext.getBean("userController");
+//        userController.start();
         BlogController blogController = (BlogController) annotationConfigApplicationContext.getBean("blogController");
         blogController.start();
 

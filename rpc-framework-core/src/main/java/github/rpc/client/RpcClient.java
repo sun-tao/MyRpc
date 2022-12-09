@@ -7,5 +7,5 @@ import github.rpc.common.RpcResponse;
 
 @Spi
 public interface RpcClient {
-    RpcResponse sendRequest(RpcRequest rpcRequest);
+    RpcResponse sendRequest(RpcRequest rpcRequest) throws RuntimeException;
 }

@@ -21,7 +21,9 @@ import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 public class NettyRpcClient implements RpcClient {
@@ -31,7 +33,7 @@ public class NettyRpcClient implements RpcClient {
     private int port;
     private static HashMap<String,Channel> channelHashMap = new HashMap<>();
     private ZkServiceRegister zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
-    private LoadBalance loadBalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("consistentHash");
+    private LoadBalance loadBalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("Random");
 //    private ZkServiceRegister zkServiceRegister = (ZkServiceRegister) ExtensionLoader.getExtensionLoader(ServiceRegister.class).getExtension("zkServiceRegister");
     public NettyRpcClient(ZkServiceRegister zkServiceRegister){
         this.zkServiceRegister = zkServiceRegister;
@@ -49,7 +51,8 @@ public class NettyRpcClient implements RpcClient {
     }
 
     // 建立连接
-    private Channel doConnect(String host,int port){
+    // 连接并获取channel,连接的时候，对于已经建立的连接则不会重新建立连接了
+    private Channel doConnect(String host,int port) throws Exception{
         String remoting = host + port;
         Channel channel = channelHashMap.get(remoting);
         if (channel == null || !channel.isActive()){
@@ -58,38 +61,48 @@ public class NettyRpcClient implements RpcClient {
                 ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
                 log.info("连接Netty服务器成功!");
                 channelHashMap.put(remoting,channelFuture.channel()); // 当channle失效时，此时覆盖之前失效的连接
-            } catch (InterruptedException e) {
+            } catch ( Exception   e) {
                 e.printStackTrace();
+                throw new Exception("connection exception");
             }
         }
         channel = channelHashMap.get(remoting);
         return channel;
     }
 
-    public RpcResponse sendRequest(RpcRequest rpcRequest) {
-        try {
-            // LoadBalance loadBalance = new RandomLoadBalance(); // 在此选择负载均衡算法
-            InetSocketAddress inetSocketAddress = zkServiceRegister.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest);
-            if (inetSocketAddress == null){
-                return null;
+    public RpcResponse sendRequest(RpcRequest rpcRequest) throws RuntimeException{
+            int len = 2;
+            List<String> invokers = zkServiceRegister.getInvokers(rpcRequest.getInterfaceName());
+            List<String> invoked = new ArrayList<>(invokers.size());
+            Exception last_e = null;
+            // retry loop
+            for (int i = 0 ; i < len ; i++){
+                if (i > 0){
+                    // check whether the invokers still not empty
+                    invokers = zkServiceRegister.getInvokers(rpcRequest.getInterfaceName());  // 更新一下invokers列表
+                }
+                InetSocketAddress inetSocketAddress = zkServiceRegister.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest,invokers,invoked);
+                invoked.add(inetSocketAddress.getHostName() + ":" + inetSocketAddress.getPort());
+                try {
+                    host = inetSocketAddress.getHostName();
+                    port = inetSocketAddress.getPort();
+                    Channel channel = doConnect(host, port);  // 可能连接不上，这时需要触发重试机制
+                    if (last_e != null){
+                        // 若后面几次重连成功则以warn形式打印先前连接的报错
+                        log.warn("Although retry successfully,but there are some error occured before success,the error is {}" , last_e.getLocalizedMessage());
+                    }
+                    channel.writeAndFlush(rpcRequest);
+                    // 阻塞的等待服务端返回RpcResponse
+                    RpcResponseHolder rpcResponseHolder = SingletonFactory.getInstance(RpcResponseHolder.class);
+                    while(rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId()) == null){
+                        // 自旋等待,直到接收到了rpcResponse才能继续执行,不考虑线程安全问题
+                        Thread.sleep(100);
+                    }
+                    return rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId());
+                }catch (Exception e){
+                    last_e = e;
+                }
             }
-            host = inetSocketAddress.getHostName();
-            port = inetSocketAddress.getPort();
-            // 每一次 发送Rpc请求，都会新建Netty连接，相当于短连接
-//            ChannelFuture f = bootstrap.connect(host, port).sync();
-            // 连接并获取channel,连接的时候，对于已经建立的连接则不会重新建立连接了
-            Channel channel = doConnect(host, port);
-            channel.writeAndFlush(rpcRequest);
-            // 阻塞的等待服务端返回RpcResponse
-            RpcResponseHolder rpcResponseHolder = SingletonFactory.getInstance(RpcResponseHolder.class);
-            while(rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId()) == null){
-                // 自旋等待,直到接收到了rpcResponse才能继续执行,不考虑线程安全问题
-                Thread.sleep(100);
-            }
-            return rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
+            throw  new RuntimeException("connection failed！");
     }
 }

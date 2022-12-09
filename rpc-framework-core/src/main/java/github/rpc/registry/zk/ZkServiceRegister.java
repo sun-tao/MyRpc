@@ -12,6 +12,7 @@ import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.CreateMode;
 
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 // 与zookeeper交互的类
@@ -49,19 +50,30 @@ public class ZkServiceRegister implements ServiceRegister {
         }
     }
 
-    public InetSocketAddress serviceDiscovery(String serviceName, LoadBalance loadBalance, RpcRequest rpcRequest) {
+    public InetSocketAddress serviceDiscovery(String serviceName, LoadBalance loadBalance, RpcRequest rpcRequest,List<String> invokers,List<String> invoked) {
         // RPC客户端使用
         try {
-            List<String> list = client.getChildren().forPath("/"+serviceName);
-            // 先只取第一个结果，即第一个注册的RPC服务器，没有负载均衡
-//            String address = list.get(0);
-            // 引入负载均衡算法
-            if (list == null || list.size() == 0){
+            if (invokers == null){
+                invokers = client.getChildren().forPath("/"+serviceName);
+            }
+            if (invokers == null || invokers.size() == 0){
                 log.info("无可用的服务!");
                 return null;
             }
-            log.info("zk上的服务器列表有{}" , list);
-            String address = loadBalance.loadBalance(list,rpcRequest);
+            log.info("zk上的服务器列表有{}" , invokers);
+            // 排除invoked中已经包含了的
+            List<String> result = new ArrayList<>();
+            for (int i = 0 ; i < invokers.size() ; i++){
+                if (invoked != null && invoked.contains(invokers.get(i))){
+                    continue;
+                }
+                result.add(invokers.get(i));
+            }
+            if (result == null || result.size() == 0){
+                log.info("无可用的服务!");
+                return null;
+            }
+            String address = loadBalance.loadBalance(result,rpcRequest);
             return parseAddress(address);
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,5 +88,15 @@ public class ZkServiceRegister implements ServiceRegister {
     private InetSocketAddress parseAddress(String address){
         String[] strs = address.split(":");
         return new InetSocketAddress(strs[0],Integer.parseInt(strs[1]));
+    }
+
+    public List<String> getInvokers(String serviceName) {
+        try {
+            List<String> list = client.getChildren().forPath("/"+serviceName);
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

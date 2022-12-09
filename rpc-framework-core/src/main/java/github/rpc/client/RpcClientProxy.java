@@ -43,7 +43,9 @@ class ClientInvocationHandler implements InvocationHandler {
         rpcRequest.setParams(args);
         rpcRequest.setRequestId(UUID.randomUUID().toString());
         // 调用指定的rpcClient去发送该rpcRequest
+
         RpcResponse rpcResponse = rpcClient.sendRequest(rpcRequest);
+
         if (rpcResponse == null){
             return null;
         }
