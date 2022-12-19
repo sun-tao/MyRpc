@@ -14,6 +14,7 @@ import github.rpc.registry.zk.ZkServiceRegister;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -31,7 +32,7 @@ public class NettyRpcClient implements RpcClient {
     private static final EventLoopGroup eventLoopGroup;
     private String host;
     private int port;
-    private static HashMap<String,Channel> channelHashMap = new HashMap<>();
+    public static HashMap<String,Channel> channelHashMap = new HashMap<>();
     private ZkServiceRegister zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
     private LoadBalance loadBalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("Random");
 //    private ZkServiceRegister zkServiceRegister = (ZkServiceRegister) ExtensionLoader.getExtensionLoader(ServiceRegister.class).getExtension("zkServiceRegister");
@@ -47,7 +48,8 @@ public class NettyRpcClient implements RpcClient {
         eventLoopGroup = new NioEventLoopGroup();
         bootstrap.group(eventLoopGroup)
                 .channel(NioSocketChannel.class)
-                .handler(new NettyClientInitializer());
+                .handler(new NettyClientInitializer())
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS,5000);
     }
 
     // 建立连接
@@ -61,8 +63,7 @@ public class NettyRpcClient implements RpcClient {
                 ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
                 log.info("连接Netty服务器成功!");
                 channelHashMap.put(remoting,channelFuture.channel()); // 当channle失效时，此时覆盖之前失效的连接
-            } catch ( Exception   e) {
-                e.printStackTrace();
+            } catch ( Exception  e) {
                 throw new Exception("connection exception");
             }
         }
@@ -77,6 +78,7 @@ public class NettyRpcClient implements RpcClient {
             Exception last_e = null;
             // retry loop
             for (int i = 0 ; i < len ; i++){
+                int cnt = 0;
                 if (i > 0){
                     // check whether the invokers still not empty
                     invokers = zkServiceRegister.getInvokers(rpcRequest.getInterfaceName());  // 更新一下invokers列表
@@ -96,7 +98,11 @@ public class NettyRpcClient implements RpcClient {
                     RpcResponseHolder rpcResponseHolder = SingletonFactory.getInstance(RpcResponseHolder.class);
                     while(rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId()) == null){
                         // 自旋等待,直到接收到了rpcResponse才能继续执行,不考虑线程安全问题
-                        Thread.sleep(100);
+                        Thread.sleep(1000);
+                        cnt++;
+                        if (cnt > 10){
+                            throw new RuntimeException("服务调用超时!");
+                        }
                     }
                     return rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId());
                 }catch (Exception e){

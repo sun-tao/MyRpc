@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
+import static github.rpc.client.NettyRpcClient.channelHashMap;
+
 @Slf4j
 public class NettyRpcClientHandler extends SimpleChannelInboundHandler {
     @Override
@@ -36,10 +38,21 @@ public class NettyRpcClientHandler extends SimpleChannelInboundHandler {
                 rpcRequest.setRequestId(UUID.randomUUID().toString());
                 rpcRequest.setMessageType(1);
                 log.info("客户端发送心跳包{}",rpcRequest);
-                ctx.writeAndFlush(rpcRequest);
+                if (ctx.channel().isActive()){
+                    ctx.writeAndFlush(rpcRequest);
+                }else{
+                    // todo
+                }
+
             }
         }
         super.userEventTriggered(ctx,evt);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception{
+        // 服务端主动下线,经过TCP四次挥手后下线
+//        channelHashMap.remove("kubernetes.docker.internal:8100");
     }
 
     @Override

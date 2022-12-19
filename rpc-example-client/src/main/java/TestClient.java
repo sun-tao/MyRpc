@@ -26,6 +26,8 @@ public class TestClient {
         BlogController blogController = (BlogController) annotationConfigApplicationContext.getBean("blogController");
         blogController.start();
 
+        blogController.start();
+
 
         // 基于Socket的rpc
 //        SimpleRpcClient simpleRpcClient = new SimpleRpcClient(new ZkServiceRegister());

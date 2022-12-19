@@ -25,6 +25,7 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
             log.info("服务端收到Request请求" + rpcRequest);
             RpcResponse response = getResponse(rpcRequest);
             ctx.writeAndFlush(response);
+            // 测试客户端的重试机制
         }else if(rpcRequest.getMessageType() == 1){
             // 心跳包
             log.info("服务端收到心跳包{}",rpcRequest);
