@@ -3,7 +3,7 @@ a rpc framework based on java
 
 ## 架构
 
-![](./总体架构.jpg)
+![图片](./总体架构.jpg)
 
 ## 特性
 
