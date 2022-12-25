@@ -19,7 +19,32 @@ a rpc framework based on java
 10. 采用了单例设计模式
 11. `completableFuture`和自旋锁阻塞的获取异步发送操作的响应结果
 
-
 ## 项目模块
 
+- rpc-framework-core:rpc核心功能部分代码实现
+
+- rpc-example-client:测试用客户端
+- rpc-example-server:测试用服务端
+
 ## 传输协议
+
+使用自定义RPC协议规定数据格式，解决TCP粘包、拆包问题。 
+
+```
++---------------+---------------+-----------------+-------------+
+|  Magic Number |  Package Type | Serializer Type | Data Length |
+|    4 bytes    |    4 bytes    |     4 bytes     |   4 bytes   |
++---------------+---------------+-----------------+-------------+
+|                          Data Bytes                           |
+|                   Length: ${Data Length}                      |
++---------------------------------------------------------------+
+```
+```
+
+字段					解释
+Magic Number		 魔数，表识一个 RPC 协议包，暂时待定
+Package Type		 包类型，标明这是一个调用请求还是调用响应
+Serializer Type		 序列化器类型，标明这个包的数据的序列化方式
+Data Length			 数据字节的长度
+Data Bytes			 传输的对象，通常是一个RpcRequest或RpcResponse对象，取决于Package Type字段，对象的序列化方式取决于Serializer Type字段。
+```

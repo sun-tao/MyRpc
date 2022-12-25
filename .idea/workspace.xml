@@ -3,17 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1d14b283-6f4b-40cb-9321-6706858cc606" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-client/target/classes/TestClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/target/classes/TestClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/RpcClientProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/cluster/FailoverClusterInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/cluster/FailoverClusterInvoker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/NettyRpcServerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/NettyRpcServerHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc学习.md" beforeDir="false" afterPath="$PROJECT_DIR$/rpc学习.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +156,8 @@
       <workItem from="1670575249578" duration="9610000" />
       <workItem from="1670655576319" duration="5562000" />
       <workItem from="1671371634111" duration="1643000" />
-      <workItem from="1671451847912" duration="5987000" />
+      <workItem from="1671451847912" duration="6583000" />
+      <workItem from="1671952805298" duration="1312000" />
     </task>
     <servers />
   </component>
