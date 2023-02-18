@@ -16,7 +16,7 @@ public interface Serializer {
             case 0:
                 return new ObjectSerializer();
             case 1:
-
+                return new HessianSerializer();
             default:
                 return null;
         }

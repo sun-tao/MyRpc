@@ -12,8 +12,7 @@
         <module>rpc-framework-core</module>
         <module>rpc-example-server</module>
         <module>rpc-example-client</module>
-        <module>test</module>
-        <module>test2</module>
+        <module>rpc-framework-api</module>
     </modules>
 
     <properties>

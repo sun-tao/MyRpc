@@ -2,8 +2,7 @@ package github.rpc;
 
 import github.rpc.annotation.RpcReference;
 import github.rpc.annotation.RpcService;
-import github.rpc.common.Blog;
-import github.rpc.service.BlogService;
+import github.rpc.BlogService;
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.stereotype.Component;

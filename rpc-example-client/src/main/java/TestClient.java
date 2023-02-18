@@ -25,8 +25,9 @@ public class TestClient {
 //        userController.start();
         BlogController blogController = (BlogController) annotationConfigApplicationContext.getBean("blogController");
         blogController.start();
-
         blogController.start();
+        UserController userController = (UserController) annotationConfigApplicationContext.getBean("userController");
+        userController.start();
 
 
         // 基于Socket的rpc

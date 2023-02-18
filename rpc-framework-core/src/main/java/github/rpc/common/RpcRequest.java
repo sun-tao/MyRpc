@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 
 public class RpcRequest implements Serializable {
+    // 版本号机制
+    private static final long serialVersionUID = -3911255650485738676L;
     // 提供的服务接口名
     private String interfaceName;
     // 接口中的方法名字
@@ -13,6 +15,10 @@ public class RpcRequest implements Serializable {
     private String requestId;
     // MessageType 分为两种：0为普通的消息，1为心跳包
     private int messageType = 0;
+    // 参数类型
+    private Class<?>[] paramsType;
+    // 参数列表
+    private Object[] params;
 
     public int getMessageType() {
         return messageType;
@@ -41,12 +47,6 @@ public class RpcRequest implements Serializable {
     public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
-
-    // 参数类型
-    private Class<?>[] paramsType;
-    // 参数列表
-    private Object[] params;
-
 
     public RpcRequest() {
 

@@ -1,8 +1,8 @@
 package github.rpc;
 
 import github.rpc.annotation.RpcReference;
-import github.rpc.common.User;
-import github.rpc.service.Userservice;
+import github.rpc.User;
+import github.rpc.Userservice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

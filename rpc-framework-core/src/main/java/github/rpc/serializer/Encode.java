@@ -6,7 +6,9 @@ import github.rpc.common.RpcResponse;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Encode extends MessageToByteEncoder implements MessageType {
     //首先要对java对象进行序列化
     private Serializer serializer;
@@ -34,9 +36,9 @@ public class Encode extends MessageToByteEncoder implements MessageType {
         // 使用protobuf来进行序列化编码，输入都为普通的RpcRequest和RpcResponse对象，但通过在内部将其转为protobuf制定的对象
         // 再对其进行编码，可以获得编码的高效性，性能比直接java编码对象要高很多，且在接收端，可以实现跨语言的解析
         byte[] bytes = serializer.serialize(msg);
+        log.info("序列化后消息长度: " + bytes.length);
         int length = bytes.length;
         out.writeInt(length);
-
         out.writeBytes(bytes);
         // 至此，一个数据包的编码完成
     }

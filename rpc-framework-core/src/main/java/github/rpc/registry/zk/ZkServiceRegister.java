@@ -27,7 +27,7 @@ public class ZkServiceRegister implements ServiceRegister {
         this.client  =
                 CuratorFrameworkFactory.builder().connectString("localhost:2181").retryPolicy(retryPolicy).sessionTimeoutMs(40000).namespace(ROOT_PATH).build();
         this.client.start();
-        System.out.println("zookeeper连接成功");
+        log.info("zookeeper连接成功！");
     }
 
     public void quit(){

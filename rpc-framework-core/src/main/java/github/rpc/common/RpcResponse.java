@@ -12,6 +12,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RpcResponse implements Serializable {
+    // 版本号机制
+    private static final long serialVersionUID = -3911255650485738676L;
     // 规定了response的数据格式
     private int code;
     private String message;

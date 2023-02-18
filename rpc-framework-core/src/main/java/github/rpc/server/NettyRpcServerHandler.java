@@ -32,7 +32,6 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
             RpcResponse response = getResponse(rpcRequest, true);
             ctx.writeAndFlush(response);
         }
-
         // 发送关闭连接事件
         // ctx.close();
     }

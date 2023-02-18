@@ -17,8 +17,6 @@ public class RpcClientProxy {
         this.rpcClient = rpcClient;
         this.interfacename_group_version = group + version;
     }
-
-
     public Object getProxy(Class<?> clazz){
         // 返回被代理接口的代理对象，该对象全权代理需要代理的接口，将内部方法增强为:封装rpcRequest+调用rpcClient,返回调用的结果
         Object o = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz},
@@ -44,7 +42,6 @@ class ClientInvocationHandler implements InvocationHandler {
         rpcRequest.setRequestId(UUID.randomUUID().toString());
         // 调用指定的rpcClient去发送该rpcRequest
         RpcResponse rpcResponse = rpcClient.sendRequest(rpcRequest);
-
         if (rpcResponse == null){
             return null;
         }

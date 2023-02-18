@@ -1,9 +1,9 @@
 package github.rpc.serviceImpl;
 
 
+import github.rpc.Userservice;
 import github.rpc.annotation.RpcService;
-import github.rpc.common.User;
-import github.rpc.service.Userservice;
+import github.rpc.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

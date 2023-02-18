@@ -10,7 +10,7 @@ public class ObjectSerializer implements Serializer {
         byte[] bytes = null;
         ByteArrayOutputStream bao = new ByteArrayOutputStream();
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(bao);
+            ObjectOutputStream oos = new ObjectOutputStream(bao);  // jdk对象序列化
             oos.writeObject(obj);
             oos.flush();
             bytes = bao.toByteArray();
@@ -20,8 +20,6 @@ public class ObjectSerializer implements Serializer {
             e.printStackTrace();
         }
         return bytes;
-
-
     }
 
     public Object deserialize(byte[] bytes,int messageType) {
