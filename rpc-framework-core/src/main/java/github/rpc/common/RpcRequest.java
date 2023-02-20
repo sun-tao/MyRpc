@@ -2,6 +2,8 @@ package github.rpc.common;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 public class RpcRequest implements Serializable {
@@ -12,7 +14,8 @@ public class RpcRequest implements Serializable {
     // 接口中的方法名字
     private String methodName;
     // Id为随机字符串
-    private String requestId;
+    private static AtomicInteger INVOKE_ID = new AtomicInteger(0);
+    private int requestId;
     // MessageType 分为两种：0为普通的消息，1为心跳包
     private int messageType = 0;
     // 参数类型
@@ -40,24 +43,19 @@ public class RpcRequest implements Serializable {
                 '}';
     }
 
-    public String getRequestId() {
+    public int getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
-    }
-
     public RpcRequest() {
-
+        requestId = INVOKE_ID.getAndIncrement();
     }
 
-    public RpcRequest(String interfaceName, String methodName, Object[] params, Class<?>[] paramsType,String requestId) {
+    public RpcRequest(String interfaceName, String methodName, Object[] params, Class<?>[] paramsType) {
         this.interfaceName = interfaceName;
         this.methodName = methodName;
         this.params = params;
         this.paramsType = paramsType;
-        this.requestId = requestId;
     }
 
     public String getInterfaceName() {

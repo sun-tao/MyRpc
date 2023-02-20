@@ -1,3 +1,3 @@
-1.原本的ResponseHolder存在OOM风险，将其优化成CompleteFuture
+1.原本的ResponseHolder存在OOM风险，将其优化成CompleteFuture，原本的ResponseHolder也可以用remove来解决OOM风险，但有线程安全问题
 2.增加框架对多线程发送RPC请求和多线程处理RPC请求的支持
-3.增加异步场景下，对发出消息与接收响应的对应操作
+3.增加异步场景下，对发出消息与接收响应的对应操作，消息ID，automaticInt (原本想在Netty包层面就进行消息ID的匹配，但好像没有太大必要，直接在本身请求的数据包层面做更加方便)

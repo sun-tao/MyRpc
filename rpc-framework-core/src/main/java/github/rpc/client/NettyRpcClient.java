@@ -25,6 +25,7 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class NettyRpcClient implements RpcClient {
@@ -38,6 +39,7 @@ public class NettyRpcClient implements RpcClient {
 //    private ZkServiceRegister zkServiceRegister = (ZkServiceRegister) ExtensionLoader.getExtensionLoader(ServiceRegister.class).getExtension("zkServiceRegister");
     public NettyRpcClient(ZkServiceRegister zkServiceRegister){
         this.zkServiceRegister = zkServiceRegister;
+
     }
     public NettyRpcClient(){
 
@@ -74,6 +76,7 @@ public class NettyRpcClient implements RpcClient {
     public RpcResponse sendRequest(RpcRequest rpcRequest) throws RuntimeException{
             int len = 2;
             List<String> invokers = zkServiceRegister.getInvokers(rpcRequest.getInterfaceName());
+            RpcResponseHolder rpcResponseHolder = SingletonFactory.getInstance(RpcResponseHolder.class);
             List<String> invoked = new ArrayList<>(invokers.size());
             Exception last_e = null;
             // retry loop
@@ -94,18 +97,12 @@ public class NettyRpcClient implements RpcClient {
                         // 若后面几次重连成功则以warn形式打印先前连接的报错
                         log.warn("Although retry successfully,but there are some error occured before success,the error is {}" , last_e.getLocalizedMessage());
                     }
+                    CompletableFuture<RpcResponse> future = new CompletableFuture<>();
+                    rpcResponseHolder.put(rpcRequest.getRequestId(),future);  // 注册CompletableFuture
                     channel.writeAndFlush(rpcRequest);
-                    // 阻塞的等待服务端返回RpcResponse
-                    RpcResponseHolder rpcResponseHolder = SingletonFactory.getInstance(RpcResponseHolder.class);
-                    while(rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId()) == null){
-                        // 自旋等待,直到接收到了rpcResponse才能继续执行,不考虑线程安全问题
-                        Thread.sleep(1000);
-                        cnt++;
-                        if (cnt > 10){
-                            throw new RuntimeException("服务调用超时!");
-                        }
-                    }
-                    return rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId());
+                    // 阻塞的获取结果，直到接收到rpcResponse
+                    RpcResponse rpcResponse = future.get();
+                    return rpcResponse;
                 }catch (Exception e){
                     log.warn("服务调用超时！");
                     last_e = e;

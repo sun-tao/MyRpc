@@ -18,7 +18,7 @@ public class RpcResponse implements Serializable {
     private int code;
     private String message;
     private Object data;
-    private String requestId;
+    private int requestId;
     private int messageType;
 
     public int getMessageType() {
@@ -29,15 +29,15 @@ public class RpcResponse implements Serializable {
         this.messageType = messageType;
     }
 
-    public String getRequestId() {
+    public int getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(String requestId) {
+    public void setRequestId(int requestId) {
         this.requestId = requestId;
     }
 
-    public static RpcResponse success(Object data, String requestId){
+    public static RpcResponse success(Object data, int requestId){
         RpcResponse rpcResponse = new RpcResponse();
         rpcResponse.code = 200;
         rpcResponse.message = "success";

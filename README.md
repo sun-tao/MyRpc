@@ -17,7 +17,7 @@ a rpc framework based on java
 8. 集成Spring框架，通过注解注册服务，通过注解消费服务
 9. 实现SPI机制，实现 接口实现类的动态插拔
 10. 采用了单例设计模式
-11. `completableFuture`和自旋锁阻塞的获取异步发送操作的响应结果
+11. 异步IO场景下，使用`CompletableFuture`阻塞地同步获取响应结果。优化了原本的自旋获取响应结果，减少CPU负载。
 
 ## 项目模块
 

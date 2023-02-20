@@ -24,7 +24,7 @@ public class NettyRpcClientHandler extends SimpleChannelInboundHandler {
 //        System.out.println("客户端收到响应"  + response);
         log.info("客户端收到Rpc响应{}" , response);
         RpcResponseHolder rpcResponseHolder = SingletonFactory.getInstance(RpcResponseHolder.class);
-        rpcResponseHolder.inject(response);
+        rpcResponseHolder.complete(response);
     }
 
     // 如果5s没有用户消息请求发送，则向服务端发送心跳包
@@ -35,7 +35,6 @@ public class NettyRpcClientHandler extends SimpleChannelInboundHandler {
             if (state == IdleState.WRITER_IDLE) {
                 RpcRequest rpcRequest = new RpcRequest();
                 // 组建心跳包
-                rpcRequest.setRequestId(UUID.randomUUID().toString());
                 rpcRequest.setMessageType(1);
                 log.info("客户端发送心跳包{}",rpcRequest);
                 if (ctx.channel().isActive()){
