@@ -84,6 +84,7 @@ public class NettyRpcClient implements RpcClient {
                     invokers = zkServiceRegister.getInvokers(rpcRequest.getInterfaceName());  // 更新一下invokers列表
                 }
                 InetSocketAddress inetSocketAddress = zkServiceRegister.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest,invokers,invoked);
+                if (inetSocketAddress == null) throw new RuntimeException("connection failed！");
                 invoked.add(inetSocketAddress.getHostName() + ":" + inetSocketAddress.getPort());
                 try {
                     host = inetSocketAddress.getHostName();
@@ -106,6 +107,7 @@ public class NettyRpcClient implements RpcClient {
                     }
                     return rpcResponseHolder.getRpcResponse(rpcRequest.getRequestId());
                 }catch (Exception e){
+                    log.warn("服务调用超时！");
                     last_e = e;
                 }
             }
