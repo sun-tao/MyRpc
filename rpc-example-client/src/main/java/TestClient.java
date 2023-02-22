@@ -28,6 +28,18 @@ public class TestClient {
         blogController.start();
         UserController userController = (UserController) annotationConfigApplicationContext.getBean("userController");
         userController.start();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        blogController.start();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        userController.start();
         // 基于Socket的rpc
 //        SimpleRpcClient simpleRpcClient = new SimpleRpcClient(new ZkServiceRegister());
 //        SimpleRpcClient socketClient = (SimpleRpcClient) ExtensionLoader.getExtensionLoader(RpcClient.class).getExtension("socket");

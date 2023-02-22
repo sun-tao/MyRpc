@@ -9,6 +9,6 @@ import java.util.List;
 
 @Spi
 public interface ServiceRegister {
+    // 服务提供方
     void register(String serviceName, InetSocketAddress serverAddress);
-    InetSocketAddress serviceDiscovery(String serviceName, LoadBalance loadBalance, RpcRequest rpcRequest,List<String> invokers, List<String> invoked);
 }

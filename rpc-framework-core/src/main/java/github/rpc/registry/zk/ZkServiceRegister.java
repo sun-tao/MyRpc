@@ -29,57 +29,26 @@ public class ZkServiceRegister implements ServiceRegister {
         this.client.start();
         log.info("zookeeper连接成功！");
     }
-
     public void quit(){
-//        System.out.println(client.getChildren());
         CloseableUtils.closeQuietly(client);
     }
+    // server
     public void register(String serviceName, InetSocketAddress serverAddress) {
         // RPC服务端使用
         try {
             // 如果当前的zookeeper服务器上，没注册过这个服务
-            if (client.checkExists().forPath("/" + serviceName) == null){
+            if (client.checkExists().forPath("/" + serviceName + "/provider") == null){
                 // 永久注册该服务名,因为可能有其他的rpc服务器也在zookeeper上注册了该服务名，因此服务名不能下线
-                client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath("/" + serviceName);
+                client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath("/" + serviceName + "/provider");
             }
             // 临时性注册 本rpc服务器的IP+host
-            String path = "/" + serviceName + "/" + getServiceAddress(serverAddress);
+            String path = "/" + serviceName + "/provider" + "/" + getServiceAddress(serverAddress);
             client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(path);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public InetSocketAddress serviceDiscovery(String serviceName, LoadBalance loadBalance, RpcRequest rpcRequest,List<String> invokers,List<String> invoked) {
-        // RPC客户端使用
-        try {
-            if (invokers == null){
-                invokers = client.getChildren().forPath("/"+serviceName);
-            }
-            if (invokers == null || invokers.size() == 0){
-                log.info("无可用的服务!");
-                return null;
-            }
-            log.info("zk上的服务器列表有{}" , invokers);
-            // 排除invoked中已经包含了的
-            List<String> result = new ArrayList<>();
-            for (int i = 0 ; i < invokers.size() ; i++){
-                if (invoked != null && invoked.contains(invokers.get(i))){
-                    continue;
-                }
-                result.add(invokers.get(i));
-            }
-            if (result == null || result.size() == 0){
-                log.info("无可用的服务!");
-                return null;
-            }
-            String address = loadBalance.loadBalance(result,rpcRequest);
-            return parseAddress(address);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     private String getServiceAddress(InetSocketAddress serverAddress){
         return serverAddress.getHostName() + ":" + serverAddress.getPort();
@@ -90,13 +59,4 @@ public class ZkServiceRegister implements ServiceRegister {
         return new InetSocketAddress(strs[0],Integer.parseInt(strs[1]));
     }
 
-    public List<String> getInvokers(String serviceName) {
-        try {
-            List<String> list = client.getChildren().forPath("/"+serviceName);
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

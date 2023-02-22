@@ -10,6 +10,7 @@ import github.rpc.loadbalance.LoadBalance;
 import github.rpc.loadbalance.loadbalancer.RandomLoadBalance;
 import github.rpc.provider.ServiceProvider;
 import github.rpc.registry.ServiceRegister;
+import github.rpc.registry.zk.ZkServiceDiscovery;
 import github.rpc.registry.zk.ZkServiceRegister;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class NettyRpcClient implements RpcClient {
@@ -33,8 +35,9 @@ public class NettyRpcClient implements RpcClient {
     private static final EventLoopGroup eventLoopGroup;
     private String host;
     private int port;
-    public static HashMap<String,Channel> channelHashMap = new HashMap<>();
+    public static ConcurrentHashMap<String,Channel> channelHashMap = new ConcurrentHashMap<>();
     private ZkServiceRegister zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
+    private ZkServiceDiscovery zkServiceDiscovery = SingletonFactory.getInstance(ZkServiceDiscovery.class);
     private LoadBalance loadBalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("Random");
 //    private ZkServiceRegister zkServiceRegister = (ZkServiceRegister) ExtensionLoader.getExtensionLoader(ServiceRegister.class).getExtension("zkServiceRegister");
     public NettyRpcClient(ZkServiceRegister zkServiceRegister){
@@ -75,7 +78,8 @@ public class NettyRpcClient implements RpcClient {
 
     public RpcResponse sendRequest(RpcRequest rpcRequest) throws RuntimeException{
             int len = 2;
-            List<String> invokers = zkServiceRegister.getInvokers(rpcRequest.getInterfaceName());
+            // 先读本地服务列表缓存,当前的服务提供者列表
+            List<String> invokers = zkServiceDiscovery.getInvokers(rpcRequest.getInterfaceName());
             RpcResponseHolder rpcResponseHolder = SingletonFactory.getInstance(RpcResponseHolder.class);
             List<String> invoked = new ArrayList<>(invokers.size());
             Exception last_e = null;
@@ -84,9 +88,9 @@ public class NettyRpcClient implements RpcClient {
                 int cnt = 0;
                 if (i > 0){
                     // check whether the invokers still not empty
-                    invokers = zkServiceRegister.getInvokers(rpcRequest.getInterfaceName());  // 更新一下invokers列表
+                    invokers = zkServiceDiscovery.getInvokers(rpcRequest.getInterfaceName());  // 更新一下invokers列表
                 }
-                InetSocketAddress inetSocketAddress = zkServiceRegister.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest,invokers,invoked);
+                InetSocketAddress inetSocketAddress = zkServiceDiscovery.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest,invokers,invoked);
                 if (inetSocketAddress == null) throw new RuntimeException("connection failed！");
                 invoked.add(inetSocketAddress.getHostName() + ":" + inetSocketAddress.getPort());
                 try {

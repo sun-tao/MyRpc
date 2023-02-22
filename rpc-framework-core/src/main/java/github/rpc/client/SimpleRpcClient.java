@@ -6,6 +6,7 @@ import github.rpc.common.RpcResponse;
 import github.rpc.common.SingletonFactory;
 import github.rpc.loadbalance.LoadBalance;
 import github.rpc.loadbalance.loadbalancer.RandomLoadBalance;
+import github.rpc.registry.zk.ZkServiceDiscovery;
 import github.rpc.registry.zk.ZkServiceRegister;
 
 import java.io.ObjectInputStream;
@@ -17,6 +18,7 @@ public class SimpleRpcClient implements RpcClient {
     String targetIp;
     int targetPort;
     private ZkServiceRegister zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
+    private ZkServiceDiscovery zkServiceDiscovery = SingletonFactory.getInstance(ZkServiceDiscovery.class);
     public SimpleRpcClient(ZkServiceRegister zkServiceRegister){
         this.zkServiceRegister = zkServiceRegister;
     }
@@ -30,7 +32,7 @@ public class SimpleRpcClient implements RpcClient {
     public RpcResponse sendRequest(RpcRequest rpcRequest) {
         try {
             LoadBalance loadBalance = new RandomLoadBalance();
-            InetSocketAddress inetSocketAddress = zkServiceRegister.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest,null,null);
+            InetSocketAddress inetSocketAddress = zkServiceDiscovery.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest,null,null);
             targetIp = inetSocketAddress.getHostName();
             targetPort = inetSocketAddress.getPort();
             Socket socket = new Socket(targetIp, targetPort);
