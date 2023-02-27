@@ -4,6 +4,7 @@ package github.rpc.provider;
 
 import github.rpc.common.SingletonFactory;
 import github.rpc.registry.zk.ZkServiceRegister;
+import github.rpc.util.IpUtils;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -20,7 +21,7 @@ public class ServiceProvider {
     public ServiceProvider(){
         serviceProvider = new HashMap<String, Object>();
         this.zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
-        host = "127.0.0.1";
+        host = IpUtils.getRealIp();
         port = 8100;
     }
 
@@ -35,8 +36,10 @@ public class ServiceProvider {
         for (Class c : interfaces){
             // 本机注册服务： 将接口名(服务名) 和 本地的服务对应的impl实现类对应起来
             serviceProvider.put(c.getName() + group + version ,service);
-            // 注册到zookeeper上
-            zkServiceRegister.register(c.getName()  + group  +  version,new InetSocketAddress(host,port));
+            // 注册到zookeeper上,服务结点上线
+            zkServiceRegister.register(c.getName()  + group  +  version,host,String.valueOf(port));
+            // 注册服务的路由策略  "/xxxService/route/ip1=>ip2"
+            zkServiceRegister.registerRoute(c.getName() + group  +  version);
         }
 
     }

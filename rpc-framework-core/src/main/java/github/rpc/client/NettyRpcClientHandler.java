@@ -5,6 +5,7 @@ import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
 import github.rpc.common.RpcResponseHolder;
 import github.rpc.common.SingletonFactory;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleState;

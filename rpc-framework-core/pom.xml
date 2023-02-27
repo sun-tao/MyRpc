@@ -58,4 +58,12 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <resources>
+            <resource>
+<!--                <directory>MyRpc/rpc-example-server/src/main/resources</directory>-->
+            </resource>
+        </resources>
+    </build>
+
 </project>

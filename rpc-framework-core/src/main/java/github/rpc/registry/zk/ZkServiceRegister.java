@@ -11,9 +11,14 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.CreateMode;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 // 与zookeeper交互的类
 @Slf4j
@@ -33,7 +38,7 @@ public class ZkServiceRegister implements ServiceRegister {
         CloseableUtils.closeQuietly(client);
     }
     // server
-    public void register(String serviceName, InetSocketAddress serverAddress) {
+    public void register(String serviceName, String host, String port) {
         // RPC服务端使用
         try {
             // 如果当前的zookeeper服务器上，没注册过这个服务
@@ -42,16 +47,41 @@ public class ZkServiceRegister implements ServiceRegister {
                 client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath("/" + serviceName + "/provider");
             }
             // 临时性注册 本rpc服务器的IP+host
-            String path = "/" + serviceName + "/provider" + "/" + getServiceAddress(serverAddress);
+            String path = "/" + serviceName + "/provider" + "/" + getServiceAddress(host,port);
             client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(path);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public void registerRoute(String serviceName) {
+        try {
+            if (client.checkExists().forPath("/" + serviceName + "/route") == null){
+                client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath("/" + serviceName + "/route");
+            }
+            List<String> routes = getRoutes(serviceName);
+            for (int i = 0 ; i < routes.size() ; i++){
+                client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath("/" + serviceName + "/route" + "/" + routes.get(i));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-    private String getServiceAddress(InetSocketAddress serverAddress){
-        return serverAddress.getHostName() + ":" + serverAddress.getPort();
+    public List<String> getRoutes(String serviceName) throws IOException {
+        String path = ZkServiceRegister.class.getResource("/").getPath();
+        String filename = path + "/" + serviceName + "/iproute";
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
+        String line = null;
+        List<String> result = new ArrayList<>();
+        while((line = reader.readLine()) != null){
+            result.add(line);
+        }
+        return result;
+    }
+    private String getServiceAddress(String host,String port){
+        return host + ":" + port;
     }
 
     private InetSocketAddress parseAddress(String address){

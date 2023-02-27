@@ -2,23 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d14b283-6f4b-40cb-9321-6706858cc606" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/rpc-example-client/src/test/java/MulitThreadingTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/ServiceDiscovery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceDiscovery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/route/ConditionRoute.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/route/Route.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/util/IpUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/test/java/route/ConditionRouteTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/test/java/route/zkRouteTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/SimpleRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/SimpleRpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/provider/ServiceProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/provider/ServiceProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/ServiceRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/ServiceRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceDiscovery.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceDiscovery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/spring/SpringBeanPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/spring/SpringBeanPostProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/SimpleRpcClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/SimpleRpcClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/config/CustomShutdownHook.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/config/CustomShutdownHook.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/provider/ServiceProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/provider/ServiceProvider.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/ServiceRegister.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/ServiceRegister.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceDiscovery$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceDiscovery$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceDiscovery.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceDiscovery.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceRegister.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/registry/zk/ZkServiceRegister.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/NettyRpcServerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/NettyRpcServerHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/待优化点.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/待优化点.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/Blog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/BlogService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/Userservice.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +62,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/rpc-framework-api/src/main/java/github/rpc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../MyRpc_Old/MyRpc" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -68,14 +77,23 @@
       <recent name="github.rpc" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\work\MyRpc\rpc-example-server\src\main\resources\github.rpc.BlogService" />
+      <recent name="D:\work\MyRpc\rpc-example-server\src\main\resources" />
+      <recent name="D:\work\MyRpc\rpc-example-server\src\main\resources\github\rpc\BlogService" />
       <recent name="D:\work\MyRpc\rpc-framework-api\src\main\java\github\rpc" />
       <recent name="D:\work\MyRpc\rpc-framework-core\src\main\java\github\rpc" />
     </key>
   </component>
   <component name="RunManager" selected="Application.TestClient (1)">
-    <configuration name="MulitThreadingTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MulitThreadingTest" />
-      <module name="rpc-example-client" />
+    <configuration name="ConditionRouteTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="route.ConditionRouteTest" />
+      <module name="rpc-framework-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="route.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -94,13 +112,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UUIDTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="UUIDTest" />
-      <module name="rpc-framework-core" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ZkWatchTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="zookeeper.ZkWatchTest" />
       <module name="rpc-framework-core" />
@@ -114,13 +125,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="zkRouteTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="route.zkRouteTest" />
+      <module name="rpc-framework-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="route.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.TestClient (1)" />
         <item itemvalue="Application.TestServer (1)" />
+        <item itemvalue="Application.zkRouteTest" />
+        <item itemvalue="Application.ConditionRouteTest" />
         <item itemvalue="Application.ZkWatchTest" />
-        <item itemvalue="Application.MulitThreadingTest" />
-        <item itemvalue="Application.UUIDTest" />
       </list>
     </recent_temporary>
   </component>
@@ -179,7 +203,14 @@
       <workItem from="1676855639263" duration="22786000" />
       <workItem from="1676942365351" duration="6310000" />
       <workItem from="1676982268312" duration="6276000" />
-      <workItem from="1677028509138" duration="6750000" />
+      <workItem from="1677028509138" duration="9082000" />
+      <workItem from="1677116851422" duration="1285000" />
+      <workItem from="1677137849913" duration="8444000" />
+      <workItem from="1677202967329" duration="962000" />
+      <workItem from="1677245567291" duration="1429000" />
+      <workItem from="1677408059356" duration="9567000" />
+      <workItem from="1677421526056" duration="3237000" />
+      <workItem from="1677459198285" duration="5241000" />
     </task>
     <servers />
   </component>
@@ -187,22 +218,22 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="74" key="#Project_Structure" timestamp="1676694807300">
+    <state x="361" y="74" key="#Project_Structure" timestamp="1677412391918">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="74" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1676694807300" />
+    <state x="361" y="74" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1677412391918" />
     <state x="521" y="245" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1669874635643">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="521" y="245" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1669874635643" />
-    <state x="456" y="221" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1669989031248">
+    <state x="456" y="221" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1677408365397">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="456" y="221" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1669989031248" />
-    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser" timestamp="1676992755105">
+    <state x="456" y="221" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1677408365397" />
+    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser" timestamp="1677424355260">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1676992755105" />
+    <state x="574" y="132" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1677424355260" />
     <state x="522" y="202" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1676526601162">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -219,42 +250,58 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="482" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1670663369318" />
-    <state x="549" y="171" key="FileChooserDialogImpl" timestamp="1670485733441">
+    <state x="549" y="171" key="FileChooserDialogImpl" timestamp="1677461744344">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="171" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1670485733441" />
-    <state width="1493" height="267" key="GridCell.Tab.0.bottom" timestamp="1677035292366">
+    <state x="549" y="171" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1677461744344" />
+    <state width="1493" height="464" key="GridCell.Tab.0.bottom" timestamp="1677463890728">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="267" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1677035292366" />
-    <state width="1493" height="267" key="GridCell.Tab.0.center" timestamp="1677035292365">
+    <state width="1493" height="464" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1677463890728" />
+    <state width="1493" height="464" key="GridCell.Tab.0.center" timestamp="1677463890728">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="267" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1677035292365" />
-    <state width="1493" height="267" key="GridCell.Tab.0.left" timestamp="1677035292365">
+    <state width="1493" height="464" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1677463890728" />
+    <state width="1493" height="464" key="GridCell.Tab.0.left" timestamp="1677463890728">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="267" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1677035292365" />
-    <state width="1493" height="267" key="GridCell.Tab.0.right" timestamp="1677035292366">
+    <state width="1493" height="464" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1677463890728" />
+    <state width="1493" height="464" key="GridCell.Tab.0.right" timestamp="1677463890728">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="267" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1677035292366" />
-    <state x="272" y="0" key="SettingsEditor" timestamp="1676526602710">
+    <state width="1493" height="464" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1677463890728" />
+    <state x="272" y="0" key="SettingsEditor" timestamp="1677461071728">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="272" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1676526602710" />
-    <state x="390" y="138" width="755" height="548" key="find.popup" timestamp="1676881341705">
+    <state x="272" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1677461071728" />
+    <state x="390" y="138" width="755" height="548" key="find.popup" timestamp="1677423780350">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="390" y="138" width="755" height="548" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1676881341705" />
+    <state x="390" y="138" width="755" height="548" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1677423780350" />
     <state x="178" y="117" key="new project wizard" timestamp="1676534012505">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="178" y="117" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1676534012505" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1676861749494">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1677416675339">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1676861749494" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1677416675339" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceRegister.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/rpc-example-client/src/main/java/TestClient.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MyRpc$TestClient__1_.ic" NAME="TestClient (1) Coverage Results" MODIFIED="1676547222723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

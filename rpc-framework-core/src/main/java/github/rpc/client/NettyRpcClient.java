@@ -12,6 +12,8 @@ import github.rpc.provider.ServiceProvider;
 import github.rpc.registry.ServiceRegister;
 import github.rpc.registry.zk.ZkServiceDiscovery;
 import github.rpc.registry.zk.ZkServiceRegister;
+import github.rpc.route.ConditionRoute;
+import github.rpc.util.IpUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -22,8 +24,9 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 
-import java.net.InetSocketAddress;
+import java.net.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -90,7 +93,15 @@ public class NettyRpcClient implements RpcClient {
                     // check whether the invokers still not empty
                     invokers = zkServiceDiscovery.getInvokers(rpcRequest.getInterfaceName());  // 更新一下invokers列表
                 }
+                // 运用路由策略
+                List<String> routes = zkServiceDiscovery.getRoutes(rpcRequest.getInterfaceName());
+                for (int j = 0 ; j < routes.size() ; j++){
+                    ConditionRoute conditionRoute = new ConditionRoute(routes.get(j));
+                    invokers = conditionRoute.route(invokers, IpUtils.getRealIp());
+                }
+                // 运用负载均衡
                 InetSocketAddress inetSocketAddress = zkServiceDiscovery.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest,invokers,invoked);
+                // 选中一个节点
                 if (inetSocketAddress == null) throw new RuntimeException("connection failed！");
                 invoked.add(inetSocketAddress.getHostName() + ":" + inetSocketAddress.getPort());
                 try {
@@ -114,4 +125,5 @@ public class NettyRpcClient implements RpcClient {
             }
             throw  new RuntimeException("connection failed！");
     }
+
 }

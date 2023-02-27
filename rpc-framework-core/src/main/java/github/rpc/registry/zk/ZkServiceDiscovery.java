@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ZkServiceDiscovery implements ServiceDiscovery {
     private CuratorFramework client;
     private ConcurrentHashMap<String,List<String>> serversCache;  // 本地服务列表缓存,单服务 -> 多服务 , 这边对本地缓存的更新可能有线程冲突
+    private ConcurrentHashMap<String,List<String>> serversRoutesCache; // 本地服务路由策略缓存
     private static PathChildrenCache nodeCache;
     // zookeeper根节点路径
     private static final String ROOT_PATH = "MyRpc";
@@ -34,6 +35,7 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
         this.client.start();
         log.info("zookeeper连接成功！");
         serversCache = new ConcurrentHashMap<>();
+        serversRoutesCache = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -68,11 +70,49 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
         }
         return null;
     }
+
     private InetSocketAddress parseAddress(String address){
         String[] strs = address.split(":");
         return new InetSocketAddress(strs[0],Integer.parseInt(strs[1]));
     }
 
+    public List<String> getRoutes(String serviceName){
+        try {
+            final String serverRoutesName = serviceName + "/route";
+            List<String> serverRoutes = serversRoutesCache.get(serviceName);
+            if (serverRoutes == null){
+                serverRoutes = client.getChildren().forPath("/" + serverRoutesName);
+                if (serverRoutes == null){
+                    // 该服务无路由策略
+                    return null;
+                }
+                serversRoutesCache.put(serviceName,serverRoutes);
+                nodeCache = new PathChildrenCache(client, "/"+serverRoutesName,true);
+                nodeCache.start(PathChildrenCache.StartMode.BUILD_INITIAL_CACHE);
+                nodeCache.getListenable().addListener(new PathChildrenCacheListener() {
+                    @Override
+                    public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
+                        if (pathChildrenCacheEvent.getType() == PathChildrenCacheEvent.Type.CHILD_ADDED){
+                            // 服务提供者增加
+                            // spilt by "/" , get ip + port
+                            String ipPort = spiltIpPort(pathChildrenCacheEvent.getData().getPath());
+                            serversRoutesCache.get(serviceName).add(ipPort);
+                            log.info("本地服务{}路由缓存中上线{}",serviceName,ipPort);
+                        }else if (pathChildrenCacheEvent.getType() == PathChildrenCacheEvent.Type.CHILD_REMOVED){
+                            // 服务提供者减少
+                            String ipPort = spiltIpPort(pathChildrenCacheEvent.getData().getPath());
+                            serversRoutesCache.get(serviceName).remove(ipPort);
+                            log.info("本地服务{}路由缓存中下线{}",serviceName,ipPort);
+                        }
+                    }
+                });
+            }
+            return serverRoutes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public List<String> getInvokers(String serviceName) {
         try {
             final String serviceProviderName = serviceName + "/provider";
@@ -95,13 +135,13 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
                             // 服务提供者增加
                             // spilt by "/" , get ip + port
                             String ipPort = spiltIpPort(pathChildrenCacheEvent.getData().getPath());
-                            System.out.println(ipPort);
                             serversCache.get(serviceName).add(ipPort);
+                            log.info("本地服务{}缓存中上线{}",serviceName,ipPort);
                         }else if (pathChildrenCacheEvent.getType() == PathChildrenCacheEvent.Type.CHILD_REMOVED){
                             // 服务提供者减少
                             String ipPort = spiltIpPort(pathChildrenCacheEvent.getData().getPath());
-                            System.out.println(ipPort);
                             serversCache.get(serviceName).remove(ipPort);
+                            log.info("本地服务{}缓存中下线{}",serviceName,ipPort);
                         }
                     }
                 });
