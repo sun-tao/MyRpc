@@ -64,6 +64,7 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
                 return null;
             }
             String address = loadBalance.loadBalance(result,rpcRequest);
+            // address: ip:port?weight
             return parseAddress(address);
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,8 +73,16 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
     }
 
     private InetSocketAddress parseAddress(String address){
-        String[] strs = address.split(":");
-        return new InetSocketAddress(strs[0],Integer.parseInt(strs[1]));
+        int index = address.indexOf("?");
+        String[] strs;
+        if (index < 0){  // 无参数
+            strs = address.split(":");
+            return new InetSocketAddress(strs[0],Integer.parseInt(strs[1]));
+        }else{ // 有参数
+            address = address.substring(0,index);
+            strs = address.split(":");
+            return new InetSocketAddress(strs[0],Integer.parseInt(strs[1]));
+        }
     }
 
     public List<String> getRoutes(String serviceName){

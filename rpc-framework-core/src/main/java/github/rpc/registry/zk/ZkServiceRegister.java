@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 // 与zookeeper交互的类
@@ -38,7 +39,7 @@ public class ZkServiceRegister implements ServiceRegister {
         CloseableUtils.closeQuietly(client);
     }
     // server
-    public void register(String serviceName, String host, String port) {
+    public void register(String serviceName, String host, String port, Map<String,String> parameters) {
         // RPC服务端使用
         try {
             // 如果当前的zookeeper服务器上，没注册过这个服务
@@ -46,8 +47,14 @@ public class ZkServiceRegister implements ServiceRegister {
                 // 永久注册该服务名,因为可能有其他的rpc服务器也在zookeeper上注册了该服务名，因此服务名不能下线
                 client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath("/" + serviceName + "/provider");
             }
-            // 临时性注册 本rpc服务器的IP+host
-            String path = "/" + serviceName + "/provider" + "/" + getServiceAddress(host,port);
+            // 临时性注册 本rpc服务器的IP+host?weight=xxx if have weight
+            String path;
+            if (parameters.isEmpty()){
+                path = "/" + serviceName + "/provider" + "/" + getServiceAddress(host,port);
+            }else {
+                String weight = parameters.get("weight");
+                path = "/" + serviceName + "/provider" + "/" + getServiceAddress(host,port) + "?weight=" + weight;
+            }
             client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(path);
         } catch (Exception e) {
             e.printStackTrace();

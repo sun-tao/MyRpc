@@ -19,5 +19,6 @@ public @interface RpcService {
     // 同一实现类可以给定不同版本
     String version() default  "";
 
+    // 服务权重
     String value() default "";
 }
