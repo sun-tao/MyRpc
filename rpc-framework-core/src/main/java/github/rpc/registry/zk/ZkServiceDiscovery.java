@@ -39,7 +39,7 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
     }
 
     @Override
-    public InetSocketAddress serviceDiscovery(String serviceName, LoadBalance loadBalance, RpcRequest rpcRequest, List<String> invokers, List<String> invoked) {
+    public String serviceDiscovery(String serviceName, LoadBalance loadBalance, RpcRequest rpcRequest, List<String> invokers, List<String> invoked) {
         // RPC客户端使用
         try {
             log.info("客户端请求调用{}服务",serviceName);
@@ -65,7 +65,7 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
             }
             String address = loadBalance.loadBalance(result,rpcRequest);
             // address: ip:port?weight
-            return parseAddress(address);
+            return address;
         } catch (Exception e) {
             e.printStackTrace();
         }

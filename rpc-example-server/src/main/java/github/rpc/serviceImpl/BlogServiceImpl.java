@@ -8,6 +8,12 @@ import github.rpc.annotation.RpcService;
 public class BlogServiceImpl implements BlogService {
 
     public Blog getBlogByid(int id) {
+        // 模拟超时
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         Blog blog = new Blog();
         blog.setId(id);
         blog.setTitle("rpcVersion2");

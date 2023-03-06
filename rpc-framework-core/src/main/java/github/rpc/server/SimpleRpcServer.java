@@ -34,7 +34,7 @@ public class SimpleRpcServer implements RpcServer {
         this.serviceProvider = serviceProvider;
     }
 
-    public void start() {
+    public void start(int port) {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             System.out.println("服务器启动！");

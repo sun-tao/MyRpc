@@ -22,7 +22,8 @@ public class TestServer {
         ApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         CustomShutdownHook.getCustomShutdownHook().clearAll();
         RpcServer rpcServer = ExtensionLoader.getExtensionLoader(RpcServer.class).getExtension("nettyServer");
-        rpcServer.start();
+//        rpcServer.start(8100);
+        rpcServer.start(8400);
 
         //  不采用Spring的服务启动方式
 ////        ServiceProvider serviceProvider =  new ServiceProvider();

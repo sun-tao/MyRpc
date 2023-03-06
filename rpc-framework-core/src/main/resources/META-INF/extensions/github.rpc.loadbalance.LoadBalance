@@ -1,2 +1,2 @@
 consistentHash=github.rpc.loadbalance.loadbalancer.ConsistentHashLoadBalance
-Random=github.rpc.loadbalance.loadbalancer.RandomLoadBalance
+random=github.rpc.loadbalance.loadbalancer.RandomLoadBalance

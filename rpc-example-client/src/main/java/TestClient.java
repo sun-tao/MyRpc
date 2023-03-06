@@ -29,13 +29,13 @@ public class TestClient {
         UserController userController = (UserController) annotationConfigApplicationContext.getBean("userController");
         userController.start();
         try {
-            Thread.sleep(10000);
+            Thread.sleep(20000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         blogController.start();
         try {
-            Thread.sleep(10000);
+            Thread.sleep(20000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

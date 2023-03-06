@@ -5,7 +5,7 @@ import github.rpc.provider.ServiceProvider;
 
 @Spi
 public interface RpcServer {
-    void start();
+    void start(int port);
     void stop();
     void setServiceProvider(ServiceProvider serviceProvider);
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ServiceDiscovery {
     // 服务调用方
-    InetSocketAddress serviceDiscovery(String serviceName, LoadBalance loadBalance, RpcRequest rpcRequest, List<String> invokers, List<String> invoked);
+    String serviceDiscovery(String serviceName, LoadBalance loadBalance, RpcRequest rpcRequest, List<String> invokers, List<String> invoked);
 }

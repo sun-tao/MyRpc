@@ -28,9 +28,11 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
     private RpcServer rpcServer;
     private ZkServiceRegister zkServiceRegister;
     private RpcClient rpcClient;
+    int port = 8400; // server
+    int weight = 20; // server
     public SpringBeanPostProcessor(){
         // 获取单例对象,单例模式
-        this.serviceProvider = SingletonFactory.getInstance(ServiceProvider.class);
+        this.serviceProvider = ServiceProvider.getInstance(port,weight);
         this.zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
     }
     @SneakyThrows

@@ -32,9 +32,9 @@ public class SimpleRpcClient implements RpcClient {
     public RpcResponse sendRequest(RpcRequest rpcRequest) {
         try {
             LoadBalance loadBalance = new RandomLoadBalance();
-            InetSocketAddress inetSocketAddress = zkServiceDiscovery.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest,null,null);
-            targetIp = inetSocketAddress.getHostName();
-            targetPort = inetSocketAddress.getPort();
+            String inetSocketAddress = zkServiceDiscovery.serviceDiscovery(rpcRequest.getInterfaceName(),loadBalance,rpcRequest,null,null);
+            targetIp = inetSocketAddress;
+            targetPort = Integer.parseInt(inetSocketAddress);
             Socket socket = new Socket(targetIp, targetPort);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());

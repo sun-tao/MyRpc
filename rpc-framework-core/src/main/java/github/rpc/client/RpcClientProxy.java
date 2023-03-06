@@ -3,13 +3,16 @@ package github.rpc.client;
 
 import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
+import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
 
 // 动态代理service接口，在接口的对应方法中封装Rpcrequest对象，并持有一个种类的rpcClient以实现网络通信
+
 public class RpcClientProxy {
     private RpcClient rpcClient;
     private String interfacename_group_version;
@@ -24,7 +27,7 @@ public class RpcClientProxy {
         return o;
     }
 }
-
+@Slf4j
 class ClientInvocationHandler implements InvocationHandler {
     private RpcClient rpcClient;
     private String interfacename_group_version;
@@ -32,7 +35,7 @@ class ClientInvocationHandler implements InvocationHandler {
         this.rpcClient = rpcClient;
         this.interfacename_group_version = interfacename_group_version;
     }
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) {
         // 封装rpcrequest
         RpcRequest rpcRequest = new RpcRequest();
         rpcRequest.setInterfaceName(method.getDeclaringClass().getName() + interfacename_group_version);
@@ -40,7 +43,12 @@ class ClientInvocationHandler implements InvocationHandler {
         rpcRequest.setParamsType(method.getParameterTypes());
         rpcRequest.setParams(args);
         // 调用指定的rpcClient去发送该rpcRequest
-        RpcResponse rpcResponse = rpcClient.sendRequest(rpcRequest);
+        RpcResponse rpcResponse = null;
+        try {
+            rpcResponse = rpcClient.sendRequest(rpcRequest);
+        }catch (IOException e){
+            log.info(e.getMessage());
+        }
         if (rpcResponse == null){
             return null;
         }

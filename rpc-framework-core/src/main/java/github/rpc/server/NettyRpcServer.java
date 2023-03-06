@@ -14,7 +14,6 @@ import java.util.Map;
 // 使用Netty框架作RPC的网络通信方式
 public class NettyRpcServer implements RpcServer {
     private ServiceProvider serviceProvider;
-    public static final int port = 8100;
 //    public NettyRpcServer(Map<String,Object> serviceProvider,int port){
 //        this.serviceProvider = serviceProvider;
 //        this.port = port;
@@ -25,7 +24,7 @@ public class NettyRpcServer implements RpcServer {
     public void setServiceProvider(ServiceProvider serviceProvider){
         this.serviceProvider = serviceProvider;
     }
-    public void start() {
+    public void start(int port) {
         EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {

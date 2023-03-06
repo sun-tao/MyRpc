@@ -19,13 +19,26 @@ public class ServiceProvider {
     private int port;
     private int weight;
     private ZkServiceRegister zkServiceRegister;
-    public ServiceProvider(){
+    public static volatile ServiceProvider serviceProvider1;
+
+    private ServiceProvider(int port,int weight){
         serviceProvider = new HashMap<String, Object>();
         this.zkServiceRegister = SingletonFactory.getInstance(ZkServiceRegister.class);
         host = IpUtils.getRealIp();
         // 端口和权重均先固定在此，后续可以将其动态配置
-        port = 8100;
-        weight = 10;
+        this.port = port;
+        this.weight = weight;
+    }
+
+    public static ServiceProvider getInstance(int port,int weight){
+        if (serviceProvider1 == null){
+            synchronized (ServiceProvider.class){
+                if (serviceProvider1 == null){
+                    serviceProvider1 = new ServiceProvider(port,weight);
+                }
+            }
+        }
+        return serviceProvider1;
     }
 
     public  Map<String,Object> getServiceProvider(){
