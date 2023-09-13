@@ -37,7 +37,7 @@ public class RpcResponse implements Serializable {
         this.requestId = requestId;
     }
 
-    public static RpcResponse success(Object data, int requestId){
+    public static RpcResponse wrapperResult(Object data, int requestId){
         RpcResponse rpcResponse = new RpcResponse();
         rpcResponse.code = 200;
         rpcResponse.message = "success";

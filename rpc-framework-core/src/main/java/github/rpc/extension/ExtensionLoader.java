@@ -78,6 +78,30 @@ public final class ExtensionLoader<T> {
         return (T) instance;
     }
 
+    public T getExtension(String name, github.rpc.common.URL url) {
+        if (name == null || "".equals(name)) {
+            throw new IllegalArgumentException("Extension name should not be null or empty.");
+        }
+        // firstly get from cache, if not hit, create one
+        Holder<Object> holder = cachedInstances.get(name);
+        if (holder == null) {
+            cachedInstances.putIfAbsent(name, new Holder<>());
+            holder = cachedInstances.get(name);
+        }
+        // create a singleton if no instance exists
+        Object instance = holder.get();
+        if (instance == null) {
+            synchronized (holder) {
+                instance = holder.get();
+                if (instance == null) {
+                    instance = createExtension(name,url);
+                    holder.set(instance);
+                }
+            }
+        }
+        return (T) instance;
+    }
+
     // 在此创建所需要的接口的实现类对象
     private T createExtension(String name) {
         // load all extension classes of type T from file and get specific one by name
@@ -89,6 +113,25 @@ public final class ExtensionLoader<T> {
         if (instance == null) {
             try {
                 EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.newInstance());
+                instance = (T) EXTENSION_INSTANCES.get(clazz);
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+        }
+        return instance;
+    }
+
+    private T createExtension(String name, github.rpc.common.URL url) {
+        // load all extension classes of type T from file and get specific one by name
+        Class<?> clazz = getExtensionClasses().get(name);
+        if (clazz == null) {
+            throw new RuntimeException("No such extension of name " + name);
+        }
+        T instance = (T) EXTENSION_INSTANCES.get(clazz);
+        if (instance == null) {
+            try {
+                Constructor constructor = clazz.getDeclaredConstructor(github.rpc.common.URL.class);
+                EXTENSION_INSTANCES.putIfAbsent(clazz, constructor.newInstance(url));
                 instance = (T) EXTENSION_INSTANCES.get(clazz);
             } catch (Exception e) {
                 log.error(e.getMessage());

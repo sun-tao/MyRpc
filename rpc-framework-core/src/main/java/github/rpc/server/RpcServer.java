@@ -7,5 +7,4 @@ import github.rpc.provider.ServiceProvider;
 public interface RpcServer {
     void start(int port);
     void stop();
-    void setServiceProvider(ServiceProvider serviceProvider);
 }

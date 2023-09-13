@@ -35,6 +35,7 @@ public class ZkServiceRegister implements ServiceRegister {
         this.client.start();
         log.info("zookeeper连接成功！");
     }
+
     public void quit(){
         CloseableUtils.closeQuietly(client);
     }
@@ -47,7 +48,7 @@ public class ZkServiceRegister implements ServiceRegister {
                 // 永久注册该服务名,因为可能有其他的rpc服务器也在zookeeper上注册了该服务名，因此服务名不能下线
                 client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath("/" + serviceName + "/provider");
             }
-            // 临时性注册 本rpc服务器的IP+host?weight=xxx if have weight
+            // 临时性注册
             String path;
             if (parameters.isEmpty()){
                 path = "/" + serviceName + "/provider" + "/" + getServiceAddress(host,port);
@@ -55,9 +56,21 @@ public class ZkServiceRegister implements ServiceRegister {
                 String weight = parameters.get("weight");
                 path = "/" + serviceName + "/provider" + "/" + getServiceAddress(host,port) + "?weight=" + weight;
             }
+            Runtime.getRuntime().addShutdownHook(new Thread(()->{
+                shutdown(path);
+            }));
             client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(path);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void shutdown(String path){
+        try {
+            client.delete().deletingChildrenIfNeeded().forPath(path);
+        } catch (Exception e) {
+            log.error("ZkServiceRegister shutdownErr");
+            throw new RuntimeException(e);
         }
     }
 

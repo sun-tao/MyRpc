@@ -1,6 +1,7 @@
 package github.rpc.server;
 
 
+import github.rpc.Invoker;
 import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
 import io.netty.channel.ChannelHandlerContext;
@@ -11,14 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
-    private Map<String,Object> serviceProvider;
-    NettyRpcServerHandler(Map<String,Object> serviceProvider){
-        this.serviceProvider = serviceProvider;
+    private Map<String, Invoker> exportedMap;
+    NettyRpcServerHandler(Map<String,Invoker> exportedMap){
+        this.exportedMap = exportedMap;
     }
     // 服务端的处理逻辑，此处收到的是解码好了的RpcRequest对象
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -47,7 +46,7 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
 
     private RpcResponse getResponse(RpcRequest rpcRequest,boolean heartBeat){
         if (heartBeat == true){
-            RpcResponse pong = RpcResponse.success("PONG", rpcRequest.getRequestId());
+            RpcResponse pong = RpcResponse.wrapperResult("PONG", rpcRequest.getRequestId());
             pong.setMessageType(1);
             return pong;
         }
@@ -56,10 +55,9 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler {
     // 解析rpc请求的
     private RpcResponse getResponse(RpcRequest rpcRequest) throws Exception {
         String interfaceName = rpcRequest.getInterfaceName();
-        Object service = serviceProvider.get(interfaceName);
-        Method method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamsType());
-        Object invoke = method.invoke(service, rpcRequest.getParams());
-        RpcResponse response = RpcResponse.success(invoke,rpcRequest.getRequestId());
+        Invoker invoker = exportedMap.get(interfaceName);
+        Object result = invoker.doInvoke(rpcRequest);
+        RpcResponse response = RpcResponse.wrapperResult(result,rpcRequest.getRequestId());
         return response;
     }
 

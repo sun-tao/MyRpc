@@ -90,7 +90,11 @@ public class RpcRequest implements Serializable {
         this.paramsType = paramsType;
     }
 
+    public String getRpcServiceAndMethodName(){
+        return interfaceName + ":" + methodName;
+    }
+
     public String getRpcServiceName(){
-        return interfaceName + methodName;
+        return interfaceName;
     }
 }

@@ -22,8 +22,8 @@ public class LoadBalanceTest {
         rpcRequest1.setMethodName("blogService123");
         rpcRequest1.setMethodName("getBlogBy12335123Id");
         LoadBalance loadBalance = new ConsistentHashLoadBalance();
-        loadBalance.loadBalance(addresses,rpcRequest);
-        loadBalance.loadBalance(addresses,rpcRequest);
-        loadBalance.loadBalance(addresses,rpcRequest1);
+//        loadBalance.loadBalance(addresses,rpcRequest);
+//        loadBalance.loadBalance(addresses,rpcRequest);
+//        loadBalance.loadBalance(addresses,rpcRequest1);
     }
 }

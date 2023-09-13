@@ -1,16 +1,16 @@
 package github.rpc.loadbalance.loadbalancer;
 
+import github.rpc.Invoker;
 import github.rpc.common.RpcRequest;
+import github.rpc.common.URL;
 import github.rpc.loadbalance.LoadBalance;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Slf4j
 public class ConsistentHashLoadBalance implements LoadBalance {
@@ -19,8 +19,10 @@ public class ConsistentHashLoadBalance implements LoadBalance {
     // 除非address有变化，才会变动哈希环
     private final HashMap<Integer,ConsistentHashSelector> map = new HashMap<>(); // 不考虑线程同步问题
     @Override
-    public String loadBalance(List<String> addresses, RpcRequest rpcRequest) {
-        int identityHashCode = System.identityHashCode(addresses);
+    public String loadBalance(List<Invoker> invokers,RpcRequest rpcRequest) {
+        List<String> addresses = new ArrayList<>();
+        addresses =  convertInvokersToAddresses(invokers);
+        int identityHashCode = System.identityHashCode(invokers);
         // 尝试从缓存中获取
         ConsistentHashSelector consistentHashSelector = map.get(identityHashCode);
         if (consistentHashSelector == null){
@@ -31,7 +33,7 @@ public class ConsistentHashLoadBalance implements LoadBalance {
             consistentHashSelector = map.get(identityHashCode);
         }
         // 希望请求同相同服务，相同方法的Rpc请求尽可能分给同一个结点
-        String selected = consistentHashSelector.select(rpcRequest.getRpcServiceName());
+        String selected = consistentHashSelector.select(rpcRequest.getRpcServiceAndMethodName());
         log.info("负载均衡算法选择了{}服务器" , selected);
         return selected;
     }
@@ -85,5 +87,15 @@ public class ConsistentHashLoadBalance implements LoadBalance {
         static long hash(byte[] digest, int idx) {
             return ((long) (digest[3 + idx * 4] & 255) << 24 | (long) (digest[2 + idx * 4] & 255) << 16 | (long) (digest[1 + idx * 4] & 255) << 8 | (long) (digest[idx * 4] & 255)) & 4294967295L;
         }
+    }
+
+    private List<String> convertInvokersToAddresses(List<Invoker> invokers){
+        List<String> address = new ArrayList<>();
+        for (int i = 0 ; i < invokers.size() ; i++){
+            URL url = invokers.get(i).getURL();
+            String instance = url.parseInstance();
+            address.add(instance);
+        }
+        return address;
     }
 }

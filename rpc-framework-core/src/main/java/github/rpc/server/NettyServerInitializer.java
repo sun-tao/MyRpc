@@ -1,6 +1,7 @@
 package github.rpc.server;
 
 
+import github.rpc.Invoker;
 import github.rpc.serializer.Decode;
 import github.rpc.serializer.Encode;
 import github.rpc.serializer.HessianSerializer;
@@ -14,10 +15,10 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
-    private Map<String,Object> serviceProvider;
+    private Map<String, Invoker> exportedMap;
 
-    NettyServerInitializer(Map<String,Object> serviceProvider){
-        this.serviceProvider = serviceProvider;
+    NettyServerInitializer(Map<String,Invoker> exportedMap){
+        this.exportedMap = exportedMap;
     }
 
     protected void initChannel(SocketChannel socketChannel) throws Exception {
@@ -28,7 +29,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
         // 在此选择序列化方式，现在可以选择的方式有：1.java原生序列化方式 2.
         pipeline.addLast(new Encode(new HessianSerializer()));  // out2
         // 服务端handler处理 : 读取request + 返回response
-        pipeline.addLast(new NettyRpcServerHandler(serviceProvider)); // in2 out1
+        pipeline.addLast(new NettyRpcServerHandler(exportedMap)); // in2 out1
 
     }
 }
