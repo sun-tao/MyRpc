@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.net.InetSocketAddress;
+
 @Data
 @Setter
 @Getter
@@ -19,6 +21,10 @@ public class URL {
     private String registryIp = "localhost";
     private String registryPort = "2181";
     private String registryType = "zookeeper";
+    private String codec_name = "myrpc";
+    private String consumer_async = "false";  //默认客户端同步调用
+    private String provider_async = "fasle"; // 默认服务端同步调用
+    private String serializer_type = "1"; //0-java 1-hession
     public String parseUrl(){ // 服务端使用该接口
         return protocol + "|" + "{" + ip + ":" + port  + "}" + "?" + serviceName;
     }
@@ -29,6 +35,10 @@ public class URL {
 
     public String parseRegistryInstance(){
         return registryIp + ":" +registryPort;
+    }
+
+    public InetSocketAddress toInetSocketAddress(){
+        return new InetSocketAddress(ip,Integer.parseInt(port));
     }
 
     public static URL parseString2Url(String s){

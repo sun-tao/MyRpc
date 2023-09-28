@@ -15,11 +15,11 @@ public class RpcResponse implements Serializable {
     // 版本号机制
     private static final long serialVersionUID = -3911255650485738676L;
     // 规定了response的数据格式
-    private int code;
-    private String message;
+    private int code; // discard
+    private String message; // discard
     private Object data;
     private int requestId;
-    private int messageType;
+    private int messageType; //todo:写心跳机制的时候再使用
 
     public int getMessageType() {
         return messageType;

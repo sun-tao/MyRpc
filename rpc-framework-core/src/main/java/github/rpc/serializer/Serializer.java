@@ -11,8 +11,8 @@ public interface Serializer {
     // 获取当前序列化器的类型
     int getSerializerType();
 
-    static Serializer getSerializerByType(int serializerType){
-        switch (serializerType){
+    static Serializer getSerializerByType(int serializer_ype){
+        switch (serializer_ype){
             case 0:
                 return new ObjectSerializer();
             case 1:

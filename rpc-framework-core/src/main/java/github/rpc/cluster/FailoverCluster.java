@@ -17,8 +17,9 @@ import java.util.concurrent.*;
 public class FailoverCluster implements Cluster {
     // 提供方url-远程的实现类
 //    public ConcurrentHashMap<URL, Invoker> invokers = new ConcurrentHashMap<>();
-    public ConcurrentHashMap<String,List<Invoker>> invokers = new ConcurrentHashMap<>();
-//    private List<Invoker> convertInvokersMap2List(){
+    public ConcurrentHashMap<String, List<Invoker>> invokers = new ConcurrentHashMap<>();
+
+    //    private List<Invoker> convertInvokersMap2List(){
 //        List<Invoker> result = new ArrayList<>();
 //        for (Map.Entry<URL,Invoker> entry : invokers.entrySet()){
 //            result.add(entry.getValue());
@@ -35,23 +36,36 @@ public class FailoverCluster implements Cluster {
             // 运用负载均衡
             String serviceName = rpcRequest.getRpcServiceName();
             List<Invoker> invokerList = invokers.get(serviceName);
-            if (invokerList == null){
-                log.error("FailoverCluster.doInvoke Err:No invokers for service:{}",serviceName);
+            if (invokerList == null) {
+                log.error("FailoverCluster.doInvoke Err:No invokers for service:{}", serviceName);
                 return null;
             }
-            String instance = loadBalance.loadBalance(invokerList,rpcRequest);
+            String instance = loadBalance.loadBalance(invokerList, rpcRequest);
             // 选中一个节点
-            if (instance == null){
+            if (instance == null) {
                 log.error("FailoverClusterInvoker:loadbalance error");
                 continue;
             }
             // todo：剔除已经选中过的节点
-            Invoker invoker = findInvokerByInstance(serviceName,instance);
-            RpcResponse rpcResponse = invoker.doInvoke(rpcRequest, invoker.getURL());
+            Invoker invoker = findInvokerByInstance(serviceName, instance);
+            CompletableFuture<Object> future = invoker.doInvoke(rpcRequest, invoker.getURL());
+            RpcResponse rpcResponse = null;
+            if (url.getConsumer_async().equals("false")) {
+                // 同步调用
+                try {
+                    Object object = future.get();  //同步阻塞在此
+                    rpcResponse = (RpcResponse) object;
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             return rpcResponse;
         }
         return null;
     }
+
     @Override
     public RpcResponse invoke(RpcRequest rpcRequest, URL url) {
         return doInvoke(rpcRequest, url);
@@ -62,23 +76,25 @@ public class FailoverCluster implements Cluster {
         String serviceName = url.getServiceName();
         Protocol protocol = ExtensionLoader.getExtensionLoader(Protocol.class).getExtension(pro);
         Invoker invoker = protocol.refer(url);
-        List<Invoker> localUrls = invokers.computeIfAbsent(serviceName,k->{
+        List<Invoker> localUrls = invokers.computeIfAbsent(serviceName, k -> {
             return new ArrayList<Invoker>();
         });
         localUrls.add(invoker);
     }
+
     @Override
-    public void refer(List<URL> urls){
-        for (int i = 0 ; i < urls.size() ; i++){
+    public void refer(List<URL> urls) {
+        for (int i = 0; i < urls.size(); i++) {
             doRefer(urls.get(i));
         }
     }
+
     // 根据负载均衡选中的实例信息获取对应的Invoker,第一个参数用于缩小搜索范围为当前服务
-    private Invoker findInvokerByInstance(String serviceName,String instance){
+    private Invoker findInvokerByInstance(String serviceName, String instance) {
         List<Invoker> invokerList = invokers.get(serviceName);
-        for (int i = 0 ; i < invokerList.size() ; i++){
+        for (int i = 0; i < invokerList.size(); i++) {
             URL url = invokerList.get(i).getURL();
-            if (url.parseInstance().equals(instance)){
+            if (url.parseInstance().equals(instance)) {
                 return invokerList.get(i);
             }
         }

@@ -78,6 +78,19 @@ public final class ExtensionLoader<T> {
         return (T) instance;
     }
 
+    public T getExtension(String name, github.rpc.common.URL url,boolean single_mode){
+        Object instance = null;
+        if (single_mode){ //单例
+            instance = getExtension(name,url);
+        }else{ //非单例
+            if (name == null || "".equals(name)) {
+                throw new IllegalArgumentException("Extension name should not be null or empty.");
+            }
+            instance = createExtension(name,url,false);
+        }
+        return (T) instance;
+    }
+
     public T getExtension(String name, github.rpc.common.URL url) {
         if (name == null || "".equals(name)) {
             throw new IllegalArgumentException("Extension name should not be null or empty.");
@@ -136,6 +149,26 @@ public final class ExtensionLoader<T> {
             } catch (Exception e) {
                 log.error(e.getMessage());
             }
+        }
+        return instance;
+    }
+
+    private T createExtension(String name, github.rpc.common.URL url,boolean single_mode) {
+        if (single_mode){ //单例模式
+            T extension = createExtension(name, url);
+            return extension;
+        }
+        // load all extension classes of type T from file and get specific one by name
+        Class<?> clazz = getExtensionClasses().get(name);
+        if (clazz == null) {
+            throw new RuntimeException("No such extension of name " + name);
+        }
+        T instance = null;
+        try {
+            Constructor constructor = clazz.getDeclaredConstructor(github.rpc.common.URL.class);
+            instance = (T) constructor.newInstance(url);
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
         return instance;
     }

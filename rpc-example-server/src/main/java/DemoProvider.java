@@ -4,8 +4,8 @@ import github.rpc.common.URL;
 import github.rpc.config.CustomShutdownHook;
 import github.rpc.config.SpringConfig;
 import github.rpc.extension.ExtensionLoader;
-import github.rpc.server.RpcServer;
-import github.rpc.server.RpcServerProxy;
+
+import github.rpc.remoting.server.RpcServerProxy;
 import github.rpc.serviceImpl.BlogServiceImpl;
 import github.rpc.serviceImpl.UserserviceImpl;
 import org.springframework.context.ApplicationContext;

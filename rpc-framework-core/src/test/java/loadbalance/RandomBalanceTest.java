@@ -1,7 +1,6 @@
 package loadbalance;
 
 import github.rpc.loadbalance.LoadBalance;
-import github.rpc.loadbalance.loadbalancer.RandomLoadBalance;
 
 import java.util.ArrayList;
 import java.util.List;
