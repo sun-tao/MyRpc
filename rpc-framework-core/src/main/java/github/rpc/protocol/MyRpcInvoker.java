@@ -28,12 +28,12 @@ public class MyRpcInvoker implements Invoker {
     @Override
     public CompletableFuture<Object> doInvoke(RpcRequest rpcRequest,URL url) {// consumer side
         CompletableFuture<Object> future;
-        future = client.request(rpcRequest);
+        future = client.request(rpcRequest,url);
         return future;
     }
 
     @Override
-    public Object doInvoke(RpcRequest rpcRequest) { // provider side
+    public CompletableFuture<Object> doInvoke(RpcRequest rpcRequest) { // provider side
         return null;
     }
 

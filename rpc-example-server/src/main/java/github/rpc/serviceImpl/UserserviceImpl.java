@@ -7,6 +7,7 @@ import github.rpc.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RpcService(group = "g1",version = "v1")
 public class UserserviceImpl implements Userservice {
@@ -31,5 +32,9 @@ public class UserserviceImpl implements Userservice {
 
     public List<User> getAllUser() {
         return null;
+    }
+    @Override
+    public CompletableFuture<String> sayHelloAsync(String name) {
+        return CompletableFuture.completedFuture("hello" + name);
     }
 }

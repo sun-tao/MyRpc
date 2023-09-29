@@ -4,6 +4,8 @@ a rpc framework based on java
 ## 架构
 
 ![图片](./总体架构.jpg)
+![myrpc框架连接层重构.jpg](..%2F..%2FDocuments%2Fmyrpc%E6%A1%86%E6%9E%B6%E8%BF%9E%E6%8E%A5%E5%B1%82%E9%87%8D%E6%9E%84.jpg)
+![MyRpc框架重构.jpg](..%2F..%2FDocuments%2FMyRpc%E6%A1%86%E6%9E%B6%E9%87%8D%E6%9E%84.jpg)
 
 ## 特性
 

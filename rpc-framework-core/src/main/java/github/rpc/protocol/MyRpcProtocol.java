@@ -34,8 +34,7 @@ public class MyRpcProtocol implements Protocol{
         }
 
         @Override
-        // todo : 异步化改造
-        public Object reply(Channel channel, Object message) {
+        public CompletableFuture<Object> reply(Channel channel, Object message) {
             // 在此做方法的本地调用
             RpcRequest request = (RpcRequest) message;
             String service_name = ((RpcRequest) request).getInterfaceName();
@@ -47,8 +46,8 @@ public class MyRpcProtocol implements Protocol{
                 return future;
             }
             Invoker invoker = exporter.getInvoker();
-            Object o = invoker.doInvoke(request);
-            return o;
+            CompletableFuture<Object> future = invoker.doInvoke(request);
+            return future;
         }
     }
 

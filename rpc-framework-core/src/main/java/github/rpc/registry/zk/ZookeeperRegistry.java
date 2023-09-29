@@ -15,6 +15,7 @@ import org.apache.zookeeper.CreateMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class ZookeeperRegistry extends AbstractRegistry {
@@ -69,11 +70,11 @@ public class ZookeeperRegistry extends AbstractRegistry {
     }
 
     @Override
-    public RpcResponse invoke(RpcRequest rpcRequest, URL url) {
-        RpcResponse rpcResponse = cluster.invoke(rpcRequest,url);
-        return rpcResponse;
+    public CompletableFuture<Object> invoke(RpcRequest rpcRequest, URL url) {
+        CompletableFuture<Object> future = cluster.invoke(rpcRequest,url);
+        return future;
     }
-
+    // fixme:临时性过渡写法，后续服务暴露的时候将全量url写入zk就不需要这个了
     private URL mergeUrl(URL consumerUrl,URL providerUrl){
         URL finUrl = new URL();
         finUrl.setProtocol(consumerUrl.getProtocol());
@@ -83,6 +84,7 @@ public class ZookeeperRegistry extends AbstractRegistry {
         finUrl.setApplicationName(consumerUrl.getApplicationName());
         finUrl.setLoadBalacne(consumerUrl.getLoadBalacne());
         finUrl.setClusterType(consumerUrl.getClusterType());
+        finUrl.setConsumer_async(consumerUrl.getConsumer_async());
         return finUrl;
     }
 }

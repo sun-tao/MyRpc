@@ -6,6 +6,7 @@ import github.rpc.extension.ExtensionLoader;
 import github.rpc.loadbalance.LoadBalance;
 import github.rpc.protocol.MyRpcProtocol;
 import github.rpc.protocol.Protocol;
+import github.rpc.remoting.exchange.DefaultFuture;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -15,18 +16,9 @@ import java.util.concurrent.*;
 
 @Slf4j
 public class FailoverCluster implements Cluster {
-    // 提供方url-远程的实现类
-//    public ConcurrentHashMap<URL, Invoker> invokers = new ConcurrentHashMap<>();
     public ConcurrentHashMap<String, List<Invoker>> invokers = new ConcurrentHashMap<>();
 
-    //    private List<Invoker> convertInvokersMap2List(){
-//        List<Invoker> result = new ArrayList<>();
-//        for (Map.Entry<URL,Invoker> entry : invokers.entrySet()){
-//            result.add(entry.getValue());
-//        }
-//        return result;
-//    }
-    private RpcResponse doInvoke(RpcRequest rpcRequest, URL url) { // 这里的url为消费端url
+    private CompletableFuture<Object> doInvoke(RpcRequest rpcRequest, URL url) { // 这里的url为消费端url
         // 负载均衡算法选择并调用
         int retryTimes = Integer.parseInt(url.getRetryTimes());
         String loadBalanceType = url.getLoadBalacne();
@@ -49,27 +41,33 @@ public class FailoverCluster implements Cluster {
             // todo：剔除已经选中过的节点
             Invoker invoker = findInvokerByInstance(serviceName, instance);
             CompletableFuture<Object> future = invoker.doInvoke(rpcRequest, invoker.getURL());
-            RpcResponse rpcResponse = null;
-            if (url.getConsumer_async().equals("false")) {
-                // 同步调用
-                try {
-                    Object object = future.get();  //同步阻塞在此
-                    rpcResponse = (RpcResponse) object;
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                } catch (ExecutionException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            return rpcResponse;
+            return future;
         }
         return null;
     }
 
+
     @Override
-    public RpcResponse invoke(RpcRequest rpcRequest, URL url) {
-        return doInvoke(rpcRequest, url);
+    public CompletableFuture<Object> invoke(RpcRequest rpcRequest, URL url) {
+        CompletableFuture<Object> future = doInvoke(rpcRequest, url);
+        waitFutureIfSync(future,url);
+        return future;
     }
+    private void waitFutureIfSync(CompletableFuture<Object> future,URL url){
+        if (url.getConsumer_async().equals("true")){
+            return;
+        }else if (url.getConsumer_async().equals("false")){
+            try {
+                // wait
+                future.get();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
     private void doRefer(URL url) {  // 调用protocol层的refer并将refer得到的远端服务实现类加入内存
         String pro = url.getProtocol();  // 默认是自带的myrpc协议

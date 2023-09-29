@@ -28,8 +28,7 @@ public class ProxyInvoker implements Invoker {
         return null;
     }
 
-    @Override
-    public Object doInvoke(RpcRequest rpcRequest) {
+    private Object doInvokeInternal(RpcRequest rpcRequest) {
         try {
             Method method =  targetService.getClass().getMethod(rpcRequest.getMethodName(),rpcRequest.getParamsType());
             return method.invoke(targetService,rpcRequest.getParams());
@@ -39,6 +38,20 @@ public class ProxyInvoker implements Invoker {
             throw new RuntimeException(e);
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public CompletableFuture<Object> doInvoke(RpcRequest rpcRequest){
+        Object o = doInvokeInternal(rpcRequest);
+        CompletableFuture<Object> future = wrapCompletableFuture(o);
+        return future;
+    }
+
+    private CompletableFuture<Object> wrapCompletableFuture(Object o){
+        if (o instanceof CompletableFuture){ // 业务调用本身就是异步调用，不需要处理
+            return (CompletableFuture<Object>) o;
+        }else { // 业务调用是同步调用,包装CompletableFuture供后续链路处理
+            return CompletableFuture.completedFuture(o);
         }
     }
 

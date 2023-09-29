@@ -51,6 +51,7 @@ public class NettyClient extends AbstractClient {
         URL url = getUrl();
         ChannelFuture connect = bootstrap.connect(url.toInetSocketAddress());
         channel = connect.channel();
+        log.warn("connected channel {}",channel);
     }
 
     @Override

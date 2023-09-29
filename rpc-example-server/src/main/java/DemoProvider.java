@@ -22,6 +22,7 @@ public class DemoProvider {
         URL url2 = new URL();
         url2.setIp("127.0.0.1");
         url2.setPort("20880");
+//        url2.setConsumer_async("true");
         String serviceName1 = BlogService.class.getName();
         url1.setServiceName(serviceName1);
         String serviceName2 = Userservice.class.getName();

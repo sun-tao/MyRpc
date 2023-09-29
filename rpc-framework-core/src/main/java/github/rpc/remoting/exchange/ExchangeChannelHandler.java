@@ -6,5 +6,5 @@ import github.rpc.remoting.ChannelHandler;
 import java.util.concurrent.CompletableFuture;
 
 public interface ExchangeChannelHandler extends ChannelHandler {
-    Object reply(Channel channel, Object request);
+    CompletableFuture<Object> reply(Channel channel, Object request);
 }

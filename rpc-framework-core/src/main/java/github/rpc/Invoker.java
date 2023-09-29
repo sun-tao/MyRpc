@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 public interface Invoker {
     CompletableFuture<Object> doInvoke(RpcRequest rpcRequest,URL url); // consumer side
 
-    Object doInvoke(RpcRequest rpcRequest); // provider side
+    CompletableFuture<Object> doInvoke(RpcRequest rpcRequest); // provider side
 
     URL getURL();
 }

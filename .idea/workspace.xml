@@ -5,88 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d14b283-6f4b-40cb-9321-6706858cc606" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/AbstractEndpoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/AbstractPeer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/Channel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/ChannelHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/Codec.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/EndPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/HandlerDelegate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/MyRpcCodec.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/NettyChannel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/NettyCodecAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/NettyClientHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/DefaultFuture.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/ExchangeChannelHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/HeaderExchangeClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/HeaderExchangeHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/NettyServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/transport/DecodeHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/resources/META-INF/extensions/github.rpc.remoting.Codec" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-core/src/test/java/CompletableFutureTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-example-client/src/main/java/DemoConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/src/main/java/DemoConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-client/target/classes/DemoConsumer.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/target/classes/DemoConsumer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-client/target/classes/github/rpc/BlogController.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/target/classes/github/rpc/BlogController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-client/target/classes/github/rpc/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-client/target/classes/github/rpc/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-example-server/src/main/java/DemoProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/src/main/java/DemoProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-server/target/classes/DemoProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/target/classes/DemoProvider.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-server/target/classes/github/rpc/serviceImpl/BlogServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/target/classes/github/rpc/serviceImpl/BlogServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-example-server/target/classes/github/rpc/serviceImpl/UserserviceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/target/classes/github/rpc/serviceImpl/UserserviceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-api/target/classes/github/rpc/Blog.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-api/target/classes/github/rpc/Blog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-api/target/classes/github/rpc/BlogService.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-api/target/classes/github/rpc/BlogService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-api/target/classes/github/rpc/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-api/target/classes/github/rpc/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-api/target/classes/github/rpc/Userservice.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-api/target/classes/github/rpc/Userservice.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/rpc-framework-core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/rpc-framework-core.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-example-server/src/main/java/github/rpc/serviceImpl/UserserviceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-example-server/src/main/java/github/rpc/serviceImpl/UserserviceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-api/src/main/java/github/rpc/Userservice.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-api/src/main/java/github/rpc/Userservice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/Invoker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyClientInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/NettyClientInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/NettyClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/NettyRpcClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/RpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/AbstractClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/RpcClientProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/client/SimpleRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/SimpleRpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/cluster/Cluster.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/cluster/Cluster.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/cluster/FailoverCluster.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/cluster/FailoverCluster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/RpcResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/RpcResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/URL.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/common/URL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/extension/ExtensionLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/extension/ExtensionLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/protocol/MyRpcInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/protocol/MyRpcInvoker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/protocol/MyRpcProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/protocol/MyRpcProtocol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceDiscovery.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZkServiceDiscovery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/serializer/Decode.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/MyRpcDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/serializer/Encode.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/MyRpcEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/serializer/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/serializer/Serializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyRpcServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/NettyServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/NettyServerInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/NettyServerInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/ProxyInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/ProxyInvoker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/RpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/AbstractServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/server/RpcServerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/RpcServerProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/test/java/loadbalance/RandomBalanceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/test/java/loadbalance/RandomBalanceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/Invoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/Invoker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyClientInitializer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/NettyRpcClientHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/RpcClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/RpcClientProxy$ClientInvocationHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/client/RpcClientProxy.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/cluster/FailoverCluster.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/cluster/FailoverCluster.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/common/URL.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/common/URL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/extension/ExtensionLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/extension/ExtensionLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/protocol/MyRpcInvoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/protocol/MyRpcInvoker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/protocol/MyRpcProtocol.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/protocol/MyRpcProtocol.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/serializer/Decode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/serializer/Encode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/serializer/Serializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/serializer/Serializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/NettyRpcServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/NettyRpcServerHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/NettyServerInitializer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/ProxyInvoker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/RpcServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/classes/github/rpc/server/RpcServerProxy.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/test-classes/loadbalance/LoadBalanceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/test-classes/loadbalance/LoadBalanceTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-core/target/test-classes/loadbalance/RandomBalanceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/target/test-classes/loadbalance/RandomBalanceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/Registry.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/Registry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZookeeperRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/registry/zk/ZookeeperRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/NettyChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/NettyChannel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/NettyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/NettyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/NettyClientInitializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/RpcClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/SimpleRpcClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/DefaultFuture.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/DefaultFuture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/ExchangeChannelHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/ExchangeChannelHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/HeaderExchangeClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/HeaderExchangeClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/HeaderExchangeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/exchange/HeaderExchangeHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/ProxyInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/ProxyInvoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/RpcServerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/server/RpcServerProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-core/src/test/java/CompletableFutureTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-core/src/test/java/CompletableFutureTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,24 +78,24 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;refactor/connection__layer__refactor&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/suntao/work/MyRpc/rpc-framework-core/src/main/java/github/rpc/remoting&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Colors&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;b7b263e4ffbadaf905b1a3713b5d5025&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "MyRpc/full__link__asynchronous",
+    "last_opened_file_path": "/Users/suntao/work/MyRpc/rpc-framework-core/src/main/java/github/rpc/remoting",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Console Colors",
+    "spring.configuration.checksum": "b7b263e4ffbadaf905b1a3713b5d5025",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting" />
@@ -331,7 +275,8 @@
       <workItem from="1695793815913" duration="15760000" />
       <workItem from="1695829124648" duration="8000" />
       <workItem from="1695875066578" duration="1630000" />
-      <workItem from="1695913849976" duration="1818000" />
+      <workItem from="1695913849976" duration="2686000" />
+      <workItem from="1695971133760" duration="13654000" />
     </task>
     <servers />
   </component>
@@ -358,9 +303,14 @@
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/rpc-example-client/src/main/java/DemoConsumer.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="22" />
+          <url>file://$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/client/NettyClientHandler.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/rpc-framework-core/src/main/java/github/rpc/remoting/MyRpcEncoder.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

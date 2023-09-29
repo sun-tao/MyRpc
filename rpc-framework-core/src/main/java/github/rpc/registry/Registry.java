@@ -9,11 +9,13 @@ import github.rpc.common.RpcResponse;
 import github.rpc.common.URL;
 import github.rpc.exporter.Exporter;
 
+import java.util.concurrent.CompletableFuture;
+
 @Spi
 public interface Registry {
     void register(URL url); // 服务端服务注册
     Exporter export(Invoker invoker); // 服务端
     void subscribe(URL url); // 消费端订阅远端服务
     Cluster refer(URL url); // 消费端
-    RpcResponse invoke(RpcRequest rpcRequest, URL url);
+    CompletableFuture<Object> invoke(RpcRequest rpcRequest, URL url);
 }

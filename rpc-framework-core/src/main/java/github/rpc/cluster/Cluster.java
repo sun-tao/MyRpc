@@ -6,10 +6,11 @@ import github.rpc.common.RpcResponse;
 import github.rpc.common.URL;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Spi
 public interface Cluster {
-    RpcResponse invoke(RpcRequest rpcRequest, URL url);
+    CompletableFuture<Object> invoke(RpcRequest rpcRequest, URL url);
 
     void refer(List<URL> urls);
 

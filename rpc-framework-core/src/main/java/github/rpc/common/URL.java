@@ -24,7 +24,7 @@ public class URL {
     private String codec_name = "myrpc";
     private String consumer_async = "false";  //默认客户端同步调用
     private String provider_async = "fasle"; // 默认服务端同步调用
-    private String serializer_type = "1"; //0-java 1-hession
+    private String serializer_type = "0"; //0-java 1-hession
     public String parseUrl(){ // 服务端使用该接口
         return protocol + "|" + "{" + ip + ":" + port  + "}" + "?" + serviceName;
     }

@@ -39,24 +39,16 @@ public class HeaderExchangeHandler implements HandlerDelegate {
 
     private void handleRequest(Channel channel,RpcRequest request){
         RpcResponse response = new RpcResponse();
-        Object f1 = handler.reply(channel, request); //异步化
-//        f1.whenComplete((result,exception)->{
-//            if (exception == null){
-//                try {
-//                    response.setRequestId(request.getRequestId());
-//                    response.setData(f1.get());
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                } catch (ExecutionException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }else{
-//                throw new RuntimeException(exception);
-//            }
-//        });
-        response.setRequestId(request.getRequestId());
-        response.setData(f1);
-        channel.send(response);  // 回复client
+        CompletableFuture<Object> future = handler.reply(channel, request); //异步化
+        future.whenComplete((result,exception)->{
+            if (exception == null){
+                response.setRequestId(request.getRequestId());
+                response.setData(result);
+                channel.send(response);  // 回复client
+            }else{
+                throw new RuntimeException(exception);
+            }
+        });
     }
 
     private void handleResponse(Channel channel,RpcResponse response){

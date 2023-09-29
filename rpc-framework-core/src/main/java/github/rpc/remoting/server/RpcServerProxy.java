@@ -16,7 +16,7 @@ public class RpcServerProxy {
     // todo：多协议、多服务暴露
     public Map<String,URL> serviceUrl = new HashMap<>();
     public Map<String,Object> serviceRef = new HashMap<>();
-    public List<Exporter> exporters = new ArrayList<>(); // todo:维护暴露的服务集合，为后续的多服务注册做准备
+    public List<Exporter> exporters = new ArrayList<>();
     public CountDownLatch latch = new CountDownLatch(1);
     public void setRef(String serviceName,Object ref){
         serviceRef.put(serviceName,ref);

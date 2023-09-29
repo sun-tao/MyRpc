@@ -6,6 +6,7 @@ import github.rpc.common.RpcResponse;
 import github.rpc.common.URL;
 import github.rpc.extension.ExtensionLoader;
 import github.rpc.registry.Registry;
+import github.rpc.remoting.exchange.DefaultFuture;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;
@@ -13,6 +14,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class RpcClientProxy {
@@ -27,14 +29,11 @@ public class RpcClientProxy {
             rpcRequest.setParamsType(method.getParameterTypes());
             rpcRequest.setParams(args);
             // 调用指定的rpcClient去发送该rpcRequest
-            RpcResponse rpcResponse = null;
             URL url = consumerUrls.get(rpcRequest.getInterfaceName());
-            rpcResponse = registry.invoke(rpcRequest,url);
-            if (rpcResponse == null){
-                return null;
-            }
-            Object data = rpcResponse.getData();
-            return data;
+            CompletableFuture<Object> future = registry.invoke(rpcRequest, url);
+            DefaultFuture defaultFuture = (DefaultFuture) future;
+            Object result = defaultFuture.recreate();
+            return result;
         }
     }
 
