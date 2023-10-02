@@ -13,7 +13,7 @@ public abstract class AbstractEndpoint extends AbstractPeer{
     }
 
     private Codec getCodec2(URL url){
-        String codec_name = url.getCodec_name();
+        String codec_name = url.getCodecName();
         // 此处根据myrpc协议，会得到myrpcCodec
         Codec codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(codec_name,url);
         return codec;

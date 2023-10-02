@@ -82,9 +82,9 @@ public class ZookeeperRegistry extends AbstractRegistry {
         finUrl.setPort(providerUrl.getPort());
         finUrl.setServiceName(consumerUrl.getServiceName());
         finUrl.setApplicationName(consumerUrl.getApplicationName());
-        finUrl.setLoadBalacne(consumerUrl.getLoadBalacne());
+        finUrl.setLoadbalacne(consumerUrl.getLoadbalacne());
         finUrl.setClusterType(consumerUrl.getClusterType());
-        finUrl.setConsumer_async(consumerUrl.getConsumer_async());
+        finUrl.setConsumerAsync(consumerUrl.getConsumerAsync());
         return finUrl;
     }
 }

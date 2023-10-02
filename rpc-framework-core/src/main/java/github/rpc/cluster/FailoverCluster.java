@@ -21,7 +21,7 @@ public class FailoverCluster implements Cluster {
     private CompletableFuture<Object> doInvoke(RpcRequest rpcRequest, URL url) { // 这里的url为消费端url
         // 负载均衡算法选择并调用
         int retryTimes = Integer.parseInt(url.getRetryTimes());
-        String loadBalanceType = url.getLoadBalacne();
+        String loadBalanceType = url.getLoadbalacne();
         LoadBalance loadBalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(loadBalanceType);
         for (int i = 0; i < retryTimes; i++) {
             // todo:运用路由策略,异常重试机制
@@ -54,9 +54,9 @@ public class FailoverCluster implements Cluster {
         return future;
     }
     private void waitFutureIfSync(CompletableFuture<Object> future,URL url){
-        if (url.getConsumer_async().equals("true")){
+        if (url.getConsumerAsync().equals("true")){
             return;
-        }else if (url.getConsumer_async().equals("false")){
+        }else if (url.getConsumerAsync().equals("false")){
             try {
                 // wait
                 future.get();

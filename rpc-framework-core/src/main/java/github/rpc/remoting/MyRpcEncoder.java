@@ -23,7 +23,7 @@ public class MyRpcEncoder extends MessageToByteEncoder implements MessageType, C
     private Serializer serializer;
 
     public MyRpcEncoder(URL url){
-        String serializerType = url.getSerializer_type();
+        String serializerType = url.getSerializerType();
         serializer = Serializer.getSerializerByType(Integer.parseInt(serializerType));
     }
 

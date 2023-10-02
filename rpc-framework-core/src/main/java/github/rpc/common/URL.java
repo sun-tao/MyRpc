@@ -16,15 +16,15 @@ public class URL {
     private String serviceName;
     private String applicationName;
     private String retryTimes = "3";
-    private String loadBalacne = "random";
+    private String loadbalacne = "random";
     private String clusterType = "FailoverCluster";
     private String registryIp = "localhost";
     private String registryPort = "2181";
     private String registryType = "zookeeper";
-    private String codec_name = "myrpc";
-    private String consumer_async = "false";  //默认客户端同步调用
-    private String provider_async = "fasle"; // 默认服务端同步调用
-    private String serializer_type = "0"; //0-java 1-hession
+    private String codecName = "myrpc";
+    private String consumerAsync = "false";  //默认客户端同步调用
+    private String providerAsync = "fasle"; // 默认服务端同步调用
+    private String serializerType = "0"; //0-java 1-hession
     public String parseUrl(){ // 服务端使用该接口
         return protocol + "|" + "{" + ip + ":" + port  + "}" + "?" + serviceName;
     }

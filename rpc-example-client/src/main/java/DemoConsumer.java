@@ -17,12 +17,12 @@ public class DemoConsumer {
         RpcClientProxy proxy = new RpcClientProxy();
         URL url1 = new URL();
         url1.setServiceName(BlogService.class.getName());
-        url1.setLoadBalacne("consistentHash");
+        url1.setLoadbalacne("consistentHash");
         proxy.setUrl(BlogService.class.getName(),url1);
         URL url2 = new URL();
         url2.setServiceName(Userservice.class.getName());
-        url2.setConsumer_async("true");
-        url2.setLoadBalacne("consistentHash");
+        url2.setConsumerAsync("true");
+        url2.setLoadbalacne("consistentHash");
         proxy.setUrl(Userservice.class.getName(),url2);
         proxy.refer();
 

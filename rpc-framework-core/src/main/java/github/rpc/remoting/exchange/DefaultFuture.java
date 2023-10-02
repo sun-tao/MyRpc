@@ -43,9 +43,9 @@ public class DefaultFuture extends CompletableFuture<Object> {
     }
 
     public Object recreate(){
-        if (url.getConsumer_async().equals("true")){
+        if (url.getConsumerAsync().equals("true")){
             return this;
-        }else if (url.getConsumer_async().equals("false")){
+        }else if (url.getConsumerAsync().equals("false")){
             return response.getData();
         }
         return this;
