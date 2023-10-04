@@ -40,6 +40,7 @@ public class FailoverCluster implements Cluster {
             }
             // todo：剔除已经选中过的节点
             Invoker invoker = findInvokerByInstance(serviceName, instance);
+            // todo: 同步调用链路可以在此根据抛出的异常情况来决定是否需要重试，异常又可以进一步分为服务端执行的时候的业务异常和超时异常等
             CompletableFuture<Object> future = invoker.doInvoke(rpcRequest, invoker.getURL());
             return future;
         }
@@ -50,24 +51,8 @@ public class FailoverCluster implements Cluster {
     @Override
     public CompletableFuture<Object> invoke(RpcRequest rpcRequest, URL url) {
         CompletableFuture<Object> future = doInvoke(rpcRequest, url);
-        waitFutureIfSync(future,url);
         return future;
     }
-    private void waitFutureIfSync(CompletableFuture<Object> future,URL url){
-        if (url.getConsumerAsync().equals("true")){
-            return;
-        }else if (url.getConsumerAsync().equals("false")){
-            try {
-                // wait
-                future.get();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
 
     private void doRefer(URL url) {  // 调用protocol层的refer并将refer得到的远端服务实现类加入内存
         String pro = url.getProtocol();  // 默认是自带的myrpc协议

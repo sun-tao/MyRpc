@@ -28,6 +28,10 @@ public class DecodeHandler implements HandlerDelegate {
 
     @Override
     public void sent(Channel channel, Object message) {
-
+        if (message instanceof RpcRequest){
+            handler.sent(channel,(RpcRequest) message);
+        }else  if (message instanceof RpcResponse){
+            handler.sent(channel,(RpcResponse) message);
+        }
     }
 }

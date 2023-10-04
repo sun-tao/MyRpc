@@ -23,17 +23,22 @@ public class DemoConsumer {
         url2.setServiceName(Userservice.class.getName());
         url2.setConsumerAsync("true");
         url2.setLoadbalacne("consistentHash");
+        url2.setTimeout("5000"); // 延时5s
         proxy.setUrl(Userservice.class.getName(),url2);
         proxy.refer();
 
         BlogService blogService = (BlogService) proxy.getProxy(BlogService.class);
         Userservice userservice = (Userservice) proxy.getProxy(Userservice.class);
-        System.out.println(blogService.getBlogByid(5));
-        CompletableFuture<String> myrpc = userservice.sayHelloAsync("myrpc");
-        myrpc.whenComplete((r,t)->{
-            System.out.println(r);
+
+        CompletableFuture<String> future = userservice.sayHelloAsync("myrpc");
+        future.whenComplete((result,e)->{
+            if (e != null){
+                System.out.println("业务抓到了异常" + e);
+                return;
+            }
+            System.out.println(result);
         });
-        System.out.println("---");
-        Thread.sleep(1000);
+
+        Thread.sleep(1000000);
     }
 }

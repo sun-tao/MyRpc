@@ -25,11 +25,12 @@ public class URL {
     private String consumerAsync = "false";  //默认客户端同步调用
     private String providerAsync = "fasle"; // 默认服务端同步调用
     private String serializerType = "0"; //0-java 1-hession
+    private String timeout = "0";  //默认客户端超时时间为0
     public String parseUrl(){ // 服务端使用该接口
         return protocol + "|" + "{" + ip + ":" + port  + "}" + "?" + serviceName;
     }
     // 解析服务实例 ： ip + port
-    public String parseInstance(){ //todo 服务实例 ip+port分割
+    public String parseInstance(){
         return ip + port;
     }
 

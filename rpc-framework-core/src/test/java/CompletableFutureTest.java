@@ -25,4 +25,39 @@ public class CompletableFutureTest {
         System.out.println(s1);
         System.out.println(s2);
     }
+
+    @Test
+    public void test02(){
+        CompletableFuture<String> future = new CompletableFuture<>();
+        future.completeExceptionally(new RuntimeException("test"));
+        try {
+            String s = future.get();
+            System.out.println(s);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }catch (RuntimeException e){
+            System.out.println("catch");
+        }
+
+    }
+
+    @Test
+    public void test03(){
+        try {
+            exceptionTest();
+        }catch (RuntimeException e ){
+            System.out.printf("catch");
+            System.out.println(e);
+        }
+    }
+
+    private void exceptionTest() throws RuntimeException{
+        try {
+            int a = 1 / 0;
+        }catch (Exception e){
+            throw new RuntimeException();
+        }
+    }
 }

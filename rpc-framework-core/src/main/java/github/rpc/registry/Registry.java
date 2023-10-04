@@ -17,5 +17,5 @@ public interface Registry {
     Exporter export(Invoker invoker); // 服务端
     void subscribe(URL url); // 消费端订阅远端服务
     Cluster refer(URL url); // 消费端
-    CompletableFuture<Object> invoke(RpcRequest rpcRequest, URL url);
+    CompletableFuture<Object> invoke (RpcRequest rpcRequest, URL url);
 }

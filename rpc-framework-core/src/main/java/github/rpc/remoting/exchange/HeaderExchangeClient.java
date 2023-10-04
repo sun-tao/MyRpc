@@ -12,14 +12,14 @@ public class HeaderExchangeClient {
         this.client = client;
     }
 
-    // todo:超时时间
-    public CompletableFuture<Object> request(Object request,int timeout){
-        return null;
-    }
-
     public CompletableFuture<Object> request(RpcRequest request, URL url){
         DefaultFuture future = new DefaultFuture(request,url);
-        client.send(request); //异步发送，提交给rpc框架线程池
+        int timeout = Integer.parseInt(url.getTimeout());
+        if (timeout == 0 || timeout < 0){
+            client.send(request); //异步发送，提交给rpc框架线程池
+        }else{
+            client.send(request,timeout); //异步发送，提交给rpc框架线程池
+        }
         return future;
     }
 }

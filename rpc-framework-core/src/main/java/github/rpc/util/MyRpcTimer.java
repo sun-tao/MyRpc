@@ -11,13 +11,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 @Slf4j
-public class MyRpcTimer {
+public class MyRpcTimer implements InternalTimer {
     private ExecutorService taskExecutor;
     private TimingWheel timingWheel;
     private Consumer<TimerTask> f = (timerTask) -> addCallback(timerTask);
     public MyRpcTimer(long startMs,int tickMs,int wheelSize){
         this.timingWheel = new TimingWheel(startMs,tickMs,wheelSize);
         // todo:优化线程池参数  核心线程数、命名规范等
+        this.taskExecutor = Executors.newFixedThreadPool(8);
+    }
+
+    public MyRpcTimer(){
+        this.timingWheel = new TimingWheel(System.currentTimeMillis(),100,20);
         this.taskExecutor = Executors.newFixedThreadPool(8);
     }
 

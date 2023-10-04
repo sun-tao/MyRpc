@@ -30,5 +30,6 @@ public abstract class AbstractClient extends AbstractEndpoint {
 
     public abstract void send(Object message);
 
+    public abstract void send(Object message,int timeout);
 
 }

@@ -18,6 +18,11 @@ public class UserserviceImpl implements Userservice {
 
 //        System.out.println("客户端查询了" + id + "用户");
         // 构造用户
+        try {
+            Thread.sleep(10*10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         User user = new User();
         user.setId(id);
         user.setSex(true); // 男
@@ -35,6 +40,11 @@ public class UserserviceImpl implements Userservice {
     }
     @Override
     public CompletableFuture<String> sayHelloAsync(String name) {
+        try {
+            Thread.sleep(10 * 10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return CompletableFuture.completedFuture("hello" + name);
     }
 }

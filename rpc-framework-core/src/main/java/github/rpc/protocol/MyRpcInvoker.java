@@ -12,10 +12,13 @@ import github.rpc.remoting.exchange.ExchangeChannelHandler;
 import github.rpc.remoting.exchange.HeaderExchangeClient;
 import github.rpc.remoting.exchange.HeaderExchangeHandler;
 import github.rpc.remoting.transport.DecodeHandler;
+import github.rpc.util.RpcException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
-
+import java.util.concurrent.ExecutionException;
+@Slf4j
 public class MyRpcInvoker implements Invoker {
     public HeaderExchangeClient client;
     public URL url;
@@ -29,7 +32,24 @@ public class MyRpcInvoker implements Invoker {
     public CompletableFuture<Object> doInvoke(RpcRequest rpcRequest,URL url) {// consumer side
         CompletableFuture<Object> future;
         future = client.request(rpcRequest,url);
+        waitFutureIfSync(future,url);
         return future;
+    }
+
+    private void waitFutureIfSync(CompletableFuture<Object> future,URL url){
+        if (url.getConsumerAsync().equals("true")){
+            return;
+        }else if (url.getConsumerAsync().equals("false")){
+            try {
+                // wait,考虑超时的情况，这边可能会抛出自定义的timeoutexception，要向上传递
+                // 向上传递最标准，但是代码改动太大，因此考虑直接将异常封装在defaultFuture中，这样也可以实现回传给业务
+                future.get();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e); //应对超时
+            }
+        }
     }
 
     @Override
