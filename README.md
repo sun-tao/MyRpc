@@ -2,27 +2,22 @@
 a rpc framework based on java
 
 ## 架构
-
-- 初始架构
 ![图片](./总体架构.jpg)
+<center style="font-size:14px;color:orange;text-decoration:underline">初始架构</center> 
 
 
-- 重构架构
 ![MyRpc框架重构架构图](./MyRpc框架重构.jpg)
+<center style="font-size:14px;color:orange;text-decoration:underline">重构架构</center> 
 
-
-- 连接层重构
   ![myrpc框架连接层重构.jpg](myrpc%E6%A1%86%E6%9E%B6%E8%BF%9E%E6%8E%A5%E5%B1%82%E9%87%8D%E6%9E%84.jpg)
+<center style="font-size:14px;color:orange;text-decoration:underline">连接层重构</center> 
 
-
-
-
-- 时间轮设计
   ![时间轮设计.jpg](%E6%97%B6%E9%97%B4%E8%BD%AE%E8%AE%BE%E8%AE%A1.jpg)
-  
-- 线程模型
-  
-  <img src="线程模型.jpg" alt="线程模型" style="zoom:67%;" />
+<center style="font-size:14px;color:orange;text-decoration:underline">时间轮设计</center> 
+
+<img src="线程模型.jpg" alt="线程模型" style="zoom:67%;" />
+
+<center style="font-size:14px;color:orange;text-decoration:underline">线程模型</center> 
 
 ## 特性
 
