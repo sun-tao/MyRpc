@@ -13,6 +13,7 @@ public class URL {
     private String protocol = "MyRpc";
     private String ip;
     private String port;
+    private String side;
     private String serviceName;
     private String applicationName;
     private String retryTimes = "3";

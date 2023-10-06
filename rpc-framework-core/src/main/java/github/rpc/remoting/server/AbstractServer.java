@@ -9,8 +9,6 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.Executor;
 
 public abstract class AbstractServer extends AbstractEndpoint {
-    // todo:服务端线程池的使用
-    private Executor executor;
     private InetSocketAddress bindAddress;
 
     public AbstractServer(URL url, ChannelHandler handler) {

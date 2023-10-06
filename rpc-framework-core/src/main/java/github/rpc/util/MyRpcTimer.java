@@ -12,13 +12,12 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 @Slf4j
 public class MyRpcTimer implements InternalTimer {
-    private ExecutorService taskExecutor;
+    private ExecutorService taskExecutor; //时间轮的任务处理线程池
     private TimingWheel timingWheel;
     private Consumer<TimerTask> f = (timerTask) -> addCallback(timerTask);
     public MyRpcTimer(long startMs,int tickMs,int wheelSize){
         this.timingWheel = new TimingWheel(startMs,tickMs,wheelSize);
-        // todo:优化线程池参数  核心线程数、命名规范等
-        this.taskExecutor = Executors.newFixedThreadPool(8);
+        this.taskExecutor = Executors.newFixedThreadPool(8,new NamedThreadFactory("timingWheel"));
     }
 
     public MyRpcTimer(){
@@ -52,6 +51,9 @@ public class MyRpcTimer implements InternalTimer {
     }
 
     public void remove(TimerTask timerTask){ // 对外暴露的接口，取消任务
+        if (timerTask == null){
+            return;
+        }
         timingWheel.remove(timerTask.getTimerEntry());
     }
 

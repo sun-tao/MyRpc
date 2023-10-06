@@ -13,16 +13,12 @@ import java.util.concurrent.CompletableFuture;
 public class UserserviceImpl implements Userservice {
 
     public User getUserById(Integer id) {
-        // 模拟根据id查找用户的过程
-        // 后续可以使用mybatis来实现这一过程
-
-//        System.out.println("客户端查询了" + id + "用户");
         // 构造用户
-        try {
-            Thread.sleep(10*10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(10*10000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         User user = new User();
         user.setId(id);
         user.setSex(true); // 男

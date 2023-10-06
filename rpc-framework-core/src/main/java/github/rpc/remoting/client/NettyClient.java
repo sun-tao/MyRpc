@@ -62,24 +62,12 @@ public class NettyClient extends AbstractClient {
 
     @Override
     public void send(Object message) { // 网络层面真正的发送
-        executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                channel.writeAndFlush(message);
-            }
-        });
-
+        channel.writeAndFlush(message);
     }
 
     @Override
     public void send(Object message, int timeout) {
-        executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                channel.writeAndFlush(message);
-            }
-        });
-
+        channel.writeAndFlush(message);
         TimerTask timerTask = new TimerTask(timeout) {
             @Override
             public void run() { // 到期之后从defaultfuture中删掉这个future，避免oom，同时完成future，让这个future抛异常，解除上层的阻塞

@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -40,7 +42,6 @@ public class CompletableFutureTest {
         }catch (RuntimeException e){
             System.out.println("catch");
         }
-
     }
 
     @Test
@@ -59,5 +60,18 @@ public class CompletableFutureTest {
         }catch (Exception e){
             throw new RuntimeException();
         }
+    }
+
+    @Test
+    public void test04(){
+        Map<String,String> map = new HashMap<>();
+        map.put("1","1");
+        map.computeIfAbsent("2",k->{
+            return "3";
+        });
+        map.forEach((k,v)->{
+            System.out.println(k);
+            System.out.println(v);
+        });
     }
 }

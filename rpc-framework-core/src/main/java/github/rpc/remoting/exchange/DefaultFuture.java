@@ -1,5 +1,6 @@
 package github.rpc.remoting.exchange;
 
+import github.rpc.annotation.Spi;
 import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
 import github.rpc.common.URL;
@@ -9,12 +10,14 @@ import github.rpc.util.InternalTimer;
 import github.rpc.util.MyRpcTimer;
 import github.rpc.util.RpcException;
 import github.rpc.util.TimerTask;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 // 一个类即包含holder管理职责
+@Slf4j
 public class DefaultFuture extends CompletableFuture<Object> {
     private URL url;
     private RpcRequest request;
@@ -34,6 +37,7 @@ public class DefaultFuture extends CompletableFuture<Object> {
     }
 
     public static void received(Object message) {
+        log.info("client receive message:{}",message);
         RpcResponse response;
         if (message instanceof RpcResponse) {
             response = (RpcResponse) message;

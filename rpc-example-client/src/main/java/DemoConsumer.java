@@ -18,27 +18,23 @@ public class DemoConsumer {
         URL url1 = new URL();
         url1.setServiceName(BlogService.class.getName());
         url1.setLoadbalacne("consistentHash");
+        url1.setSide("consumer");
         proxy.setUrl(BlogService.class.getName(),url1);
         URL url2 = new URL();
         url2.setServiceName(Userservice.class.getName());
-        url2.setConsumerAsync("true");
+        url2.setConsumerAsync("false");
         url2.setLoadbalacne("consistentHash");
-        url2.setTimeout("5000"); // 延时5s
+        url2.setTimeout("0"); // 延时5s
+        url2.setSide("consumer");
         proxy.setUrl(Userservice.class.getName(),url2);
         proxy.refer();
 
         BlogService blogService = (BlogService) proxy.getProxy(BlogService.class);
         Userservice userservice = (Userservice) proxy.getProxy(Userservice.class);
 
-        CompletableFuture<String> future = userservice.sayHelloAsync("myrpc");
-        future.whenComplete((result,e)->{
-            if (e != null){
-                System.out.println("业务抓到了异常" + e);
-                return;
-            }
-            System.out.println(result);
-        });
-
-        Thread.sleep(1000000);
+        Blog blogByid = blogService.getBlogByid(10);
+        System.out.println(blogByid);
+        User userById = userservice.getUserById(10);
+        System.out.println(userById);
     }
 }

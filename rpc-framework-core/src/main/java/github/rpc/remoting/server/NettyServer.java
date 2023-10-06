@@ -19,6 +19,7 @@ import java.util.Map;
 @Slf4j
 public class NettyServer extends AbstractServer {
     // todo : 多服务、多协议暴露
+    // 目前的单端口，多服务暴露，仅在协议层以上进行，exportedmap中添加对应服务的name-impl，对协议层以下抽象成仅打开对应端口，对多服务只执行一次
     private ServerBootstrap bootstrap;
     private Channel channel;
     private EventLoopGroup bossGroup;

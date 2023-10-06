@@ -19,9 +19,11 @@ public class DemoProvider {
         URL url1 = new URL();
         url1.setIp("127.0.0.1");
         url1.setPort("20880");
+        url1.setSide("provider");
         URL url2 = new URL();
         url2.setIp("127.0.0.1");
         url2.setPort("20880");
+        url2.setSide("provider");
 //        url2.setConsumer_async("true");
         String serviceName1 = BlogService.class.getName();
         url1.setServiceName(serviceName1);

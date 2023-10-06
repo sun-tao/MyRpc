@@ -11,6 +11,7 @@ import github.rpc.remoting.exchange.ExchangeChannelHandler;
 import github.rpc.remoting.exchange.HeaderExchangeHandler;
 import github.rpc.remoting.server.AbstractServer;
 import github.rpc.remoting.server.NettyServer;
+import github.rpc.remoting.transport.AllDispatcherHandler;
 import github.rpc.remoting.transport.DecodeHandler;
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,7 +62,7 @@ public class MyRpcProtocol implements Protocol{
         exportedMap.put(key,exporter);
         String instance = url.parseInstance(); // ip + port 连接层的链路和端口开放对各个服务只需要初始化一次即可
         if (serverMap.get(instance) == null){
-            AbstractServer server = createServer(url, new DecodeHandler(new HeaderExchangeHandler(handler)));
+            AbstractServer server = createServer(url, new AllDispatcherHandler(new DecodeHandler(new HeaderExchangeHandler(handler))));
             serverMap.put(instance,server);
         }
         return exporter;

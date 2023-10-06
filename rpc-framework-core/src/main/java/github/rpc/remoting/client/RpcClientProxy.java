@@ -6,6 +6,7 @@ import github.rpc.common.RpcResponse;
 import github.rpc.common.URL;
 import github.rpc.extension.ExtensionLoader;
 import github.rpc.registry.Registry;
+import github.rpc.remoting.ExecutorRepository;
 import github.rpc.remoting.exchange.DefaultFuture;
 import github.rpc.util.InternalTimer;
 import github.rpc.util.MyRpcTimer;
@@ -25,9 +26,9 @@ public class RpcClientProxy {
     public Registry registry; //todo:后续进行注册中心的扩展，目前只支持订阅单注册中心
     public Map<String,URL> consumerUrls = new HashMap<>(); // for 多服务引用扩展
     private int tickMs = 100; // 100ms的时间轮振动周期
-    private static ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private static ExecutorService executorService = ExecutorRepository.createIfAbsent("rpcTimer"); //定时推动时间轮的线程
     private static MyRpcTimer timer = (MyRpcTimer) ExtensionLoader.getExtensionLoader(InternalTimer.class).getExtension("timer");
-    // todo：myrpc线程池引入，参考dubbo线程模型
+
     class ClientInvocationHandler implements InvocationHandler {
         public Object invoke(Object proxy, Method method, Object[] args) throws RuntimeException {
             // 封装rpcrequest

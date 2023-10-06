@@ -16,12 +16,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public abstract class AbstractClient extends AbstractEndpoint {
-    protected ExecutorService executorService;  //客户端线程池
+//    protected ExecutorService executorService;  //myrpc客户端发送线程池
     public AbstractClient(URL url, ChannelHandler handler) {
         super(url, handler);
         doOpen();
         doConnect();
-        executorService = Executors.newFixedThreadPool(10); // todo：线程池参数调优
+       // executorService = Executors.newFixedThreadPool(10);
     }
 
     public abstract void doOpen();
