@@ -1,9 +1,8 @@
-package github.rpc.remoting;
+package github.rpc.remoting.codec;
 
 import github.rpc.serializer.CommunicationProtocol;
 import github.rpc.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class MyRpcDecoder extends ByteToMessageDecoder implements CommunicationProtocol {
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+    public void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         // 魔数校验
         int magicNumber = in.readInt();
         if (magicNumber != MAGIC_NUMBER) ctx.close();

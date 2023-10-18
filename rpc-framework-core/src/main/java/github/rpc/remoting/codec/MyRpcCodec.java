@@ -1,11 +1,12 @@
-package github.rpc.remoting;
+package github.rpc.remoting.codec;
 
 import github.rpc.common.URL;
-import io.netty.channel.ChannelHandler;
+import github.rpc.remoting.Codec;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
+import io.netty.handler.codec.http.HttpResponseEncoder;
 
-public class MyRpcCodec implements Codec{
+public class MyRpcCodec implements Codec {
     private URL url;
     private MyRpcEncoder encoder;
     private MyRpcDecoder decoder;

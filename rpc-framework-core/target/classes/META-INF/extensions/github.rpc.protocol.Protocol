@@ -1,1 +1,2 @@
-MyRpc=github.rpc.protocol.MyRpcProtocol
+myrpc=github.rpc.protocol.MyRpcProtocol
+http1=github.rpc.protocol.Http1Protocol

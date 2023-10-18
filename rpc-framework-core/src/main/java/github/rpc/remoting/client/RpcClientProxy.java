@@ -33,6 +33,7 @@ public class RpcClientProxy {
         public Object invoke(Object proxy, Method method, Object[] args) throws RuntimeException {
             // 封装rpcrequest
             RpcRequest rpcRequest = new RpcRequest();
+            // fixme:这样写就完全依赖rpcrequest，导致很难打通浏览器端，要想打通浏览器端，必须浏览器端的请求体直接是调用入参
             rpcRequest.setInterfaceName(method.getDeclaringClass().getName());
             rpcRequest.setMethodName(method.getName());
             rpcRequest.setParamsType(method.getParameterTypes());

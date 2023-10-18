@@ -22,7 +22,7 @@ public class ObjectSerializer implements Serializer {
         return bytes;
     }
 
-    public Object deserialize(byte[] bytes,int messageType) {
+    public Object deserialize(byte[] bytes,int messageType) throws EOFException {
         // 同理
         Object obj = null;
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
@@ -31,6 +31,8 @@ public class ObjectSerializer implements Serializer {
             obj = ois.readObject();
             ois.close();
             bis.close();
+        } catch (EOFException eofException){
+            throw eofException;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

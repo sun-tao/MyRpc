@@ -5,6 +5,7 @@ import com.caucho.hessian.io.Hessian2Output;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 
 public class HessianSerializer implements Serializer {
@@ -22,13 +23,16 @@ public class HessianSerializer implements Serializer {
         return os.toByteArray();
     }
 
-    public Object deserialize(byte[] bytes, int messageType) {
+    public Object deserialize(byte[] bytes, int messageType) throws EOFException {
         ByteArrayInputStream is = new ByteArrayInputStream(bytes);
         Hessian2Input input = new Hessian2Input(is);
         Object obj = null;
         try {
             obj = input.readObject();
-        } catch (IOException e) {
+        }catch (EOFException e){
+            throw e;
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return obj;

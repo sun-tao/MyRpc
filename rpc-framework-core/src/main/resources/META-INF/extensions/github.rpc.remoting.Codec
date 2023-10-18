@@ -1,1 +1,1 @@
-myrpc=github.rpc.remoting.MyRpcCodec
+myrpc=github.rpc.remoting.codec.MyRpcCodec

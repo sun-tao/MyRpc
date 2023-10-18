@@ -9,9 +9,9 @@ import github.rpc.exporter.Exporter;
 import github.rpc.exporter.MyRpcExporter;
 import github.rpc.remoting.exchange.ExchangeChannelHandler;
 import github.rpc.remoting.exchange.HeaderExchangeHandler;
+import github.rpc.remoting.exchange.Http1ExchangeHandler;
 import github.rpc.remoting.server.AbstractServer;
 import github.rpc.remoting.server.Http1Server;
-import github.rpc.remoting.server.NettyServer;
 import github.rpc.remoting.transport.AllDispatcherHandler;
 import github.rpc.remoting.transport.DecodeHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 @Slf4j
-public class MyRpcProtocol implements Protocol{
+public class Http1Protocol implements Protocol{
     private Map<String, AbstractServer> serverMap = new HashMap<>();
 
-    public class MyRpcExchangeChannelHandler implements ExchangeChannelHandler {
+    public class Http1ExchangeChannelHandler implements ExchangeChannelHandler {
 
         @Override
         public void received(Channel channel, Object message) {
@@ -53,7 +53,7 @@ public class MyRpcProtocol implements Protocol{
         }
     }
 
-    public ExchangeChannelHandler handler = new MyRpcExchangeChannelHandler();
+    public ExchangeChannelHandler handler = new Http1ExchangeChannelHandler();
     public Map<String,Exporter> exportedMap = new HashMap<>();
     @Override
     public Exporter export(Invoker invoker) {
@@ -63,18 +63,17 @@ public class MyRpcProtocol implements Protocol{
         exportedMap.put(key,exporter);
         String instance = url.parseInstance(); // ip + port 连接层的链路和端口开放对各个服务只需要初始化一次即可
         if (serverMap.get(instance) == null){
-            AbstractServer server = createServer(url, new AllDispatcherHandler(new DecodeHandler(new HeaderExchangeHandler(handler))));
+            AbstractServer server = createServer(url, new AllDispatcherHandler(new DecodeHandler(new Http1ExchangeHandler(handler))));
             serverMap.put(instance,server);
         }
         return exporter;
     }
     public AbstractServer createServer(URL url,ChannelHandler handler){
-        return new NettyServer(url,handler);
+        return new Http1Server(url,handler);
     }
     @Override
     public Invoker refer(URL url) {
-        // todo：根据协议选择Invoker
-        MyRpcInvoker invoker = new MyRpcInvoker(url,handler);
+        Http1Invoker invoker = new Http1Invoker(url,handler);
         return invoker;
     }
 }
