@@ -1,5 +1,8 @@
 package github.rpc.protocol;
 
+import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import github.rpc.Invoker;
 import github.rpc.common.RpcRequest;
 import github.rpc.remoting.Channel;
@@ -47,9 +50,15 @@ public class Http1Protocol implements Protocol{
                 future.complete(null);
                 return future;
             }
+
             Invoker invoker = exporter.getInvoker();
-            CompletableFuture<Object> future = invoker.doInvoke(request);
-            return future;
+            try(Entry entry = SphU.entry(service_name)) {
+                CompletableFuture<Object> future = invoker.doInvoke(request);
+                return future;
+            }catch (BlockException e){
+//                log.warn(e.getMessage());
+                throw new RuntimeException(e);
+            }
         }
     }
 

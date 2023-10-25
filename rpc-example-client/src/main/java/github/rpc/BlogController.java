@@ -14,7 +14,7 @@ public class BlogController {
     private BlogService blogService;
 
     public void start(){
-        Blog blogByid = blogService.getBlogByid(6);
-        log.info("rpc执行结果为{}",blogByid);
+//        Blog blogByid = blogService.getBlogByid(6);
+//        log.info("rpc执行结果为{}",blogByid);
     }
 }

@@ -26,6 +26,7 @@ public class Http1ExchangeClient {
         httpRequest.headers().set("path",request.getRpcServiceAndMethodName());
         httpRequest.headers().set("serializer",url.getSerializerType());
         httpRequest.headers().set("messageType",0);
+        // 这个字段非常重要，缺少了则服务端无法收到HttpContent
         httpRequest.headers().set(HttpHeaderNames.TRANSFER_ENCODING, HttpHeaderValues.CHUNKED);
         httpRequest.headers().set(HttpHeaderNames.CONTENT_LENGTH, bytes.length);
         if (timeout == 0 || timeout < 0){

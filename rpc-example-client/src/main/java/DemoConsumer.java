@@ -1,3 +1,4 @@
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import github.rpc.*;
 import github.rpc.remoting.client.RpcClientProxy;
 import github.rpc.common.URL;
@@ -13,7 +14,7 @@ public class DemoConsumer {
         url1.setServiceName(BlogService.class.getName());
         url1.setLoadbalacne("consistentHash");
         url1.setSide("consumer");
-        url1.setProtocol("http1");
+        url1.setProtocol("myrpc");
         proxy.setUrl(BlogService.class.getName(),url1);
         URL url2 = new URL();
         url2.setServiceName(Userservice.class.getName());
@@ -21,16 +22,25 @@ public class DemoConsumer {
         url2.setLoadbalacne("consistentHash");
         url2.setTimeout("0");
         url2.setSide("consumer");
-        url2.setProtocol("http1");
+        url2.setProtocol("myrpc");
         proxy.setUrl(Userservice.class.getName(),url2);
         proxy.refer();
 
         BlogService blogService = (BlogService) proxy.getProxy(BlogService.class);
         Userservice userservice = (Userservice) proxy.getProxy(Userservice.class);
+//
+//        Blog blogByid = blogService.getBlogByid(10);
+//        System.out.println(blogByid);
+//        User userById = userservice.getUserById(10);
+//        System.out.println(userById);
 
-        Blog blogByid = blogService.getBlogByid(10);
-        System.out.println(blogByid);
-        User userById = userservice.getUserById(10);
-        System.out.println(userById);
+        for (int i = 0 ; i < 10 ; i++){
+            try {
+                Blog blogByid = blogService.getBlogByid(10);
+                System.out.println(blogByid);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
     }
 }

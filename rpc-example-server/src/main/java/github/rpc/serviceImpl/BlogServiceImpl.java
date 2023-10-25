@@ -7,7 +7,7 @@ import github.rpc.annotation.RpcService;
 @RpcService(group = "g1",version = "v1")
 public class BlogServiceImpl implements BlogService {
 
-    public Blog getBlogByid(int id) {
+    public Blog getBlogByid(int id) throws Exception {
         // 模拟超时
 //        try {
 //            Thread.sleep(3000);

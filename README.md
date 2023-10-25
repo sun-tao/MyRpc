@@ -65,6 +65,8 @@ a rpc framework based on java
 
 18. 服务端和客户端引入myrpc框架线程池，实现io线程->框架线程切换，减少底层nio线程的开销，更快释放io线程，增大服务的吞吐量，降低延时。
 
+19. 增加http/1协议支持，http协议的协议穿透性更强，header和body分离对于网关解析也更友好。
+
 ## 项目模块
 
 - rpc-framework-core:rpc核心功能部分代码实现

@@ -1,5 +1,8 @@
 package github.rpc.protocol;
 
+import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import github.rpc.Invoker;
 import github.rpc.common.RpcRequest;
 import github.rpc.remoting.Channel;
@@ -48,8 +51,15 @@ public class MyRpcProtocol implements Protocol{
                 return future;
             }
             Invoker invoker = exporter.getInvoker();
-            CompletableFuture<Object> future = invoker.doInvoke(request);
-            return future;
+            // 在此引入服务级别或方法级别限流，取决于如何设置的规则
+            try(Entry entry = SphU.entry(service_name)) {
+                CompletableFuture<Object> future = invoker.doInvoke(request);
+                return future;
+            }catch (BlockException e){ // 框架层面限流了直接返回异常完成的future，打通了连接层，可以传输异常回去
+                CompletableFuture<Object> future = new CompletableFuture<>();
+                future.completeExceptionally(e);
+                return future;
+            }
         }
     }
 

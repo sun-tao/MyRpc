@@ -7,4 +7,8 @@ public interface CommunicationProtocol {
     int MAGIC_NUMBER = 0x12345678;
     Byte VERSION = 1;
 
+    enum DecodeResult{
+        NEED_MORE_INPUT
+    }
+
 }

@@ -4,6 +4,7 @@ package github.rpc.remoting.codec;
 import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
 import github.rpc.common.URL;
+import github.rpc.remoting.Encoder;
 import github.rpc.serializer.CommunicationProtocol;
 import github.rpc.serializer.MessageType;
 import github.rpc.serializer.Serializer;
@@ -17,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 // ## 协议头：魔数(4B) ## 整体长度 (4B) ## 头长度(2B) ## 协议版本 (1B) ## 消息类型(1B) ## 序列化方式(1B) ## 消息ID(2B) ## 头部扩展字段()
 // ## 协议体: 数据
 @Slf4j
-public class MyRpcEncoder extends MessageToByteEncoder implements MessageType, CommunicationProtocol{
+public class MyRpcEncoder implements Encoder,MessageType, CommunicationProtocol{
     //首先要对java对象进行序列化
     private Serializer serializer;
 
@@ -27,8 +28,7 @@ public class MyRpcEncoder extends MessageToByteEncoder implements MessageType, C
     }
 
     //接着要对序列化得到的字节流来进行定长编码，解决粘包问题
-    @Override
-    public void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
+    public void encode(Object msg, ByteBuf out) throws Exception {
         byte[] bytes = serializer.serialize(msg);
         log.info("序列化后消息长度: " + bytes.length);
         // 整体长度 = 2 + 1 + 1 + 1 + 2 + 扩展字段长度 + 数据长度  = 头部长度 + 数据长度

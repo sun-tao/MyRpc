@@ -74,6 +74,13 @@
             <version>1.2.4</version>
         </dependency>
 
+<!--        sentienl-->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-core</artifactId>
+            <version>1.8.6</version>
+        </dependency>
+
 
     </dependencies>
 

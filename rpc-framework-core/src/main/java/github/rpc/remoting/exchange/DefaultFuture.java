@@ -76,7 +76,7 @@ public class DefaultFuture extends CompletableFuture<Object> {
         if (url.getConsumerAsync().equals("true")) {
             return this;
         } else if (url.getConsumerAsync().equals("false")) {
-            return response.getData();
+            return response.getData() != null ? response.getData() : response.getException();
         }
         return this;
     }

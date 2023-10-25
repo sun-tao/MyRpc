@@ -2,6 +2,7 @@ package github.rpc.remoting;
 
 import github.rpc.remoting.codec.MyRpcDecoder;
 import github.rpc.remoting.codec.MyRpcEncoder;
+import github.rpc.serializer.CommunicationProtocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandler;
@@ -23,20 +24,29 @@ public class NettyCodecAdapter {
     public class InternalEncoder extends MessageToByteEncoder {
         @Override
         protected void encode(ChannelHandlerContext channelHandlerContext, Object o, ByteBuf byteBuf) throws Exception {
-            MessageToByteEncoder ec = codec.getEncoder();
-            // fixme:扩展性不足,目前只支持myrpc协议
-            if (ec instanceof MyRpcEncoder){
-                ((MyRpcEncoder) ec).encode(channelHandlerContext,o,byteBuf);
-            }
+            Encoder eCoder = codec.getEncoder();
+            // fixed:扩展性不足,目前只支持myrpc协议，要接入其他自定义二进制协议需要改动此处
+            eCoder.encode(o,byteBuf);
         }
     }
 
     public class InternalDecoder extends ByteToMessageDecoder{
         @Override
         protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
-            ByteToMessageDecoder dc = codec.getDecoder();
+            Decoder dc = codec.getDecoder();
             if (dc instanceof MyRpcDecoder){
-                ((MyRpcDecoder) dc).decode(channelHandlerContext,byteBuf,list);
+                do{
+                    int saveReaderIndex = byteBuf.readerIndex();
+                    Object obj = ((MyRpcDecoder) dc).decode(channelHandlerContext, byteBuf, list);
+                    if (obj == null){
+                        return;
+                    }else if (obj == CommunicationProtocol.DecodeResult.NEED_MORE_INPUT){
+                        byteBuf.readerIndex(saveReaderIndex);
+                        return;
+                    }else{
+                        list.add(obj);
+                    }
+                } while (byteBuf.isReadable());
             }
         }
     }

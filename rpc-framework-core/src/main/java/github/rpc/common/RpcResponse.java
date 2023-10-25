@@ -18,8 +18,10 @@ public class RpcResponse implements Serializable {
     private int code; // discard
     private String message; // discard
     private Object data;
+    private Exception exception;  // 返回了异常
     private int requestId;
     private int messageType; //todo:写心跳机制的时候再使用
+    private byte[] test = new byte[4096];
 
     public int getMessageType() {
         return messageType;

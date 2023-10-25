@@ -1,6 +1,7 @@
 package github.rpc.remoting.client;
 
 
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import github.rpc.common.RpcRequest;
 import github.rpc.common.RpcResponse;
 import github.rpc.common.URL;
@@ -30,7 +31,7 @@ public class RpcClientProxy {
     private static MyRpcTimer timer = (MyRpcTimer) ExtensionLoader.getExtensionLoader(InternalTimer.class).getExtension("timer");
 
     class ClientInvocationHandler implements InvocationHandler {
-        public Object invoke(Object proxy, Method method, Object[] args) throws RuntimeException {
+        public Object invoke(Object proxy, Method method, Object[] args) throws RuntimeException, BlockException {
             // 封装rpcrequest
             RpcRequest rpcRequest = new RpcRequest();
             // fixme:这样写就完全依赖rpcrequest，导致很难打通浏览器端，要想打通浏览器端，必须浏览器端的请求体直接是调用入参
@@ -40,9 +41,13 @@ public class RpcClientProxy {
             rpcRequest.setParams(args);
             // 调用指定的rpcClient去发送该rpcRequest
             URL url = consumerUrls.get(rpcRequest.getInterfaceName());
-            CompletableFuture<Object> future = registry.invoke(rpcRequest, url);
+            CompletableFuture<Object> future = registry.invoke(rpcRequest, url); // 同步请求这边可能会有超时异常
             DefaultFuture defaultFuture = (DefaultFuture) future;
+            // 限流异常在此处需要被catch,配合调用方进行处理
             Object result = defaultFuture.recreate();
+            if (result instanceof BlockException){ // fixme: 这边需要进一步处理业务异常，限流异常在mock逻辑中处理
+                throw (BlockException) result;
+            }
             return result;
         }
     }

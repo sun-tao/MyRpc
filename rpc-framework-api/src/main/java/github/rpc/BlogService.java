@@ -1,5 +1,5 @@
 package github.rpc;
 
 public interface BlogService {
-    Blog getBlogByid(int id);
+    Blog getBlogByid(int id) throws Exception;
 }

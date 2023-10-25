@@ -2,6 +2,8 @@ package github.rpc.remoting.codec;
 
 import github.rpc.common.URL;
 import github.rpc.remoting.Codec;
+import github.rpc.remoting.Decoder;
+import github.rpc.remoting.Encoder;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
@@ -15,10 +17,10 @@ public class MyRpcCodec implements Codec {
         encoder = new MyRpcEncoder(url);
         decoder = new MyRpcDecoder();
     }
-    public MessageToByteEncoder getEncoder(){
+    public Encoder getEncoder(){
         return encoder;
     }
-    public ByteToMessageDecoder getDecoder(){
+    public Decoder getDecoder(){
         return decoder;
     }
 }
