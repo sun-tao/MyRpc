@@ -67,6 +67,8 @@ a rpc framework based on java
 
 19. 增加http/1协议支持，http协议的协议穿透性更强，header和body分离对于网关解析也更友好。
 
+20. 容错模块完善，引入Sentienl组件实现服务端基于QPS的限流。客户端新增MockCluster支持本地mock，实现降级功能。
+
 ## 项目模块
 
 - rpc-framework-core:rpc核心功能部分代码实现
