@@ -6,16 +6,18 @@ import github.rpc.remoting.Channel;
 import github.rpc.remoting.ChannelHandler;
 import github.rpc.remoting.HandlerDelegate;
 import github.rpc.serializer.Serializer;
+import github.rpc.support.RpcExceptionAdapter;
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
-
+@Slf4j
 public class Http1ExchangeHandler implements HandlerDelegate {
     private ExchangeChannelHandler handler; // 持有协议层传来的handler，是逻辑层面最顶端的handler，封装了reply语义
     public Http1ExchangeHandler(ExchangeChannelHandler handler){
@@ -48,7 +50,18 @@ public class Http1ExchangeHandler implements HandlerDelegate {
                 httpResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH, bytes.length);
                 channel.send(httpResponse);  // 回复client
             }else{
-                throw new RuntimeException(exception);
+                response.setRequestId(request.getRequestId());
+                Exception e = (Exception) exception;
+                response.setException(RpcExceptionAdapter.adapter(e));
+                log.warn("handle request exception:{}",exception.toString());
+                Serializer serializerByType = Serializer.getSerializerByType(0); //jdk序列化
+                byte[] bytes = serializerByType.serialize(response);
+                DefaultFullHttpResponse httpResponse = new DefaultFullHttpResponse(HTTP_1_1, OK,Unpooled.copiedBuffer(bytes));
+                httpResponse.headers().set("serializer",0);
+                httpResponse.headers().set("messageType",0);
+                httpResponse.headers().set(HttpHeaderNames.TRANSFER_ENCODING, HttpHeaderValues.CHUNKED);
+                httpResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH, bytes.length);
+                channel.send(httpResponse);  // 回复client
             }
         });
     }

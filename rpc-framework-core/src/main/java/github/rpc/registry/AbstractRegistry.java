@@ -16,9 +16,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class AbstractRegistry implements Registry {
     public ConcurrentHashMap<String, List<URL>> invokersUrl = new ConcurrentHashMap<>();
     public Cluster cluster;
+    public static final String mockCluster = "mockCluster";
     public AbstractRegistry(URL url){
-        String clusterType = url.getClusterType();
-        cluster = ExtensionLoader.getExtensionLoader(Cluster.class).getExtension(clusterType);
+        if (!url.getMock().equals("")){ // 有设定mock类
+            String clusterType = mockCluster;
+            cluster = ExtensionLoader.getExtensionLoader(Cluster.class).getExtension(clusterType,url);
+        }else{
+            String clusterType = url.getClusterType();
+            cluster = ExtensionLoader.getExtensionLoader(Cluster.class).getExtension(clusterType);
+        }
     }
     @Override
     public Cluster refer(URL url){    // 消费端,注册中心层面的url，ip和port需要是注册中心，之后convert成提供方url

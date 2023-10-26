@@ -27,6 +27,16 @@ public class URL {
     private String providerAsync = "fasle"; // 默认服务端同步调用
     private String serializerType = "0"; //0-java 1-hession
     private String timeout = "0";  //默认客户端超时时间为0
+    private String mock = ""; //支持null值mock，int类型mock，String类型mock和自定义类型mock
+    public String parseMockMode(){ // 是fail 还是 force
+        int i = mock.indexOf(":");
+        return mock.substring(0,i);
+    }
+    public String parseMockResult(){
+        int i = mock.indexOf(":");
+        String v = mock.substring(i+1,mock.length());
+        return v;
+    }
     public String parseUrl(){ // 服务端使用该接口
         return protocol + "|" + "{" + ip + ":" + port  + "}" + "?" + serviceName;
     }

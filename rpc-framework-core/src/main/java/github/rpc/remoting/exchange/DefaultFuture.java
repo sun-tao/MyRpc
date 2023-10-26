@@ -81,5 +81,9 @@ public class DefaultFuture extends CompletableFuture<Object> {
         return this;
     }
 
+    public void setResponse(RpcResponse response){
+        this.response = response;
+    }
+
 
 }

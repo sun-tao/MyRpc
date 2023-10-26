@@ -15,6 +15,7 @@ public class DemoConsumer {
         url1.setLoadbalacne("consistentHash");
         url1.setSide("consumer");
         url1.setProtocol("myrpc");
+        url1.setMock("fail:github.rpc.BlogServiceMock");
         proxy.setUrl(BlogService.class.getName(),url1);
         URL url2 = new URL();
         url2.setServiceName(Userservice.class.getName());

@@ -21,7 +21,7 @@ public class RpcResponse implements Serializable {
     private Exception exception;  // 返回了异常
     private int requestId;
     private int messageType; //todo:写心跳机制的时候再使用
-    private byte[] test = new byte[4096];
+//    private byte[] test = new byte[4096];
 
     public int getMessageType() {
         return messageType;
@@ -71,6 +71,10 @@ public class RpcResponse implements Serializable {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public void clearException(){
+        this.exception = null;
     }
 }
 

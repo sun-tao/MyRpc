@@ -38,6 +38,7 @@ public class Http1ClientHandler extends ChannelDuplexHandler {
                 messageType = httpResponse.headers().get("messageType");
             }
         }else if (msg instanceof HttpContent){
+            // fixme:http协议传输大对象也存在问题
             HttpContent httpContent = (HttpContent) msg;
             ByteBuf content = httpContent.content(); //rpcrequest请求的二进制字节数组
             byte[] bytes = new byte[content.readableBytes()];

@@ -1,1 +1,2 @@
 FailoverCluster=github.rpc.cluster.FailoverCluster
+mockCluster=github.rpc.cluster.MockCluster

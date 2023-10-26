@@ -48,7 +48,7 @@ public class HeaderExchangeHandler implements HandlerDelegate {
                 response.setData(result);
                 channel.send(response);  // 回复client
             }else{
-                // todo : 针对异常情况返回异常，使得限流之后能够正常返回
+                //针对异常情况返回异常，使得限流之后能够正常返回
                 response.setRequestId(request.getRequestId());
                 Exception e = (Exception) exception;
                 response.setException(RpcExceptionAdapter.adapter(e));

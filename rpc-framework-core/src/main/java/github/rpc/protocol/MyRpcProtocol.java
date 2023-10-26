@@ -53,6 +53,7 @@ public class MyRpcProtocol implements Protocol{
             Invoker invoker = exporter.getInvoker();
             // 在此引入服务级别或方法级别限流，取决于如何设置的规则
             try(Entry entry = SphU.entry(service_name)) {
+                // todo：业务异常也需要处理并返回给客户端，否则客户端请求发送完成后线程将一直等待直到超时，不合理
                 CompletableFuture<Object> future = invoker.doInvoke(request);
                 return future;
             }catch (BlockException e){ // 框架层面限流了直接返回异常完成的future，打通了连接层，可以传输异常回去
