@@ -21,7 +21,7 @@ public class ConsistentHashLoadBalance implements LoadBalance {
     @Override
     public String loadBalance(List<Invoker> invokers,RpcRequest rpcRequest) {
         List<String> addresses = new ArrayList<>();
-        addresses =  convertInvokersToAddresses(invokers);
+        addresses = convertInvokersToAddresses(invokers);
         int identityHashCode = System.identityHashCode(invokers);
         // 尝试从缓存中获取
         ConsistentHashSelector consistentHashSelector = map.get(identityHashCode);

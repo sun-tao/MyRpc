@@ -1,11 +1,15 @@
+import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CompletableFutureTest {
+    ExecutorService executorService = Executors.newFixedThreadPool(5);
     @Test
     public void test01() throws ExecutionException, InterruptedException {
         CompletableFuture<String> f1 = CompletableFuture.supplyAsync(()->{
@@ -72,6 +76,21 @@ public class CompletableFutureTest {
         map.forEach((k,v)->{
             System.out.println(k);
             System.out.println(v);
+        });
+    }
+
+    @Test
+    public void test05(){
+        System.out.println("主线程:"+Thread.currentThread().getId());
+        CompletableFuture<String> cf = new CompletableFuture<>();
+        cf.whenComplete((r,e)->{
+            System.out.println("当前执行线程:"+Thread.currentThread().getId());
+            System.out.println(r);
+        });
+
+        executorService.submit(()->{
+            System.out.println("子线程:"+Thread.currentThread().getId());
+            cf.complete("hello");
         });
     }
 }

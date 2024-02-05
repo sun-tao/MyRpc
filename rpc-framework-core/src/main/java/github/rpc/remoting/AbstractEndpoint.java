@@ -18,6 +18,7 @@ public abstract class AbstractEndpoint extends AbstractPeer{
         Codec codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(codec_name,url);
         return codec;
     }
+
     public Codec getCodec(){
         return codec;
     }

@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 public interface Registry {
     void register(URL url); // 服务端服务注册
     Exporter export(Invoker invoker); // 服务端
-    void subscribe(URL url); // 消费端订阅远端服务
+    void subscribeAndListen(URL url); // 消费端订阅远端服务
     Cluster refer(URL url); // 消费端
     CompletableFuture<Object> invoke (RpcRequest rpcRequest, URL url);
 }

@@ -22,13 +22,14 @@ import java.util.Random;
 public class DemoProvider {
     public static void main(String[] args) {
         URL url1 = new URL();
+        int port = new Random().nextInt(100) + 20880;
         url1.setIp("127.0.0.1");
-        url1.setPort("20880");
+        url1.setPort(String.valueOf(port));
         url1.setSide("provider");
         url1.setProtocol("myrpc");
         URL url2 = new URL();
         url2.setIp("127.0.0.1");
-        url2.setPort("20880");
+        url2.setPort(String.valueOf(port));
         url2.setSide("provider");
         url2.setProtocol("myrpc");
 //        url2.setConsumer_async("true");

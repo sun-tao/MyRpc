@@ -10,7 +10,7 @@ import java.net.InetSocketAddress;
 @Setter
 @Getter
 public class URL {
-    private String protocol = "MyRpc";
+    private String protocol = "myrpc";
     private String ip;
     private String port;
     private String side;
@@ -42,7 +42,7 @@ public class URL {
     }
     // 解析服务实例 ： ip + port
     public String parseInstance(){
-        return ip + port;
+        return ip + ":" + port;
     }
 
     public String parseRegistryInstance(){
@@ -77,6 +77,28 @@ public class URL {
             }
         }
         return s.substring(first+1,last);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj){
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()){
+            return false;
+        }
+        URL url = (URL) obj;
+        return this.ip.equals(url.ip) && this.port.equals(url.port) && this.protocol.equals(url.protocol) && this.serviceName.equals(url.serviceName);
+    }
+
+    @Override
+    public int hashCode(){
+        int result = 31;
+        result = 31 * result +  ip.hashCode();
+        result = 31 * result +  port.hashCode();
+        result = 31 * result +  protocol.hashCode();
+        result = 31 * result +  serviceName.hashCode();
+        return result;
     }
 
 }

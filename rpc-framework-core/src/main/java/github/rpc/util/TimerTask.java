@@ -17,6 +17,7 @@ public abstract class TimerTask implements Runnable,Cloneable {
     public void setTimerEntry(TimerEntry timerEntry){
         this.timerEntry = timerEntry;
     }
+
     public TimerEntry getTimerEntry(){
         return timerEntry;
     }

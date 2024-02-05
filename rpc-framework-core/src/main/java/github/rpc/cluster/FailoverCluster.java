@@ -65,12 +65,44 @@ public class FailoverCluster implements Cluster {
         localUrls.add(invoker);
     }
 
+    private void doCancelRefer(URL url){
+        String serviceName = url.getServiceName();
+        List<Invoker> invokerList = invokers.get(serviceName);
+        Invoker toDel = null;
+        for (int i = 0 ; i < invokerList.size(); i++){
+            Invoker invoker = invokerList.get(i);
+            URL localUrl = invoker.getURL();
+            if (localUrl.equals(url)){
+                toDel = invoker;
+                break;
+            }
+        }
+        if (toDel != null){
+            invokerList.remove(toDel);
+            invokers.put(serviceName,invokerList);
+        }
+        log.warn("删除后invokers长度{}",invokers.size());
+    }
+
     @Override
     public void refer(List<URL> urls) {
         for (int i = 0; i < urls.size(); i++) {
-            doRefer(urls.get(i));
+            URL url = urls.get(i);
+            doRefer(url);
         }
     }
+    @Override
+    public void refer(URL url){
+        doRefer(url);
+        log.info("增加后服务结点长度{}",invokers.get(url.getServiceName()).size());
+    }
+
+    @Override
+    public void cancelRefer(URL url){
+        doCancelRefer(url);
+    }
+
+
 
     // 根据负载均衡选中的实例信息获取对应的Invoker,第一个参数用于缩小搜索范围为当前服务
     private Invoker findInvokerByInstance(String serviceName, String instance) {

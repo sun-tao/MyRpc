@@ -53,6 +53,16 @@ public class MockCluster implements Cluster{
         cluster.refer(urls);
     }
 
+    @Override
+    public void refer(URL url) {
+        cluster.refer(url);
+    }
+
+    @Override
+    public void cancelRefer(URL url) {
+        cluster.cancelRefer(url);
+    }
+
     private Object getMockResult(RpcRequest rpcRequest, URL url){
         String v = url.parseMockResult();
         // 判断是否是接口实现类

@@ -13,7 +13,6 @@ import java.util.concurrent.CountDownLatch;
 
 public class RpcServerProxy {
     public Registry registry; //根据url中的registryType spi获取注册中心实例,目前只支持单注册中心配置
-    // todo：多协议、多服务暴露
     public Map<String,URL> serviceUrl = new HashMap<>();
     public Map<String,Object> serviceRef = new HashMap<>();
     public List<Exporter> exporters = new ArrayList<>();

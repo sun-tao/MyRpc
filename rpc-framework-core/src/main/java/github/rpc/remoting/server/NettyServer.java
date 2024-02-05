@@ -10,9 +10,11 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.MessageToMessageCodec;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // 使用Netty框架作RPC的网络通信方式
@@ -44,7 +46,7 @@ public class NettyServer extends AbstractServer {
                             protected void initChannel(SocketChannel socketChannel) throws Exception {
                                 socketChannel.pipeline()
                                         // fixme: 目前没有用到abstractEndpoint的能力，写死了Codec，要改进这块
-                                        .addLast("decoder",new NettyCodecAdapter(getCodec()).getDecoder())
+                                        .addLast("decoder",new NettyCodecAdapter(getCodec()).getDecoder()) // handler线程不安全因此必须考虑分离多个连接，多个handler
                                         .addLast("encoder",new NettyCodecAdapter(getCodec()).getEncoder())
                                         .addLast("handler",nettyServerHandler);
                             }

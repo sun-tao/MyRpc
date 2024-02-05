@@ -17,6 +17,7 @@ import github.rpc.remoting.server.Http1Server;
 import github.rpc.remoting.server.NettyServer;
 import github.rpc.remoting.transport.AllDispatcherHandler;
 import github.rpc.remoting.transport.DecodeHandler;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;

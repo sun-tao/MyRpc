@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class RpcClientProxy {
-    public Registry registry; //todo:后续进行注册中心的扩展，目前只支持订阅单注册中心
+    public Registry registry; //todo:多注册中心的扩展，目前只支持订阅单注册中心
     public Map<String,URL> consumerUrls = new HashMap<>(); // for 多服务引用扩展
     private int tickMs = 100; // 100ms的时间轮振动周期
     private static ExecutorService executorService = ExecutorRepository.createIfAbsent("rpcTimer"); //定时推动时间轮的线程

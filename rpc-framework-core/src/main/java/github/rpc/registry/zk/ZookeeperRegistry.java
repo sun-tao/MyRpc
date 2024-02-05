@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.cache.PathChildrenCache;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 
@@ -51,12 +54,13 @@ public class ZookeeperRegistry extends AbstractRegistry {
         }
     }
     @Override
-    public void subscribe(URL url) { // 注册中心层面的url，读取zk上所有服务的urls，写到内存中
+    public void subscribeAndListen(URL url) { // 注册中心层面的url，读取zk上所有服务的urls，写到内存中
         List<String> services = null;
         try {
             String serviceName = url.getServiceName();
             String servicePath = "/" + serviceName + "/provider"; // 单服务维度
             services = client.getChildren().forPath(servicePath);
+            consumerUrl.put(serviceName,url);
             for (int i = 0 ; i < services.size() ; i++){ // 单个实例维度
                 String serviceInstance = services.get(i);
                 List<URL> urls = invokersUrl.computeIfAbsent(serviceName, k -> new ArrayList<>());
@@ -64,10 +68,41 @@ public class ZookeeperRegistry extends AbstractRegistry {
                 URL finUrl = mergeUrl(url,url1);
                 urls.add(finUrl);
             }
+            registerListener(servicePath,serviceName);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+    private void registerListener(String parentPath,String serviceName) throws Exception {
+        final PathChildrenCache childrenCache = new PathChildrenCache(client, parentPath, true);
+        childrenCache.start(PathChildrenCache.StartMode.BUILD_INITIAL_CACHE);
+        childrenCache.getListenable().addListener(new PathChildrenCacheListener() {
+            @Override
+            public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent event) throws Exception {
+                if (event.getType().equals(PathChildrenCacheEvent.Type.CHILD_ADDED)){
+                    log.warn("感知到服务结点{}上线",event.getData().getPath());
+                    List<URL> urls = invokersUrl.computeIfAbsent(serviceName, k -> new ArrayList<>());
+                    String childPath = event.getData().getPath();
+                    URL url = URL.parseString2Url(childPath);
+                    URL url1 = consumerUrl.get(serviceName);
+                    URL finUrl = mergeUrl(url1,url);
+                    urls.add(finUrl);
+                    cluster.refer(finUrl);
+                }else if (event.getType().equals(PathChildrenCacheEvent.Type.CHILD_REMOVED)){
+                    log.warn("感知到服务结点{}下线",event.getData().getPath());
+                    List<URL> urls = invokersUrl.get(serviceName);
+                    String childPath = event.getData().getPath();
+                    URL url = URL.parseString2Url(childPath);
+                    URL url1 = consumerUrl.get(serviceName);
+                    URL finUrl = mergeUrl(url1,url);
+                    urls.remove(finUrl);
+                    cluster.cancelRefer(finUrl);
+                }
+            }
+        });
+    }
+
+
 
     @Override
     public CompletableFuture<Object> invoke(RpcRequest rpcRequest, URL url) {
